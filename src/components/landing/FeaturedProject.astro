@@ -1,0 +1,280 @@
+---
+import { featuredProject } from '../../data/projects';
+---
+
+<section class="section featured-project" id="progetti">
+  <div class="container">
+    <div class="featured-project__header reveal">
+      <span class="mono-label">Progetto in evidenza</span>
+      <h2 class="featured-project__section-title">Featured Work</h2>
+    </div>
+
+    <div class="fp-card reveal reveal-delay-1">
+      <div class="fp-card__badges">
+        <span class="fp-badge fp-badge--private">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          Privato / Private
+        </span>
+        <span class="fp-badge fp-badge--stat">11 microservizi</span>
+        <span class="fp-badge fp-badge--stat">~3.000 test</span>
+        <span class="fp-badge fp-badge--stat">CTF Audit ✓</span>
+      </div>
+
+      <div class="fp-card__body">
+        <div class="fp-card__left">
+          <h3 class="fp-card__title">{featuredProject.title}</h3>
+          <p class="fp-card__desc">{featuredProject.desc}</p>
+
+          <div class="fp-card__stats">
+            {Object.entries(featuredProject.stats || {}).map(([key, val]) => (
+              <div class="fp-stat">
+                <span class="fp-stat__val">{val}</span>
+                <span class="fp-stat__key">{key}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="fp-card__right">
+          <div class="fp-tech">
+            <span class="fp-tech__label">Stack tecnico</span>
+            <div class="fp-tech__tags">
+              {featuredProject.tech.map(t => (
+                <span class="fp-tech__tag">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="fp-architecture">
+            <span class="fp-tech__label">Architettura</span>
+            <div class="fp-arch-grid">
+              <div class="fp-arch-item">
+                <span class="fp-arch-icon">🧠</span>
+                <span>AI Brain — pipeline ML a 4 tier</span>
+              </div>
+              <div class="fp-arch-item">
+                <span class="fp-arch-icon">📊</span>
+                <span>TimescaleDB — serie temporali real-time</span>
+              </div>
+              <div class="fp-arch-item">
+                <span class="fp-arch-icon">🔒</span>
+                <span>Security audit — 20 round CTF</span>
+              </div>
+              <div class="fp-arch-item">
+                <span class="fp-arch-icon">📡</span>
+                <span>5 bot paralleli + circuit breaker</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fp-card__footer">
+        <a href="/PORTFOLIO_FREELANCE/projects/" class="fp-card__link">
+          Vedi tutti i progetti
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured-project {
+    background: var(--bg-primary);
+  }
+
+  .featured-project__header {
+    margin-bottom: 2rem;
+  }
+
+  .featured-project__section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+    margin-top: 0.5rem;
+  }
+
+  .fp-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.3s var(--ease-out-expo);
+  }
+
+  .fp-card:hover {
+    border-color: rgba(0, 200, 150, 0.25);
+  }
+
+  .fp-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.25rem 2rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .fp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25em 0.75em;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .fp-badge--private {
+    background: rgba(224, 48, 64, 0.12);
+    color: #E03040;
+    border: 1px solid rgba(224, 48, 64, 0.25);
+  }
+
+  .fp-badge--stat {
+    background: var(--accent-green-dim);
+    color: var(--accent-green);
+    border: 1px solid rgba(0, 200, 150, 0.25);
+  }
+
+  .fp-card__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: 2.5rem 2rem;
+  }
+
+  .fp-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+  }
+
+  .fp-card__desc {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .fp-card__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .fp-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .fp-stat__val {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--accent-green);
+    letter-spacing: -0.01em;
+  }
+
+  .fp-stat__key {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+
+  .fp-tech__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .fp-tech__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .fp-tech__tag {
+    padding: 0.2em 0.6em;
+    background: var(--accent-violet-dim);
+    color: var(--accent-violet);
+    border: 1px solid rgba(155, 140, 255, 0.2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  .fp-arch-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .fp-arch-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .fp-arch-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .fp-card__footer {
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .fp-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-green);
+    transition: gap 0.2s var(--ease-out-expo), color 0.2s;
+  }
+
+  .fp-card__link:hover {
+    color: var(--accent-green-bright);
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 900px) {
+    .fp-card__body {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .fp-card__badges { padding: 1rem 1.25rem; }
+    .fp-card__footer { padding: 1rem 1.25rem; }
+  }
+</style>

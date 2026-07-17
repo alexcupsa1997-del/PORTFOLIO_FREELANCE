@@ -1,0 +1,213 @@
+---
+import { site } from '../../data/site';
+import { skillGroups } from '../../data/skills';
+import SkillTag from '../ui/SkillTag.astro';
+---
+
+<section class="section about" id="about">
+  <div class="container about__grid">
+
+    <div class="about__left reveal">
+      <span class="section-header__label">Chi Sono / About</span>
+      <h2 class="about__title">
+        IT engineer<br>
+        con approccio<br>
+        security-first.
+      </h2>
+      <p class="about__body">
+        Sono Alex — ingegnere IT romeno residente a Verona, trilingue (rumeno, italiano, inglese). Lavoro su sistemi che richiedono robustezza reale: da architetture a microservizi con ML fino ad audit di sicurezza CTF.
+      </p>
+      <p class="about__body">
+        <strong>Adesso:</strong> sviluppo soluzioni IT complete per aziende che hanno bisogno di più di un sito vetrina — database progettati per durare, automazioni che eliminano il lavoro ripetitivo, sicurezza integrata dall'inizio.
+      </p>
+      <p class="about__body">
+        <strong>Stack:</strong> Python, Go, React, PostgreSQL, TimescaleDB, Docker, Grafana. Il mio progetto più recente — GOLIATH V1 — è un ecosistema AI di trading algoritmico con 11 microservizi e ~3.000 test automatizzati.
+      </p>
+      <div class="about__location">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        {site.location}
+      </div>
+    </div>
+
+    <div class="about__right reveal reveal-delay-1">
+      {skillGroups.map((group) => (
+        <div class="skills-block">
+          <h3 class="skills-block__title">{group.title}</h3>
+          <div class="skill-tags">
+            {group.skills.map((skill) => (
+              <SkillTag variant={skill.variant || 'default'}>{skill.label}</SkillTag>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div class="code-snippet">
+        <div class="code-snippet__header">
+          <span class="code-snippet__dot code-snippet__dot--r" aria-hidden="true"></span>
+          <span class="code-snippet__dot code-snippet__dot--y" aria-hidden="true"></span>
+          <span class="code-snippet__dot code-snippet__dot--g" aria-hidden="true"></span>
+          <span class="code-snippet__file">goliath.py</span>
+        </div>
+        <pre class="code-snippet__body"><code><span class="cs-c"># GOLIATH V1 — signal cascade</span>
+<span class="cs-k">async def</span> <span class="cs-fn">generate_signal</span>(ctx):
+  <span class="cs-k">for</span> tier <span class="cs-k">in</span> [COPER, Hybrid,
+              Knowledge, Conservative]:
+    sig = <span class="cs-k">await</span> tier.predict(ctx)
+    <span class="cs-k">if</span> sig.confidence <span class="cs-op">&gt;</span> <span class="cs-v">0.72</span>:
+      <span class="cs-k">return</span> sig
+  <span class="cs-k">return</span> Signal.HOLD</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--bg-secondary);
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .section-header__label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .about__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .about__body {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .about__location {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-top: 1.5rem;
+  }
+
+  .about__location svg {
+    fill: var(--accent-green);
+    flex-shrink: 0;
+  }
+
+  .skills-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .skills-block__title {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .code-snippet {
+    margin-top: 2rem;
+    border-radius: 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.4s var(--ease-out-expo);
+  }
+
+  .code-snippet:hover {
+    border-color: rgba(0, 200, 150, 0.2);
+  }
+
+  .code-snippet__header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-snippet__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .code-snippet__dot--r { background: #FF5F57; }
+  .code-snippet__dot--y { background: #FFBD2E; }
+  .code-snippet__dot--g { background: #28CA41; }
+
+  .code-snippet__file {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin-left: 0.4rem;
+  }
+
+  .code-snippet__body {
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  .code-snippet__body code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    white-space: pre;
+    background: none;
+    padding: 0;
+    color: var(--text-secondary);
+  }
+
+  .cs-c  { color: var(--text-muted); font-style: italic; }
+  .cs-k  { color: var(--accent-violet); }
+  .cs-fn { color: var(--accent-blue); }
+  .cs-v  { color: var(--accent-green); }
+  .cs-op { color: var(--text-primary); }
+
+  @media (max-width: 767px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about__title { font-size: 1.7rem; }
+    .code-snippet__body code { font-size: 0.85rem; }
+  }
+</style>

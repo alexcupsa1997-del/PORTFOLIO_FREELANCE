@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/global/Nav.astro';
+import Footer from '../components/global/Footer.astro';
+import BackToTop from '../components/global/BackToTop.astro';
+import Hero from '../components/landing/Hero.astro';
+import ValueProp from '../components/landing/ValueProp.astro';
+import Services from '../components/landing/Services.astro';
+import FeaturedProject from '../components/landing/FeaturedProject.astro';
+import About from '../components/landing/About.astro';
+import Studio from '../components/landing/Studio.astro';
+import ContactCTA from '../components/landing/ContactCTA.astro';
+import { landingLinks } from '../data/navigation';
+---
+
+<BaseLayout
+  title="Alexandru Cupsa — Web · Security · Database · Automation"
+  description="Soluzioni IT su misura per PMI: web development, cybersecurity, database design e workflow automation. Verona, Italia."
+>
+  <Nav links={landingLinks} />
+  <main>
+    <Hero />
+    <ValueProp />
+    <Services />
+    <FeaturedProject />
+    <About />
+    <Studio />
+    <ContactCTA />
+  </main>
+  <Footer />
+  <BackToTop />
+</BaseLayout>

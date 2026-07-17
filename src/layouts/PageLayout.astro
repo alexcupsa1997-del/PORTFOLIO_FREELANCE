@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/global/Nav.astro';
+import Footer from '../components/global/Footer.astro';
+import BackToTop from '../components/global/BackToTop.astro';
+import { pageLinks } from '../data/navigation';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <Nav links={pageLinks} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+  <BackToTop />
+</BaseLayout>
