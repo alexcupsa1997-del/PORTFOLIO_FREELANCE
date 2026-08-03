@@ -25,6 +25,11 @@
   --accent-violet-dim: rgba(155, 140, 255, 0.12);
   --accent-live-dim:   rgba(67, 209, 122, 0.14);
 
+  /* ---- Gold (for badge/tag compatibility) ---- */
+  --accent-gold:       #E8A040;
+  --accent-gold-dim:   rgba(232, 160, 64, 0.12);
+  --shadow-gold: 0 0 30px rgba(232, 160, 64, 0.15);
+
   /* ---- Shadow green per hover states ---- */
   --shadow-green: 0 0 30px rgba(0, 200, 150, 0.15);
 

@@ -12,6 +12,6 @@ export const pageLinks: NavLink[] = [
   { label: 'Home', href: '/PORTFOLIO_FREELANCE/' },
   { label: 'Servizi', href: '/PORTFOLIO_FREELANCE/#servizi' },
   { label: 'Progetti', href: '/PORTFOLIO_FREELANCE/projects/' },
-  { label: 'Studio', href: '/PORTFOLIO_FREELANCE/#studio' },
+  { label: 'Software', href: '/PORTFOLIO_FREELANCE/software/' },
   { label: 'Parliamo', href: '/PORTFOLIO_FREELANCE/#contatti', isCta: true },
 ];

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/global/Nav.astro';
 import Footer from '../components/global/Footer.astro';
 import BackToTop from '../components/global/BackToTop.astro';
+import Motion from '../components/global/Motion.astro';
 import Hero from '../components/landing/Hero.astro';
 import ValueProp from '../components/landing/ValueProp.astro';
 import Services from '../components/landing/Services.astro';
@@ -10,7 +11,11 @@ import FeaturedProject from '../components/landing/FeaturedProject.astro';
 import About from '../components/landing/About.astro';
 import Studio from '../components/landing/Studio.astro';
 import ContactCTA from '../components/landing/ContactCTA.astro';
+import PublicRepoCard from '../components/projects/PublicRepoCard.astro';
 import { landingLinks } from '../data/navigation';
+import { fetchGitHubRepos, LANDING_EXCLUDE } from '../utils/github';
+
+const publicRepos = await fetchGitHubRepos(LANDING_EXCLUDE);
 ---
 
 <BaseLayout
@@ -23,10 +28,87 @@ import { landingLinks } from '../data/navigation';
     <ValueProp />
     <Services />
     <FeaturedProject />
+
+    {publicRepos.length > 0 && (
+      <section class="section github-preview" id="github">
+        <div class="container">
+          <div class="github-preview__subhead reveal">
+            <span class="github-preview__label">// anche su GitHub</span>
+            <span class="github-preview__rule" aria-hidden="true"></span>
+          </div>
+          <div class="github-preview__list">
+            {publicRepos.slice(0, 3).map((repo, i) => (
+              <PublicRepoCard repo={repo} class:list={['reveal', i > 0 && `reveal-delay-${i}`]} />
+            ))}
+          </div>
+          <div class="github-preview__more reveal">
+            <a href="/PORTFOLIO_FREELANCE/projects/" class="github-preview__link">
+              Vedi tutti i progetti &amp; repos &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+
     <About />
     <Studio />
     <ContactCTA />
   </main>
   <Footer />
   <BackToTop />
+  <Motion />
 </BaseLayout>
+
+<style>
+  .github-preview {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .github-preview__subhead {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .github-preview__label {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: lowercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .github-preview__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .github-preview__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .github-preview__more {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .github-preview__link {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: var(--accent-blue);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.3s var(--ease-out-expo);
+  }
+
+  .github-preview__link:hover {
+    color: var(--accent-green);
+  }
+</style>

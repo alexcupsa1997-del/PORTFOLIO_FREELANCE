@@ -3,21 +3,24 @@ import BaseLayout from './BaseLayout.astro';
 import Nav from '../components/global/Nav.astro';
 import Footer from '../components/global/Footer.astro';
 import BackToTop from '../components/global/BackToTop.astro';
-import { pageLinks } from '../data/navigation';
+import Motion from '../components/global/Motion.astro';
+import type { NavLink } from '../types';
 
 interface Props {
   title?: string;
   description?: string;
+  navLinks?: NavLink[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, navLinks } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <Nav links={pageLinks} />
+  <Nav links={navLinks || []} />
   <main>
     <slot />
   </main>
   <Footer />
   <BackToTop />
+  <Motion />
 </BaseLayout>
