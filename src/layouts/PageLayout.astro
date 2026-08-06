@@ -5,6 +5,7 @@ import Footer from '../components/global/Footer.astro';
 import BackToTop from '../components/global/BackToTop.astro';
 import Motion from '../components/global/Motion.astro';
 import type { NavLink } from '../types';
+import { pageLinks } from '../data/navigation';
 
 interface Props {
   title?: string;
@@ -12,11 +13,11 @@ interface Props {
   navLinks?: NavLink[];
 }
 
-const { title, description, navLinks } = Astro.props;
+const { title, description, navLinks = pageLinks } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <Nav links={navLinks || []} />
+  <Nav links={navLinks} />
   <main>
     <slot />
   </main>

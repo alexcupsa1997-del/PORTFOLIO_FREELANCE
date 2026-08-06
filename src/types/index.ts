@@ -69,4 +69,42 @@ export interface GitHubRepo {
   fork: boolean;
   archived: boolean;
   updated_at: string;
+  topics: string[];
+}
+
+export interface TemplateDemoVariant {
+  name: string;
+  label: string;
+  style: string;
+  styleTheme: 'dark' | 'light';
+  href: string;
+  visualClass: string;
+  decoration?: string;
+  decorationText?: string;
+}
+
+export interface TemplateDemo {
+  category: string;
+  name: string;
+  description: string;
+  tags: string[];
+  variants: TemplateDemoVariant[];
+}
+
+export interface Client {
+  slug: string;
+  name: string;
+  category: string;
+  location: string;
+  year: number;
+  tagline: string;
+  description: string;
+  liveUrl: string;
+  status: 'live' | 'in-progress' | 'archived';
+  scope: string[];
+  services: string[];
+  palette: string[];
+  thumbnail: string;
+  badge?: string;
+  featured?: boolean;
 }

@@ -1,13 +1,14 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import PublicRepoCard from '../components/projects/PublicRepoCard.astro';
+import FeaturedProject from '../components/projects/FeaturedProject.astro';
 import PrivateProjectCard from '../components/projects/PrivateProject.astro';
-import { featuredProject, privateProjects } from '../data/projects';
-import { fetchGitHubRepos, PROJECTS_PAGE_EXCLUDE } from '../utils/github';
+import ProjectCard from '../components/projects/ProjectCard.astro';
+import { featuredProjects, privateProjects } from '../data/projects';
+import { fetchGitHubRepos } from '../utils/github';
 import { pageLinks } from '../data/navigation';
 import { site } from '../data/site';
 
-const publicRepos = await fetchGitHubRepos(PROJECTS_PAGE_EXCLUDE);
+const repos = await fetchGitHubRepos();
 ---
 
 <PageLayout
@@ -15,92 +16,52 @@ const publicRepos = await fetchGitHubRepos(PROJECTS_PAGE_EXCLUDE);
   description="Progetti personali, repository GitHub e lavori privati di Alexandru Cupsa."
   navLinks={pageLinks}
 >
-  <section class="section projects-page" style="padding-top: calc(var(--nav-height) + 3.5rem);">
+  <main class="section projects-page" style="padding-top: calc(var(--nav-height) + 3rem);">
     <div class="container">
 
-      <header class="projects-page__head reveal">
-        <span class="mono-label">Progetti</span>
-        <h1 class="projects-page__title">
-          Dal codice che <span class="projects-page__title-grad">costruisco.</span>
-        </h1>
-        <p class="projects-page__sub">
-          Applicazioni, strumenti e sistemi che sviluppo — stessa filosofia, ambizioni diverse.
-        </p>
-      </header>
+      <div class="section-header reveal">
+        <span class="section-header__label">Progetti</span>
+        <h1 class="section-header__title">Dal codice che scrivo per me</h1>
+        <p class="section-header__subtitle">Applicazioni, strumenti e sistemi che costruisco — stessa filosofia, ambizioni diverse.</p>
+      </div>
 
-      <!-- Featured: GOLIATH -->
-      <div class="projects-page__featured reveal">
-        <div class="goliath-card">
-          <div class="goliath-card__visual">
-            <div class="goliath-card__matrix" aria-hidden="true"></div>
-            <div class="goliath-card__glow" aria-hidden="true"></div>
-            <span class="goliath-card__vname">GOLIATH V1</span>
-          </div>
-          <div class="goliath-card__body">
-            <div class="goliath-card__header">
-              <h2 class="goliath-card__title">{featuredProject.title}</h2>
-              <span class="goliath-card__badge">Private</span>
-            </div>
-            <p class="goliath-card__desc">{featuredProject.desc}</p>
-            <div class="goliath-card__stats">
-              {Object.entries(featuredProject.stats || {}).map(([key, val]) => (
-                <div class="goliath-stat">
-                  <span class="goliath-stat__val">{val}</span>
-                  <span class="goliath-stat__key">{key}</span>
-                </div>
-              ))}
-            </div>
-            <div class="goliath-card__tags">
-              {featuredProject.tech.map(t => (
-                <span class="goliath-card__tag">{t}</span>
-              ))}
-            </div>
-          </div>
+      <div class="projects__featured">
+        {featuredProjects.map((project, i) => (
+          <FeaturedProject project={project} class:list={['reveal', i > 0 && `reveal-delay-${i}`]} />
+        ))}
+      </div>
+
+      <div class="projects__section reveal">
+        <h2 class="projects__section-title">Progetti Privati</h2>
+        <div class="projects__private">
+          {privateProjects.map((project) => (
+            <PrivateProjectCard project={project} />
+          ))}
         </div>
       </div>
 
-      <!-- Private Projects -->
-      {privateProjects.length > 0 && (
-        <div class="projects-page__section">
-          <div class="projects-page__subhead reveal">
-            <span class="projects-page__subhead-label">// repository privati</span>
-            <span class="projects-page__subhead-rule" aria-hidden="true"></span>
-          </div>
-          <div class="projects-page__private-grid">
-            {privateProjects.map(p => (
-              <PrivateProjectCard project={p} />
+      {repos.length > 0 && (
+        <div class="projects__section reveal">
+          <h2 class="projects__section-title">GitHub</h2>
+          <p class="section-header__subtitle" style="margin-bottom: 1.75rem;">
+            Progetti tecnici personali — architetture che costruisco per
+            approfondire stack enterprise. Non sono il focus commerciale attuale,
+            ma dimostrano la profondità tecnica dietro ogni soluzione che consegno.
+          </p>
+          <div class="projects__repos">
+            {repos.map((repo) => (
+              <ProjectCard repo={repo} />
             ))}
           </div>
         </div>
       )}
 
-      <!-- Public GitHub Repos -->
-      {publicRepos.length > 0 && (
-        <div class="projects-page__section">
-          <div class="projects-page__subhead reveal">
-            <span class="projects-page__subhead-label">// public su GitHub</span>
-            <span class="projects-page__subhead-rule" aria-hidden="true"></span>
-          </div>
-          <div class="projects-page__public">
-            {publicRepos.map((repo, i) => (
-              <PublicRepoCard repo={repo} class:list={['reveal', i > 0 && `reveal-delay-${Math.min(i, 3)}`]} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {publicRepos.length === 0 && (
-        <div class="projects-page__empty reveal">
-          <p>Le repository GitHub verranno caricate al prossimo deploy.</p>
-        </div>
-      )}
-
-      <div class="projects-page__back reveal">
+      <div class="projects__back reveal">
         <a href="/PORTFOLIO_FREELANCE/" class="back-link">&larr; Torna alla Home</a>
       </div>
 
     </div>
-  </section>
+  </main>
 </PageLayout>
 
 <style>
@@ -109,226 +70,71 @@ const publicRepos = await fetchGitHubRepos(PROJECTS_PAGE_EXCLUDE);
     min-height: 100vh;
   }
 
-  .projects-page__head {
-    margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem);
-    max-width: 720px;
-  }
-
-  .projects-page__title {
-    font-family: var(--font-display);
-    font-size: var(--text-3xl);
-    font-weight: 700;
-    color: var(--text-bright);
-    line-height: 0.95;
-    margin: 0.9rem 0 1.2rem;
-  }
-
-  .projects-page__title-grad {
-    background: linear-gradient(118deg, var(--accent-blue), var(--accent-violet) 55%, var(--accent-green));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; color: transparent;
-  }
-
-  .projects-page__sub {
-    font-size: var(--text-lg);
-    color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 56ch;
-  }
-
-  .projects-page__featured {
+  .section-header {
     margin-bottom: 3rem;
   }
 
-  .goliath-card {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    transition: border-color 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
-  }
-
-  .goliath-card:hover {
-    border-color: rgba(0, 200, 150, 0.2);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.3), var(--shadow-green);
-    transform: translateY(-3px);
-  }
-
-  .goliath-card__visual {
-    position: relative;
-    min-height: 280px;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    padding: 1.25rem;
-    background: #080A0E;
-  }
-
-  .goliath-card__matrix {
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(0, 200, 150, 0.04) 5px, rgba(0, 200, 150, 0.04) 6px),
-      repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(0, 200, 150, 0.02) 12px, rgba(0, 200, 150, 0.02) 13px);
-  }
-
-  .goliath-card__glow {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 120px;
-    background: radial-gradient(ellipse, rgba(0, 200, 150, 0.2) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .goliath-card__vname {
-    position: relative;
-    z-index: 2;
-    font-family: var(--font-display);
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.7);
-  }
-
-  .goliath-card__body {
-    padding: 2rem 2.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.75rem;
-  }
-
-  .goliath-card__header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .goliath-card__title {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .goliath-card__badge {
+  .section-header__label {
+    display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.2em 0.6em;
-    border-radius: 3px;
-    background: rgba(224, 48, 64, 0.12);
-    color: #E03040;
-    border: 1px solid rgba(224, 48, 64, 0.25);
-  }
-
-  .goliath-card__desc {
     font-size: 0.88rem;
-    line-height: 1.7;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .section-header__subtitle {
+    font-size: 1.05rem;
     color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.7;
   }
 
-  .goliath-card__stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin: 0.5rem 0;
-  }
-
-  .goliath-stat {
+  .projects__featured {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .goliath-stat__val {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--accent-green);
-  }
-
-  .goliath-stat__key {
-    font-family: var(--font-mono);
-    font-size: var(--text-micro);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-  }
-
-  .goliath-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .goliath-card__tag {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.2em 0.6em;
-    border-radius: 3px;
-    background: var(--accent-violet-dim);
-    color: var(--accent-violet);
-    border: 1px solid rgba(155, 140, 255, 0.2);
-  }
-
-  .projects-page__section {
+    gap: 1.5rem;
     margin-bottom: 3rem;
   }
 
-  .projects-page__subhead {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0 1.5rem;
+  .projects__section {
+    margin-bottom: 3rem;
   }
 
-  .projects-page__subhead-label {
+  .projects__section-title {
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: 0.92rem;
     font-weight: 500;
-    text-transform: lowercase;
-    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
     color: var(--text-muted);
-    white-space: nowrap;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
   }
 
-  .projects-page__subhead-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .projects-page__private-grid {
+  .projects__private {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 
-  .projects-page__public {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  .projects__repos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 
-  .projects-page__empty {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-  }
-
-  .projects-page__back {
+  .projects__back {
     text-align: center;
     margin-top: 3rem;
   }
@@ -346,13 +152,30 @@ const publicRepos = await fetchGitHubRepos(PROJECTS_PAGE_EXCLUDE);
     color: var(--accent-green);
   }
 
+  @media (max-width: 1024px) {
+    .projects__repos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   @media (max-width: 767px) {
-    .goliath-card { grid-template-columns: 1fr; }
-    .goliath-card__visual { min-height: 160px; }
-    .goliath-card__body { padding: 1.5rem; }
+    .projects__private {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .projects__repos {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   @media (max-width: 480px) {
-    .projects-page__private-grid { grid-template-columns: 1fr; }
+    .projects__private {
+      grid-template-columns: 1fr;
+    }
+
+    .projects__repos {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
