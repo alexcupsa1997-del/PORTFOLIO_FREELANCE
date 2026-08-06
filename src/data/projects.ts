@@ -93,6 +93,11 @@ export const privateProjects: PrivateProject[] = [
     tag: 'Python',
   },
   {
+    title: 'WF Thermos Eye',
+    description: 'Sistema di monitoraggio termico e sorveglianza ambientale in tempo reale per impianti e strutture — sensori IoT, dashboard di alert e storico temperature.',
+    tag: 'IoT',
+  },
+  {
     title: 'Macena CyberGuard',
     description: 'Piattaforma di cybersecurity esclusivamente difensiva per PMI italiane: scansione vulnerabilità, scoring GDPR, gap analysis NIS2 (D.Lgs. 138/2024), gestione incidenti con bozze di notifica per Garante e CSIRT Italia.',
     tag: 'Rust',
