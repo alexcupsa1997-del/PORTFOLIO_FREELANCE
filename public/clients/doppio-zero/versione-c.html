@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pizza &amp; Kebab Doppio Zero a Mozzecane (VR). Pizza artigianale, kebab fresco, burger, piadine, gastronomie. Via Caterina Bon Brenzoni 21/a. Consegna gratuita.">
+<title>Pizza &amp; Kebab Doppio Zero | Mozzecane (VR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   CSS TOKENS & RESET
+   ════════════════════════════════════════ */
+:root {
+  --bg: #FAF6F0;
+  --surface: #FFFFFF;
+  --text: #2C1810;
+  --text-muted: #7A6B5D;
+  --accent: #8B2500;
+  --secondary: #5B7A3D;
+  --gold: #B8860B;
+  --divider: #D4C5B2;
+  --hero-overlay: rgba(44,24,16,0.5);
+  --whatsapp: #25D366;
+  --font-display: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --font-body: 'Lato', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1610;
+    --surface: #2A2218;
+    --text: #EDE5DA;
+    --text-muted: #9E9185;
+    --accent: #CD5C45;
+    --secondary: #7DA05A;
+    --gold: #D4A645;
+    --divider: #3D3228;
+    --hero-overlay: rgba(28,22,16,0.6);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1610;
+  --surface: #2A2218;
+  --text: #EDE5DA;
+  --text-muted: #9E9185;
+  --accent: #CD5C45;
+  --secondary: #7DA05A;
+  --gold: #D4A645;
+  --divider: #3D3228;
+  --hero-overlay: rgba(28,22,16,0.6);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle paper texture via CSS */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.015;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, transparent 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, transparent 4px);
+}
+
+body > * { position: relative; z-index: 1; }
+
+/* ════════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════════ */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  transition: background 0.4s, box-shadow 0.4s, padding 0.4s;
+  padding: 1.5rem 0 0;
+}
+.top-nav.scrolled {
+  background: var(--bg);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+  padding: 0.6rem 0 0;
+}
+.nav-brand {
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: #FAF6F0;
+  letter-spacing: 0.08em;
+  transition: color 0.4s, font-size 0.4s;
+}
+.top-nav.scrolled .nav-brand { color: var(--text); font-size: clamp(1.1rem, 2.5vw, 1.4rem); }
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: 0.6rem 1rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  color: rgba(250,246,240,0.85);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: #FAF6F0; }
+.top-nav.scrolled .nav-links a { color: var(--text-muted); }
+.top-nav.scrolled .nav-links a:hover { color: var(--accent); }
+.nav-gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-top: 0.3rem;
+  opacity: 0.5;
+  transition: opacity 0.4s;
+}
+.top-nav.scrolled .nav-gold-line { opacity: 0.3; }
+
+/* ════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1400&q=80') center/cover no-repeat;
+  animation: kenBurns 20s ease-in-out infinite alternate;
+}
+@keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.05); } }
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #FAF6F0;
+  padding: 0 1.5rem;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 6rem);
+  letter-spacing: 0.15em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.hero-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.2rem 0;
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+.hero-ornament span:first-child,
+.hero-ornament span:last-child {
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+}
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(250,246,240,0.8);
+}
+.hero-arrow {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(250,246,240,0.6);
+  font-size: 1.5rem;
+  animation: pulse 2s ease-in-out infinite;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+}
+
+/* ════════════════════════════════════════
+   CONTENT WRAPPER
+   ════════════════════════════════════════ */
+.content-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 4vw, 2.5rem);
+}
+
+/* ════════════════════════════════════════
+   INTRO SECTION
+   ════════════════════════════════════════ */
+.intro {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  text-align: center;
+}
+.intro-text {
+  max-width: 620px;
+  margin: 0 auto 2.5rem;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 2;
+  color: var(--text-muted);
+}
+.intro-text .dropcap {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 0.8;
+  padding-right: 0.3rem;
+  padding-top: 0.15rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+.intro-badges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+.intro-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.intro-badge-icon { font-size: 2rem; }
+.intro-badge-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ════════════════════════════════════════
+   DECORATIVE DIVIDERS
+   ════════════════════════════════════════ */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+.ornament-divider .line {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--divider), transparent);
+  margin: 3rem auto;
+  max-width: 300px;
+}
+
+/* ════════════════════════════════════════
+   PHOTO STRIP
+   ════════════════════════════════════════ */
+.photo-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 0 calc(-50vw + 50%);
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+.photo-strip-item {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+}
+.photo-strip-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.photo-strip-item:hover img { transform: scale(1.05); }
+.photo-strip-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(44,24,16,0.15);
+}
+
+/* ════════════════════════════════════════
+   MENU SECTION HEADER
+   ════════════════════════════════════════ */
+.menu-section {
+  padding: clamp(4rem, 8vw, 6rem) 0 2rem;
+}
+.menu-section-title {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+/* ════════════════════════════════════════
+   MENU SIDEBAR NAV (desktop)
+   ════════════════════════════════════════ */
+.menu-sidebar {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 500;
+  display: none;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.menu-sidebar a {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  padding: 0.25rem 0.5rem;
+  text-align: right;
+  transition: color 0.3s;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+.menu-sidebar a:hover,
+.menu-sidebar a.active { color: var(--accent); }
+@media (min-width: 1200px) { .menu-sidebar { display: flex; } }
+
+/* Menu sticky mobile bar */
+.menu-sticky-bar {
+  display: none;
+  position: sticky;
+  top: 4.5rem;
+  z-index: 400;
+  background: var(--bg);
+  border-bottom: 1px solid var(--divider);
+  padding: 0.5rem 0;
+  margin: 0 calc(-50vw + 50%);
+  width: 100vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.menu-sticky-bar::-webkit-scrollbar { display: none; }
+.menu-sticky-bar-inner {
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem;
+  white-space: nowrap;
+}
+.menu-sticky-bar a {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  padding: 0.3rem 0.5rem;
+  transition: color 0.3s;
+  font-family: var(--font-body);
+}
+.menu-sticky-bar a:hover,
+.menu-sticky-bar a.active { color: var(--accent); }
+@media (max-width: 1199px) { .menu-sticky-bar { display: block; } }
+
+/* ════════════════════════════════════════
+   MENU CATEGORY
+   ════════════════════════════════════════ */
+.menu-category {
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  scroll-margin-top: 8rem;
+}
+.menu-category-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.menu-category-header h3 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+.menu-category-header .price-labels {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  padding-right: 0;
+  margin-top: 0.6rem;
+}
+.menu-category-header .price-labels span {
+  width: 4rem;
+  text-align: center;
+}
+.menu-subgroup-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: var(--text-muted);
+  text-align: center;
+  margin: 2rem 0 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* ════════════════════════════════════════
+   MENU ENTRIES
+   ════════════════════════════════════════ */
+.menu-entry {
+  margin-bottom: 0.6rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  animation-play-state: paused;
+}
+.menu-entry-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  line-height: 1.8;
+}
+.menu-entry-name {
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.menu-entry-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--divider);
+  min-width: 20px;
+  margin-bottom: 0.35em;
+}
+.menu-entry-price,
+.menu-entry-prices {
+  font-weight: 400;
+  font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.menu-entry-prices {
+  display: flex;
+  gap: 1.2rem;
+}
+.menu-entry-prices span {
+  width: 4rem;
+  text-align: center;
+}
+.menu-entry-desc {
+  font-size: clamp(0.78rem, 1.4vw, 0.85rem);
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.5;
+  padding-left: 0.1rem;
+  margin-bottom: 0.3rem;
+}
+.menu-entry-note {
+  font-size: 0.78rem;
+  color: var(--secondary);
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ════════════════════════════════════════
+   PROMOZIONI
+   ════════════════════════════════════════ */
+.promo-section {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+.promo-card {
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid var(--gold);
+  padding: clamp(2rem, 4vw, 3rem);
+  position: relative;
+  background: var(--surface);
+}
+.promo-card::before,
+.promo-card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--gold);
+  border-style: solid;
+}
+.promo-card::before {
+  top: 6px;
+  left: 6px;
+  border-width: 1px 0 0 1px;
+}
+.promo-card::after {
+  bottom: 6px;
+  right: 6px;
+  border-width: 0 1px 1px 0;
+}
+.promo-title {
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+}
+.promo-list {
+  list-style: none;
+}
+.promo-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: clamp(0.88rem, 1.6vw, 0.95rem);
+  line-height: 1.6;
+}
+.promo-list li:last-child { border-bottom: none; }
+.promo-list strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+.promo-delivery {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--divider);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.promo-delivery strong { color: var(--text); }
+.promo-platforms {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ════════════════════════════════════════
+   ORARI & CONTATTI
+   ════════════════════════════════════════ */
+.info-section {
+  background: var(--surface);
+  padding: clamp(4rem, 8vw, 6rem) 0;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 4vw, 2.5rem);
+}
+.info-block h3 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+.hours-table {
+  width: 100%;
+}
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+}
+.hours-row:last-child { border-bottom: none; }
+.hours-day { font-weight: 700; }
+.hours-time { color: var(--text-muted); }
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  font-size: clamp(0.88rem, 1.5vw, 0.95rem);
+}
+.contact-icon {
+  width: 20px;
+  flex-shrink: 0;
+  text-align: center;
+  color: var(--accent);
+  font-size: 1rem;
+  margin-top: 0.15rem;
+}
+.contact-item a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.contact-item a:hover { color: var(--accent); }
+.map-embed {
+  margin-top: 1.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--divider);
+}
+.map-embed iframe {
+  width: 100%;
+  height: 220px;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .info-grid { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════ */
+.site-footer {
+  background: #2C1810;
+  color: #D4C5B2;
+  padding: clamp(2.5rem, 5vw, 4rem) 0 2rem;
+  text-align: center;
+}
+:root[data-theme="dark"] .site-footer,
+:root:not([data-theme="light"]) .site-footer { background: #0F0C08; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .site-footer { background: #2C1810; }
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: #FAF6F0;
+  margin-bottom: 0.5rem;
+}
+.footer-address {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.6;
+}
+.footer-phones {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+.footer-phones a {
+  color: #D4C5B2;
+  text-decoration: none;
+}
+.footer-platforms {
+  font-size: 0.8rem;
+  color: #9E9185;
+  margin-bottom: 1.5rem;
+}
+.footer-copy {
+  font-size: 0.75rem;
+  color: #7A6B5D;
+  border-top: 1px solid rgba(212,197,178,0.15);
+  padding-top: 1.2rem;
+}
+
+/* ════════════════════════════════════════
+   FLOATING WHATSAPP
+   ════════════════════════════════════════ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 900;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+  text-decoration: none;
+  transition: transform 0.3s;
+  animation: waPulse 3s ease-in-out infinite;
+}
+.whatsapp-float:hover { transform: scale(1.08); }
+.whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(37,211,102,0.35); }
+  50% { box-shadow: 0 4px 24px rgba(37,211,102,0.55); }
+}
+
+/* ════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ════════════════════════════════════════ */
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.fade-in.visible { opacity: 1; }
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .photo-strip { grid-template-columns: 1fr 1fr; }
+  .menu-entry-prices { gap: 0.8rem; }
+  .menu-entry-prices span { width: 3.2rem; font-size: 0.82rem; }
+  .menu-category-header .price-labels { gap: 0.8rem; }
+  .menu-category-header .price-labels span { width: 3.2rem; }
+  .hero-title { letter-spacing: 0.08em; }
+}
+@media (max-width: 480px) {
+  .menu-entry-prices span { width: 2.8rem; font-size: 0.78rem; }
+  .menu-category-header .price-labels span { width: 2.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+     ════════════════════════════════════════ -->
+<nav class="top-nav" id="topNav">
+  <div class="nav-brand">Doppio Zero</div>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#chi-siamo">Chi Siamo</a>
+    <a href="#contatti">Contatti</a>
+    <a href="https://wa.me/393201550372" target="_blank" rel="noopener">Ordina</a>
+  </div>
+  <div class="nav-gold-line"></div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Doppio Zero</h1>
+    <div class="hero-ornament">
+      <span></span>
+      <span>&#9670;</span>
+      <span></span>
+    </div>
+    <p class="hero-subtitle">Pizza &amp; Kebab dal Mozzecane</p>
+  </div>
+  <button class="hero-arrow" onclick="document.getElementById('chi-siamo').scrollIntoView({behavior:'smooth'})" aria-label="Scorri in basso">&#8595;</button>
+</section>
+
+<!-- ════════════════════════════════════════
+     INTRO
+     ════════════════════════════════════════ -->
+<section class="intro fade-in" id="chi-siamo">
+  <div class="content-wrap">
+    <p class="intro-text">
+      <span class="dropcap">D</span>a Doppio Zero, ogni piatto racconta una storia. Pizza artigianale, kebab preparato al momento, burger succosi e specialit&agrave; dal mondo &mdash; tutto con ingredienti freschi e la passione che ci contraddistingue.
+    </p>
+    <div class="intro-badges">
+      <div class="intro-badge">
+        <span class="intro-badge-icon">&#127829;</span>
+        <span class="intro-badge-label">Pizza Artigianale</span>
+      </div>
+      <div class="intro-badge">
+        <span class="intro-badge-icon">&#127791;</span>
+        <span class="intro-badge-label">Kebab Fresco</span>
+      </div>
+      <div class="intro-badge">
+        <span class="intro-badge-icon">&#127828;</span>
+        <span class="intro-badge-label">Burger &amp; Piadine</span>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     PHOTO STRIP
+     ════════════════════════════════════════ -->
+<div class="photo-strip fade-in">
+  <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&q=80" alt="Pizza" loading="lazy" width="800" height="600"></div>
+  <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800&q=80" alt="Kebab" loading="lazy" width="800" height="600"></div>
+  <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80" alt="Burger" loading="lazy" width="800" height="600"></div>
+  <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&q=80" alt="Biryani" loading="lazy" width="800" height="600"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MENU
+     ════════════════════════════════════════ -->
+<section class="menu-section fade-in" id="menu">
+  <div class="content-wrap">
+    <h2 class="menu-section-title">Il Menu</h2>
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+  </div>
+</section>
+
+<!-- Menu Sidebar (desktop) -->
+<nav class="menu-sidebar" id="menuSidebar">
+  <a href="#cat-classiche">Pizze Classiche</a>
+  <a href="#cat-bianche">Pizze Bianche</a>
+  <a href="#cat-bufala">Pizze con Bufala</a>
+  <a href="#cat-taglio">Pizza al Taglio</a>
+  <a href="#cat-calzoni">Calzoni</a>
+  <a href="#cat-kebab">Kebab &amp; Panini</a>
+  <a href="#cat-pizza-kebab">Pizza Kebab</a>
+  <a href="#cat-fritti">Fritti &amp; Snack</a>
+  <a href="#cat-speciali">Piatti Speciali</a>
+  <a href="#cat-bevande">Bevande</a>
+</nav>
+
+<!-- Menu sticky bar (mobile) -->
+<div class="menu-sticky-bar" id="menuStickyBar">
+  <div class="menu-sticky-bar-inner">
+    <a href="#cat-classiche">Classiche</a>
+    <a href="#cat-bianche">Bianche</a>
+    <a href="#cat-bufala">Bufala</a>
+    <a href="#cat-taglio">Taglio</a>
+    <a href="#cat-calzoni">Calzoni</a>
+    <a href="#cat-kebab">Kebab</a>
+    <a href="#cat-pizza-kebab">Pizza Kebab</a>
+    <a href="#cat-fritti">Fritti</a>
+    <a href="#cat-speciali">Speciali</a>
+    <a href="#cat-bevande">Bevande</a>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+<!-- ─── PIZZE CLASSICHE ─── -->
+<div class="menu-category" id="cat-classiche">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Pizze Classiche</h3>
+    <div class="price-labels"><span>Normale</span><span>Maxi</span></div>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Marinara</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;3,99</span><span>&euro;9,99</span></span></div><div class="menu-entry-desc">doppio pomodoro, aglio, origano</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Margherita</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;4,99</span><span>&euro;11,99</span></span></div><div class="menu-entry-desc">pom., mozzarella</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Wurstel</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,50</span></span></div><div class="menu-entry-desc">pom. mozz. wurstel</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Salamino Piccante</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,50</span></span></div><div class="menu-entry-desc">pom. mozz. salamino piccante</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Prosciutto</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,50</span></span></div><div class="menu-entry-desc">pom. mozz. prosciutto</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Funghi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,50</span></span></div><div class="menu-entry-desc">pom. mozz. funghi</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Salsiccia Dolce</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,50</span></span></div><div class="menu-entry-desc">pom. mozz. salsiccia dolce</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Patatine Fritte</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,50</span></span></div><div class="menu-entry-desc">pom. mozz. patatine fritte</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Romana</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;16,99</span></span></div><div class="menu-entry-desc">pom. mozz. acciughe, capperi, olive</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Prosciutto Funghi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;16,99</span></span></div><div class="menu-entry-desc">pom. mozz. prosciutto, funghi</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Capricciosa</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pom. mozz. prosciutto, funghi, capperi, carciofi, olive</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Quattro Stagioni</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pom. mozz. funghi, carciofi, prosciutto, salamino pic.</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Tonno e Cipolla</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;16,99</span></span></div><div class="menu-entry-desc">pom. mozz. tonno, cipolla</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Quattro Formaggi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pom. mozz. quattro formaggi</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Caprese</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;5,99</span><span>&euro;14,99</span></span></div><div class="menu-entry-desc">pom. mozz. pomodoro, basilico</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Philadelphia</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,50</span><span>&euro;14,99</span></span></div><div class="menu-entry-desc">pom. mozz. philadelphia</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Frutti di Mare</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,50</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">pom. mozz. frutti di mare</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Carbonara</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,50</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">pom. mozz. pancetta, uova, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pancetta Gorgonzola</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. pancetta, gorgonzola</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Vegetariana</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,50</span><span>&euro;16,99</span></span></div><div class="menu-entry-desc">pom. mozz. vegetali, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Wurstel Salame Piccante</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">pom. mozz. salamino piccante, wurstel</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Speck e Noci</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,50</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">pom. mozz. speck, noci</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Buffon</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,00</span></span></div><div class="menu-entry-desc">pom. mozz. salsiccia, wurstel, patatine</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Parmigiana</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;16,00</span></span></div><div class="menu-entry-desc">pom. mozz. melanzane, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Siciliana</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;19,00</span></span></div><div class="menu-entry-desc">pom. cipolla, peperoni, acciughe, capperi, olive, tonno</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Tirolese</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;16,00</span></span></div><div class="menu-entry-desc">pom. mozz. scamorza, funghi, speck</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Ricotta Spinaci</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">pom. mozz. ricotta, spinaci</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Porcini</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">pom. mozz. porcini, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,50</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. carne kebab (solo carne)</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Wurstel Salamino Patatine</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. wurstel, salamino pic., patatine</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Tonno e Funghi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;16,99</span></span></div><div class="menu-entry-desc">pom. mozz. tonno, funghi</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Salumi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,50</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. salsiccia, speck, salamino</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Mantovana</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. salsiccia, salamino pic., funghi, olive</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Villa Franca</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. salsiccia, funghi, gorgonzola</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Mozzicane</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pom. mozz. verdure, salsiccia, bufala</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Panjabi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">tikka (bocconcini di pollo), cipolla piccante</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Aspicale</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;8,50</span></div><div class="menu-entry-desc">doppia pasta &mdash; mozz. bufala, salamino pic., pomodorini, rucola</div><div class="menu-entry-note">Solo formato normale</div></div>
+</div>
+
+<!-- ─── PIZZE BIANCHE ─── -->
+<div class="menu-category" id="cat-bianche">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Pizze Bianche</h3>
+    <div class="price-labels"><span>Normale</span><span>Maxi</span></div>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Bobi</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,50</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">mozz. gorgonzola, patatine, rosmarino</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Zonin</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;7,50</span><span>&euro;15,99</span></span></div><div class="menu-entry-desc">mozz. radicchio, brie, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Europa</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,99</span><span>&euro;16,99</span></span></div><div class="menu-entry-desc">mozz. cipolla, gorgonzola, salsiccia, carciofi, prosciutto</div></div>
+</div>
+
+<!-- ─── PIZZE CON BUFALA ─── -->
+<div class="menu-category" id="cat-bufala">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Pizze con Bufala</h3>
+    <div class="price-labels"><span>Normale</span><span>Maxi</span></div>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Forette</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,50</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pomodoro, bufala, radicchio, scamorza, speck</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Ponte Pietra</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,99</span><span>&euro;19,50</span></span></div><div class="menu-entry-desc">pomodoro, bufala, p. cotto, wurstel, salame, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Verona</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,99</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pomodoro, bufala, zucchine, ricotta, cirio</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Bufala</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;6,99</span><span>&euro;17,99</span></span></div><div class="menu-entry-desc">pomodoro, bufala, basilico</div></div>
+</div>
+
+<!-- ─── PIZZA AL TAGLIO ─── -->
+<div class="menu-category" id="cat-taglio">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Pizza al Taglio</h3>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Mista al Kg</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;14,99/kg</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Max Margherita</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;14,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza 1/2 Metro</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;16,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Aggiunte Normale</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Aggiunte Maxi</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Doppia Pasta</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,00</span></div></div>
+</div>
+
+<!-- ─── CALZONI ─── -->
+<div class="menu-category" id="cat-calzoni">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Calzoni</h3>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Calzone Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">pom. mozz. carne kebab</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Calzone Vegetariano</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,50</span></div><div class="menu-entry-desc">pom. mozz. zucchini, spinaci, melanzane, funghi, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Calzone Formaggi</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">pom. mozz. gorgonzola, scamorza, grana</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Calzone Tradizionale</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">pom. mozz. p. cotto, funghi, ricotta</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Calzone Nutella</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;6,99</span></div><div class="menu-entry-desc">calzone, nutella</div></div>
+</div>
+
+<!-- ─── KEBAB & PANINI ─── -->
+<div class="menu-category" id="cat-kebab">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Kebab &amp; Panini</h3>
+  </div>
+
+  <h4 class="menu-subgroup-title">Panini &amp; Piadine</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Panino Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">carne kebab, verdure, salse a scelta</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piadina Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">carne kebab, verdure, salse a scelta</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Panino Falafel</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">falafel, verdure, salse a scelta</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piadina Falafel</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">falafel, verdure, salse a scelta</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piadina P. Cotto</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">prosciutto cotto, mozzarella, pomodoro</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Hot Dog</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,99</span></div><div class="menu-entry-desc">panino, hot dog, verdure, salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Hamburger</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">burger di manzo, formaggio, insalate, salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Cheeseburger</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">burger di manzo, formaggio, insalate, salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Cheeseburger Doppio</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,50</span></div><div class="menu-entry-desc">doppio burger di manzo, formaggio, insalate, salse</div></div>
+
+  <h4 class="menu-subgroup-title">Piatti</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piatto Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99 / &euro;9,99</span></div><div class="menu-entry-desc">medie / grandi</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piatto Kebab Solo Carne</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99 / &euro;9,99</span></div><div class="menu-entry-desc">medie / grandi</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piatto Falafel</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;6,99</span></div><div class="menu-entry-desc">falafel, verdure, salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piatto Seekh Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">4 pz carne kebab macinata</div></div>
+
+  <h4 class="menu-subgroup-title">Roll Kebab</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Roll Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">kebab, patatine, salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Roll Kebab 1</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">kebab, verdure, mozz., salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Roll Kebab 2</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;7,99</span></div><div class="menu-entry-desc">kebab, funghi, mozz., salse</div></div>
+</div>
+
+<!-- ─── PIZZA KEBAB ─── -->
+<div class="menu-category" id="cat-pizza-kebab">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Pizza Kebab</h3>
+    <div class="price-labels"><span>Normale</span><span>Maxi</span></div>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Kebab</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;8,99</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pom. mozz. verdure, patatine, carne kebab</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Kebab Solo Carne</span><span class="menu-entry-dots"></span><span class="menu-entry-prices"><span>&euro;11,99</span><span>&euro;18,99</span></span></div><div class="menu-entry-desc">pom. mozz. verdure, patatine, carne kebab doppio</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Pizza Kebab 1/2 Metro</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;21,99</span></div><div class="menu-entry-desc">pom. mozz. verdure, patatine, carne kebab</div></div>
+</div>
+
+<!-- ─── FRITTI & SNACK ─── -->
+<div class="menu-category" id="cat-fritti">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Fritti &amp; Snack</h3>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Chicken Nuggets</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,99</span></div><div class="menu-entry-desc">6 bocconcini di pollo impanati</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Chicken Strips</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,99</span></div><div class="menu-entry-desc">4 striscette di pollo impanati</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Chele di Granchio</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">5 chele di granchio impanate</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Anelli di Calamaro</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">anelli di calamaro impanati</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Samosas</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">5 pz snack ripieno pollo/verdure + salse</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Spiedini di Gamberi</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">6 pz</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Mozzarelline</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,99</span></div><div class="menu-entry-desc">7 mozzarelline impanate</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Patatine Piccole</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,99</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Patatine Medie</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,99</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Patatine Grandi</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,50</span></div></div>
+</div>
+
+<!-- ─── PIATTI SPECIALI & DOLCI ─── -->
+<div class="menu-category" id="cat-speciali">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Piatti Speciali</h3>
+  </div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Chicken Biryani</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;4,99</span></div><div class="menu-entry-desc">riso basmati, pollo, verdure, curry, spezie</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Capra Biryani + Pollo</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">riso basmati, capra, pollo, verdure, curry, spezie</div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Insalata di Pollo</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">insalata mista, 2 pz pollo impanati, mozzarelle, olive</div></div>
+
+  <h4 class="menu-subgroup-title">Dolci</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Piadina Nutella</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;5,99</span></div><div class="menu-entry-desc">piadina con nutella</div></div>
+</div>
+
+<!-- ─── BEVANDE ─── -->
+<div class="menu-category" id="cat-bevande">
+  <div class="menu-category-header">
+    <div class="ornament-divider"><span class="line"></span><span>&#9670;</span><span class="line"></span></div>
+    <h3>Bevande</h3>
+  </div>
+
+  <h4 class="menu-subgroup-title">Bibite</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Coca Cola, Fanta, Sprite 50cl</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;1,50</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">The pesca/limone</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;1,50</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Acqua naturale/gas 50cl</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;1,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Red Bull, Monster, Burn, Budget</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,50</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Coca Cola, Fanta, Lemonsoda 150cl</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Mogu</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Falooda, Sting</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,50</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Succo di frutta 1lt</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,00</span></div></div>
+
+  <h4 class="menu-subgroup-title">Birre</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Moretti, Heineken, Ceres, Tuborg, Peroni, Beck's, Ichnusa, Corona</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;3,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Frank Brau 8.6</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;2,00</span></div></div>
+
+  <h4 class="menu-subgroup-title">Vini</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Vino Rosso / Vino Bianco</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;8,00</span></div></div>
+
+  <h4 class="menu-subgroup-title">Superalcolici</h4>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Red Label, Montenegro, Ballantine, Stravecchia, J&amp;B, Malibu, Gin, Vodka</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;20,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Chivas</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;25,00</span></div></div>
+
+  <div class="menu-entry"><div class="menu-entry-top"><span class="menu-entry-name">Black Label, Jack Daniels</span><span class="menu-entry-dots"></span><span class="menu-entry-price">&euro;30,00</span></div></div>
+</div>
+
+</div><!-- end content-wrap -->
+
+<!-- ════════════════════════════════════════
+     PROMOZIONI
+     ════════════════════════════════════════ -->
+<section class="promo-section fade-in">
+  <div class="content-wrap">
+    <div class="promo-card">
+      <h3 class="promo-title">Offerte &amp; Promozioni</h3>
+      <ul class="promo-list">
+        <li><strong>Marted&igrave;:</strong> tutte le pizze a &euro;6,00 (ritiro in negozio)</li>
+        <li><strong>Gioved&igrave;:</strong> panino kebab + lattina 33cl a &euro;5,00</li>
+        <li><strong>Ordini WhatsApp:</strong> 5% di sconto (escluso marted&igrave; e gioved&igrave;)</li>
+        <li>Ogni <strong>&euro;15</strong> di spesa: lattina 33cl omaggio (escluso mart. e giov.)</li>
+        <li>Ogni <strong>&euro;30</strong> di spesa: bottiglia 1,5l omaggio (escluso mart. e giov.)</li>
+      </ul>
+      <div class="promo-delivery">
+        <strong>Consegna a domicilio</strong><br>
+        Mozzecane: spesa minima &euro;10, consegna gratuita<br>
+        Pellaloco, Villafranca, Pradelle, Bagnolo, Roverbella, Quistello, Quaderni, Rosegaferro, Pizzoletta San Zeno: spesa minima &euro;15, consegna &euro;2
+      </div>
+      <p class="promo-platforms">Disponibile su <strong>Just Eat</strong> e <strong>Glovo</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     ORARI & CONTATTI
+     ════════════════════════════════════════ -->
+<section class="info-section fade-in" id="contatti">
+  <div class="info-grid">
+    <div class="info-block">
+      <h3>Orari</h3>
+      <div class="hours-table">
+        <div class="hours-row">
+          <span class="hours-day">Domenica &mdash; Gioved&igrave;</span>
+          <span class="hours-time">11:00 &ndash; 16:00 / 17:30 &ndash; 24:00</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Venerd&igrave; &mdash; Sabato</span>
+          <span class="hours-time">11:00 &ndash; 01:00</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day" style="font-weight:400;color:var(--text-muted);font-style:italic">Aperto anche i festivi</span>
+        </div>
+      </div>
+    </div>
+    <div class="info-block">
+      <h3>Contatti</h3>
+      <div class="contact-item">
+        <span class="contact-icon">&#9906;</span>
+        <span>Via Caterina Bon Brenzoni 21/a<br>37060 Mozzecane (VR)</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">&#9742;</span>
+        <span><a href="tel:0452254542">045 225 4542</a> (fisso)<br><a href="tel:3516326250">351 632 6250</a> (mobile)</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">&#9993;</span>
+        <span><a href="https://wa.me/393201550372" target="_blank" rel="noopener">WhatsApp: 320 155 0372</a></span>
+      </div>
+      <div class="map-embed">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2805.0!2d10.7723!3d45.3647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781d9c89b5b3333%3A0x1234567890!2sVia+Caterina+Bon+Brenzoni+21%2Fa%2C+37060+Mozzecane+VR!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mappa"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-brand">Doppio Zero</div>
+  <p class="footer-address">Via Caterina Bon Brenzoni 21/a, 37060 Mozzecane (VR)</p>
+  <p class="footer-phones">
+    <a href="tel:0452254542">045 225 4542</a> &nbsp;&middot;&nbsp;
+    <a href="tel:3516326250">351 632 6250</a> &nbsp;&middot;&nbsp;
+    <a href="https://wa.me/393201550372" target="_blank" rel="noopener">WhatsApp 320 155 0372</a>
+  </p>
+  <p class="footer-platforms">Disponibile su Just Eat e Glovo</p>
+  <p class="footer-copy">&copy; 2024 Pizza &amp; Kebab Doppio Zero. Tutti i diritti riservati.</p>
+</footer>
+
+<!-- ════════════════════════════════════════
+     FLOATING WHATSAPP
+     ════════════════════════════════════════ -->
+<a class="whatsapp-float" href="https://wa.me/393201550372" target="_blank" rel="noopener" aria-label="Ordina su WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // Sticky nav on scroll
+  var nav = document.getElementById('topNav');
+  var heroH = window.innerHeight * 0.3;
+  function onScroll() {
+    if (window.scrollY > heroH) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Fade-in on scroll (IntersectionObserver)
+  var fadeEls = document.querySelectorAll('.fade-in');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(function(el) { obs.observe(el); });
+  } else {
+    fadeEls.forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // Stagger menu entry fade-in
+  var menuEntries = document.querySelectorAll('.menu-entry');
+  if ('IntersectionObserver' in window) {
+    var mObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.style.animationDelay = '0s';
+          e.target.style.animationPlayState = 'running';
+          mObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    menuEntries.forEach(function(el, i) {
+      el.style.animationDelay = (i % 8) * 50 + 'ms';
+      el.style.animationPlayState = 'paused';
+      mObs.observe(el);
+    });
+  } else {
+    menuEntries.forEach(function(el) { el.style.opacity = '1'; });
+  }
+
+  // Menu sidebar & sticky bar active state
+  var categories = document.querySelectorAll('.menu-category');
+  var sidebarLinks = document.querySelectorAll('#menuSidebar a');
+  var stickyLinks = document.querySelectorAll('.menu-sticky-bar a');
+  if ('IntersectionObserver' in window && categories.length) {
+    var catObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var id = e.target.id;
+          sidebarLinks.forEach(function(a) {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+          stickyLinks.forEach(function(a) {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '-20% 0px -60% 0px' });
+    categories.forEach(function(cat) { catObs.observe(cat); });
+  }
+
+  // Show sidebar only when in menu area
+  var menuSection = document.getElementById('menu');
+  var sidebar = document.getElementById('menuSidebar');
+  if (menuSection && sidebar && 'IntersectionObserver' in window) {
+    var lastCat = categories[categories.length - 1];
+    function checkSidebar() {
+      var menuTop = menuSection.getBoundingClientRect().top;
+      var lastBottom = lastCat ? lastCat.getBoundingClientRect().bottom : 0;
+      if (menuTop < window.innerHeight * 0.5 && lastBottom > 0) {
+        sidebar.style.opacity = '1';
+        sidebar.style.pointerEvents = 'auto';
+      } else {
+        sidebar.style.opacity = '0';
+        sidebar.style.pointerEvents = 'none';
+      }
+    }
+    sidebar.style.transition = 'opacity 0.4s';
+    sidebar.style.opacity = '0';
+    sidebar.style.pointerEvents = 'none';
+    window.addEventListener('scroll', checkSidebar, { passive: true });
+    checkSidebar();
+  }
+})();
+</script>
+</body>
+</html>

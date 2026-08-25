@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza &amp; Kebab Doppio Zero | Mozzecane, Verona</title>
+<meta name="description" content="Pizza &amp; Kebab Doppio Zero a Mozzecane. Pizza, kebab, burger, piadine, gastronomie. Via Caterina Bon Brenzoni 21/a, 37060 Mozzecane (VR).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS RESET & CUSTOM PROPERTIES
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #0C0A09;
+  --bg-surface: #1A1714;
+  --bg-elevated: #242019;
+  --bg-footer: #080706;
+  --text-primary: #F0EBE3;
+  --text-muted: #8A847C;
+  --accent-fire: #E04420;
+  --accent-glow: #F59E3F;
+  --accent-gold: #D4A855;
+  --accent-green: #4CAF50;
+  --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; }
+ul, ol { list-style: none; }
+
+/* ============================================
+   SCROLL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-line {
+  width: 0;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-line.visible {
+  width: 60px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-line {
+    width: 60px;
+    transition: none;
+  }
+  .food-img {
+    transition: none !important;
+  }
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(12, 10, 9, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 2px 40px rgba(0,0,0,0.5);
+  padding: 0.7rem 2rem;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.nav-brand span {
+  color: var(--accent-fire);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-fire);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  background: var(--accent-fire);
+  color: var(--text-primary) !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  transition: background 0.3s ease, transform 0.3s ease !important;
+}
+
+.nav-cta::after { display: none !important; }
+
+.nav-cta:hover {
+  background: #c93a1a;
+  transform: translateY(-1px);
+}
+
+/* Mobile hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: rgba(12, 10, 9, 0.98);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+  }
+  .nav-links.open {
+    right: 0;
+  }
+  .nav-links a {
+    font-size: 1.1rem;
+  }
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-image: linear-gradient(rgba(12,10,9,0.7), rgba(12,10,9,0.85)), url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1400&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(224, 68, 32, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 30% 60%, rgba(245, 158, 63, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212, 168, 85, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  width: 100%;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+}
+
+.hero-text {
+  max-width: 700px;
+}
+
+.hero-text h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.05;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.hero-text h1 .accent {
+  color: var(--accent-fire);
+}
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--accent-gold);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 300;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: var(--accent-fire);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #c93a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(224, 68, 32, 0.3);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid rgba(240, 235, 227, 0.2);
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-2px);
+  background: rgba(212, 168, 85, 0.06);
+}
+
+@media (max-width: 900px) {
+  .hero-content {
+    padding-top: 7rem;
+  }
+  .hero-text { max-width: 100%; }
+}
+
+/* ============================================
+   SECTION COMMON
+   ============================================ */
+.section {
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-fire);
+  margin-bottom: 0.75rem;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.section-header p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+.section-line {
+  height: 3px;
+  background: var(--accent-fire);
+  margin: 0 auto 1.2rem;
+  border-radius: 2px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about { background: var(--bg-deep); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--text-primary);
+}
+
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.about-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  margin-top: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--accent-fire);
+  line-height: 1.6;
+}
+
+.about-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.about-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .about-visual { order: -1; }
+}
+
+/* ============================================
+   MENU SECTION
+   ============================================ */
+.menu {
+  background: var(--bg-surface);
+}
+
+.menu-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.menu-tab {
+  padding: 0.6rem 1.4rem;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(138, 132, 124, 0.2);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.menu-tab:hover {
+  border-color: var(--accent-gold);
+  color: var(--text-primary);
+}
+
+.menu-tab.active {
+  background: var(--accent-fire);
+  border-color: var(--accent-fire);
+  color: var(--text-primary);
+}
+
+.menu-grid {
+  display: none;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.2rem;
+}
+
+.menu-grid.active {
+  display: grid;
+}
+
+.menu-card {
+  background: rgba(26, 23, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(240, 235, 227, 0.06);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
+  perspective: 800px;
+  cursor: default;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px) rotateX(1deg) rotateY(-1deg);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(224, 68, 32, 0.1);
+  border-color: rgba(224, 68, 32, 0.15);
+}
+
+.menu-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.menu-card-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+.menu-card-price {
+  font-weight: 700;
+  color: var(--accent-glow);
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.menu-card-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+@media (max-width: 600px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   QUALITY SECTION
+   ============================================ */
+.quality {
+  background: var(--bg-deep);
+}
+
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.quality-card {
+  background: var(--bg-surface);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease;
+}
+
+.quality-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.quality-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.quality-card:nth-child(1)::before { background: var(--accent-fire); }
+.quality-card:nth-child(2)::before { background: var(--accent-glow); }
+.quality-card:nth-child(3)::before { background: var(--accent-gold); }
+
+.quality-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.2rem;
+}
+
+.quality-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.quality-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .quality-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   HOURS & LOCATION SECTION
+   ============================================ */
+.location {
+  background: var(--bg-surface);
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hours-table tr {
+  border-bottom: 1px solid rgba(240, 235, 227, 0.06);
+}
+
+.hours-table td {
+  padding: 0.9rem 0;
+  font-size: 0.95rem;
+}
+
+.hours-table td:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hours-table td:last-child {
+  text-align: right;
+  color: var(--text-muted);
+}
+
+.hours-table tr.closed td:last-child {
+  color: var(--accent-fire);
+  font-weight: 500;
+}
+
+.location-right h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.contact-info {
+  margin-bottom: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.contact-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  fill: var(--accent-gold);
+}
+
+.map-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(240, 235, 227, 0.06);
+  height: 240px;
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: invert(0.9) hue-rotate(180deg) grayscale(0.3);
+}
+
+@media (max-width: 768px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.cta-section {
+  background: linear-gradient(135deg, var(--accent-fire) 0%, #b5351a 50%, #8b2a15 100%);
+  text-align: center;
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(245,158,63,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #fff;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2rem;
+  position: relative;
+  font-weight: 300;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: #fff;
+  color: var(--accent-fire);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+.btn-white-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-white-outline:hover {
+  border-color: #fff;
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.1);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: var(--bg-footer);
+  padding: 4rem 2rem 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(240, 235, 227, 0.06);
+}
+
+.footer-brand h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.footer-brand h3 span {
+  color: var(--accent-fire);
+}
+
+.footer-brand p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.footer-col h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: var(--accent-gold);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-bottom p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ============================================
+   FLOATING WHATSAPP BUTTON
+   ============================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+  z-index: 999;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 30px rgba(76, 175, 80, 0.5);
+}
+
+.whatsapp-float svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* ============================================
+   PARALLAX BACKGROUNDS
+   ============================================ */
+.parallax-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.parallax-element {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.05;
+}
+
+/* ============================================
+   FOOD IMAGE STYLES
+   ============================================ */
+.food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.food-img-container {
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+}
+
+.food-img-container:hover .food-img {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   FOOD GALLERY SECTION
+   ============================================ */
+.gallery {
+  background: var(--bg-deep);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+}
+
+.gallery-item .food-img-container {
+  aspect-ratio: 4/3;
+}
+
+.gallery-label {
+  margin-top: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   QUALITY SECTION IMAGE
+   ============================================ */
+.quality-hero-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  aspect-ratio: 21/9;
+  object-fit: cover;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+/* ============================================
+   UTILITY
+   ============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   DUAL PRICING FOR PIZZAS
+   ============================================ */
+.menu-card-header.dual {
+  flex-wrap: nowrap;
+}
+
+.menu-card-prices {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.menu-card-prices .menu-card-price {
+  min-width: 52px;
+  text-align: right;
+}
+
+.menu-card-prices .menu-card-price.maxi {
+  color: var(--accent-gold);
+}
+
+.price-header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0 1.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(240, 235, 227, 0.08);
+}
+
+.price-header span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  min-width: 52px;
+  text-align: right;
+}
+
+.price-header span.maxi-label {
+  color: var(--accent-gold);
+}
+
+/* ============================================
+   MENU SUBSECTION HEADERS
+   ============================================ */
+.menu-subsection {
+  grid-column: 1 / -1;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  padding: 0.75rem 0 0.25rem;
+  border-bottom: 1px solid rgba(212, 168, 85, 0.15);
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   PROMOZIONI SECTION
+   ============================================ */
+.promozioni {
+  background: var(--bg-deep);
+  position: relative;
+  overflow: hidden;
+}
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.promo-card {
+  background: rgba(26, 23, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(224, 68, 32, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(224, 68, 32, 0.15);
+  border-color: rgba(224, 68, 32, 0.3);
+}
+
+.promo-day {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--accent-fire);
+  margin-bottom: 0.4rem;
+}
+
+.promo-deal {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+  margin-bottom: 0.4rem;
+}
+
+.promo-detail {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.promo-banner {
+  background: rgba(26, 23, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 158, 63, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.promo-banner p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.promo-banner strong {
+  color: var(--accent-glow);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .promo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   GALLERY GRID UPDATE (3+ columns)
+   ============================================ */
+@media (min-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Navigazione principale">
+  <a href="#" class="nav-brand" aria-label="Pizza e Kebab Doppio Zero - Torna alla home">Pizza &amp; Kebab Doppio <span>Zero</span></a>
+  <div class="nav-links" id="navLinks" role="menubar">
+    <a href="#about" role="menuitem">Chi Siamo</a>
+    <a href="#menu" role="menuitem">Menu</a>
+    <a href="#galleria" role="menuitem">Galleria</a>
+    <a href="#qualita" role="menuitem">Qualit&agrave;</a>
+    <a href="#orari" role="menuitem">Orari</a>
+    <a href="#promozioni" role="menuitem">Promozioni</a>
+    <a href="https://wa.me/393201550372?text=Ciao!%20Vorrei%20ordinare" class="nav-cta" role="menuitem">Ordina Ora</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Apri menu di navigazione" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ============================================
+     HERO SECTION
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="reveal">Doppio <span class="accent">Zero</span></h1>
+      <p class="hero-subtitle reveal">Pizza &bull; Kebab &bull; Burger &bull; Piadine &bull; Gastronomie</p>
+      <p class="hero-desc reveal">A Mozzecane, provincia di Verona, il gusto autentico della pizza artigianale, kebab, burger e tante specialit&agrave; che amerai.</p>
+      <div class="hero-buttons reveal">
+        <a href="#menu" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Scopri il Menu
+        </a>
+        <a href="https://wa.me/393201550372?text=Ciao!%20Vorrei%20ordinare" class="btn-outline" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Ordina su WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT SECTION
+     ============================================ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <p class="label reveal">La Nostra Storia</p>
+      <div class="section-line reveal-line"></div>
+      <h2 class="reveal">Passione e Tradizione</h2>
+      <p class="reveal">Da Mozzecane, portiamo in tavola pizza artigianale, kebab, burger e specialit&agrave; che attraversano i confini della cucina italiana.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h3 class="reveal">L'arte della pizza, del kebab, e molto di pi&ugrave;</h3>
+        <p class="reveal">Da Doppio Zero ogni pizza nasce da un impasto lavorato con cura, lievitato lentamente per garantire leggerezza e digeribilit&agrave;. Utilizziamo solo ingredienti di alta qualit&agrave;, pomodoro San Marzano e mozzarella selezionata.</p>
+        <p class="reveal">Ma la nostra cucina non si ferma alla pizza. Kebab artigianale, burger succulenti, piadine farcite, piatti di biryani con spezie autentiche, falafel croccanti e tante altre specialit&agrave;: ogni piatto viene preparato con la stessa dedizione.</p>
+        <p class="reveal">Che tu scelga una classica Margherita, un panino kebab, un cheeseburger o un piatto di chicken biryani, troverai sempre ingredienti freschi, sapori autentici e la passione che mettiamo in ogni preparazione.</p>
+        <p class="about-quote reveal">"La buona cucina non ha confini. Ha solo ingredienti scelti con amore."</p>
+      </div>
+      <div class="about-visual reveal">
+        <div class="food-img-container">
+          <img
+            class="about-img food-img"
+            src="https://images.pexels.com/photos/5835339/pexels-photo-5835339.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Pollo al curry con riso basmati, una delle nostre specialit&agrave;"
+            loading="lazy"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PROMOZIONI SECTION
+     ============================================ -->
+<section class="section promozioni" id="promozioni">
+  <div class="container">
+    <div class="section-header">
+      <p class="label reveal">Offerte Speciali</p>
+      <div class="section-line reveal-line"></div>
+      <h2 class="reveal">Le Nostre Promozioni</h2>
+      <p class="reveal">Approfitta delle nostre offerte settimanali e risparmia su pizza, kebab e tanto altro.</p>
+    </div>
+    <div class="promo-grid">
+      <div class="promo-card reveal">
+        <p class="promo-day">Marted&igrave;</p>
+        <p class="promo-deal">&euro;6,00</p>
+        <p class="promo-detail">Tutte le pizze a soli &euro;6 con ritiro in negozio</p>
+      </div>
+      <div class="promo-card reveal">
+        <p class="promo-day">Gioved&igrave;</p>
+        <p class="promo-deal">&euro;5,00</p>
+        <p class="promo-detail">Panino kebab + lattina 33cl a soli &euro;5</p>
+      </div>
+      <div class="promo-card reveal">
+        <p class="promo-day">Ordini WhatsApp</p>
+        <p class="promo-deal">-5%</p>
+        <p class="promo-detail">Sconto del 5% su tutti gli ordini via WhatsApp (escluso marted&igrave; e gioved&igrave;)</p>
+      </div>
+      <div class="promo-card reveal">
+        <p class="promo-day">Bonus Spesa</p>
+        <p class="promo-deal">Omaggio</p>
+        <p class="promo-detail">Ogni &euro;15 di spesa: lattina 33cl omaggio. Ogni &euro;30: bottiglia 1,5l omaggio (escluso mart. e giov.)</p>
+      </div>
+    </div>
+    <div class="promo-banner reveal">
+      <p><strong>Consegna a domicilio:</strong> Mozzecane gratis (min. &euro;10). Villafranca, Pellaloco, Pradelle, Bagnolo e altre zone: consegna &euro;2 (min. &euro;15).<br>Disponibile anche su <strong>Just Eat</strong> e <strong>Glovo</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     MENU SECTION
+     ============================================ -->
+<section class="section menu" id="menu" style="position:relative;overflow:hidden;">
+  <!-- Rice bowl photo replacing former SVG decoration -->
+  <div style="position:absolute;right:-40px;top:50%;transform:translateY(-50%);opacity:0.08;pointer-events:none;width:200px;border-radius:50%;overflow:hidden;" aria-hidden="true">
+    <img src="https://images.pexels.com/photos/8108169/pexels-photo-8108169.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" loading="lazy">
+  </div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="section-header">
+      <p class="label reveal">Il Nostro Menu</p>
+      <div class="section-line reveal-line"></div>
+      <h2 class="reveal">Scegli il tuo gusto</h2>
+      <p class="reveal">Oltre 100 piatti: dalle pizze classiche al kebab artigianale, burger, fritti e tanto altro.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="menu-tabs reveal" role="tablist" aria-label="Categorie del menu">
+      <button class="menu-tab active" role="tab" aria-selected="true" data-tab="classiche">Pizze Classiche</button>
+      <button class="menu-tab" role="tab" aria-selected="false" data-tab="speciali">Pizze Speciali</button>
+      <button class="menu-tab" role="tab" aria-selected="false" data-tab="kebab">Kebab &amp; Panini</button>
+      <button class="menu-tab" role="tab" aria-selected="false" data-tab="fritti">Fritti &amp; Piatti</button>
+      <button class="menu-tab" role="tab" aria-selected="false" data-tab="calzoni">Calzoni</button>
+      <button class="menu-tab" role="tab" aria-selected="false" data-tab="bevande">Bevande</button>
+    </div>
+
+    <!-- ===== TAB 1: PIZZE CLASSICHE ===== -->
+    <div class="menu-grid active" id="tab-classiche" role="tabpanel">
+      <div class="price-header reveal">
+        <span>Normale</span>
+        <span class="maxi-label">Maxi</span>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">1. Marinara</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;3,99</span><span class="menu-card-price maxi">&euro;9,99</span></div>
+        </div>
+        <p class="menu-card-desc">Doppio pomodoro, aglio, origano</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">2. Margherita</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;4,99</span><span class="menu-card-price maxi">&euro;11,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">3. Wurstel</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, wurstel</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">4. Salamino Piccante</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salamino piccante</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">5. Prosciutto</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, prosciutto</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">6. Funghi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, funghi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">7. Salsiccia Dolce</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salsiccia dolce</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">8. Patatine Fritte</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, patatine fritte</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">9. Romana</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;16,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, acciughe, capperi, olive</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">10. Prosciutto Funghi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;16,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, prosciutto, funghi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">11. Capricciosa</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, prosciutto, funghi, capperi, carciofi, olive</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">12. Quattro Stagioni</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, funghi, carciofi, prosciutto, salamino piccante</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">13. Tonno e Cipolla</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;16,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, tonno, cipolla</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">14. Quattro Formaggi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, quattro formaggi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">15. Caprese</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;5,99</span><span class="menu-card-price maxi">&euro;14,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, pomodoro, basilico</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">16. Philadelphia</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,50</span><span class="menu-card-price maxi">&euro;14,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, philadelphia</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">17. Frutti di Mare</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,50</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, frutti di mare</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">18. Carbonara</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,50</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, pancetta, uova, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">19. Pancetta Gorgonzola</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, pancetta, gorgonzola</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">20. Vegetariana</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,50</span><span class="menu-card-price maxi">&euro;16,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, vegetali, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">21. Wurstel Salame Piccante</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salamino piccante, wurstel</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">22. Speck e Noci</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,50</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, speck, noci</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">23. Buffon</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,00</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salsiccia, wurstel, patatine</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">24. Parmigiana</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;16,00</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, melanzane, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">25. Siciliana</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;19,00</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, cipolla, peperoni, acciughe, capperi, olive, tonno</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">26. Tirolese</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;16,00</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, scamorza, funghi, speck</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">27. Ricotta Spinaci</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, ricotta, spinaci</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">28. Porcini</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, porcini, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">29. Pizza Kebab</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,50</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, carne kebab (solo carne)</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">30. Wurstel Salamino Patatine</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, wurstel, salamino piccante, patatine</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">31. Tonno e Funghi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;16,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, tonno, funghi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">32. Salumi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,50</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salsiccia, speck, salamino</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">33. Mantovana</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salsiccia, salamino piccante, funghi, olive</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">34. Villa Franca</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, salsiccia, funghi, gorgonzola</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">35. Mozzicane</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, verdure, salsiccia, bufala</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">36. Pizza Panjabi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Tikka (bocconcini di pollo), cipolla piccante</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">37. Pizza Aspicale</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,50</span><span class="menu-card-price maxi">&mdash;</span></div>
+        </div>
+        <p class="menu-card-desc">Doppia pasta, mozzarella bufala, salamino piccante, pomodorini, rucola (solo normale)</p>
+      </div>
+    </div>
+
+    <!-- ===== TAB 2: PIZZE SPECIALI ===== -->
+    <div class="menu-grid" id="tab-speciali" role="tabpanel">
+      <div class="price-header reveal">
+        <span>Normale</span>
+        <span class="maxi-label">Maxi</span>
+      </div>
+
+      <h3 class="menu-subsection reveal">Pizze Bianche</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">38. Bobi</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,50</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Mozzarella, gorgonzola, patatine, rosmarino</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">39. Zonin</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;7,50</span><span class="menu-card-price maxi">&euro;15,99</span></div>
+        </div>
+        <p class="menu-card-desc">Mozzarella, radicchio, brie, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">40. Europa</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,99</span><span class="menu-card-price maxi">&euro;16,99</span></div>
+        </div>
+        <p class="menu-card-desc">Mozzarella, cipolla, gorgonzola, salsiccia, carciofi, prosciutto</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Pizze con Bufala</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">41. Forette</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,50</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, bufala, radicchio, scamorza, speck</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">42. Ponte Pietra</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,99</span><span class="menu-card-price maxi">&euro;19,50</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, bufala, prosciutto cotto, wurstel, salame, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">43. Verona</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,99</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, bufala, zucchine, ricotta, cirio</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">44. Bufala</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;6,99</span><span class="menu-card-price maxi">&euro;17,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, bufala, basilico</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Pizza al Taglio</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Mista al Kg</span>
+          <span class="menu-card-price">&euro;14,99/kg</span>
+        </div>
+        <p class="menu-card-desc">Selezione dei gusti del giorno</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Pizza Max Margherita</span>
+          <span class="menu-card-price">&euro;14,00</span>
+        </div>
+        <p class="menu-card-desc">Pizza maxi formato margherita</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Pizza 1/2 Metro</span>
+          <span class="menu-card-price">&euro;16,00</span>
+        </div>
+        <p class="menu-card-desc">Mezzo metro di pizza a scelta</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Aggiunte</span>
+          <span class="menu-card-price">&euro;2,00 / &euro;5,00</span>
+        </div>
+        <p class="menu-card-desc">Aggiunta ingrediente: normale &euro;2,00 / maxi &euro;5,00. Doppia pasta: &euro;2,00</p>
+      </div>
+    </div>
+
+    <!-- ===== TAB 3: KEBAB & PANINI ===== -->
+    <div class="menu-grid" id="tab-kebab" role="tabpanel">
+      <h3 class="menu-subsection reveal">Panini &amp; Piadine</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Panino Kebab</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">Carne kebab, verdure, salse a scelta</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piadina Kebab</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Carne kebab, verdure, salse a scelta</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Panino Falafel</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">Falafel, verdure, salse a scelta</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piadina Falafel</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Falafel, verdure, salse a scelta</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piadina P. Cotto</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Prosciutto cotto, mozzarella, pomodoro</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Hot Dog</span>
+          <span class="menu-card-price">&euro;3,99</span>
+        </div>
+        <p class="menu-card-desc">Panino, hot dog, verdure, salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Hamburger</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">Burger di manzo, formaggio, insalate, salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Cheeseburger</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Burger di manzo, formaggio, insalate, salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Cheeseburger Doppio</span>
+          <span class="menu-card-price">&euro;7,50</span>
+        </div>
+        <p class="menu-card-desc">Doppio burger di manzo, formaggio, insalate, salse</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Piatti Kebab</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piatto Kebab</span>
+          <span class="menu-card-price">&euro;7,99 / &euro;9,99</span>
+        </div>
+        <p class="menu-card-desc">Carne kebab con contorno &mdash; Medie / Grandi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piatto Kebab Solo Carne</span>
+          <span class="menu-card-price">&euro;7,99 / &euro;9,99</span>
+        </div>
+        <p class="menu-card-desc">Solo carne kebab &mdash; Medie / Grandi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piatto Falafel</span>
+          <span class="menu-card-price">&euro;6,99</span>
+        </div>
+        <p class="menu-card-desc">Falafel, verdure, salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piatto Seekh Kebab</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">4 pezzi di carne kebab macinata</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Roll Kebab</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Roll Kebab</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">Kebab, patatine, salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Roll Kebab 1</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">Kebab, verdure, mozzarella, salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Roll Kebab 2</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">Kebab, funghi, mozzarella, salse</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Pizza Kebab</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">Pizza Kebab</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;8,99</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, verdure, patatine, carne kebab</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header dual">
+          <span class="menu-card-name">Pizza Kebab Solo Carne</span>
+          <div class="menu-card-prices"><span class="menu-card-price">&euro;11,99</span><span class="menu-card-price maxi">&euro;18,99</span></div>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, verdure, patatine, carne kebab doppio</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Pizza Kebab 1/2 Metro</span>
+          <span class="menu-card-price">&euro;21,99</span>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, verdure, patatine, carne kebab</p>
+      </div>
+    </div>
+
+    <!-- ===== TAB 4: FRITTI & PIATTI ===== -->
+    <div class="menu-grid" id="tab-fritti" role="tabpanel">
+      <h3 class="menu-subsection reveal">Fritti &amp; Snack</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Chicken Nuggets</span>
+          <span class="menu-card-price">&euro;3,99</span>
+        </div>
+        <p class="menu-card-desc">6 bocconcini di pollo impanati</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Chicken Strips</span>
+          <span class="menu-card-price">&euro;3,99</span>
+        </div>
+        <p class="menu-card-desc">4 striscette di pollo impanati</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Chele di Granchio</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">5 chele di granchio impanate</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Anelli di Calamaro</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Anelli di calamaro impanati</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Samosas</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">5 pezzi, snack ripieno pollo/verdure con salse</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Spiedini di Gamberi</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">6 pezzi di spiedini di gamberi</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Mozzarelline</span>
+          <span class="menu-card-price">&euro;3,99</span>
+        </div>
+        <p class="menu-card-desc">7 mozzarelline impanate</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Patatine</span>
+          <span class="menu-card-price">&euro;2,99 &ndash; &euro;5,50</span>
+        </div>
+        <p class="menu-card-desc">Piccole &euro;2,99 / Medie &euro;3,99 / Grandi &euro;5,50</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Piatti Speciali</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Chicken Biryani</span>
+          <span class="menu-card-price">&euro;4,99</span>
+        </div>
+        <p class="menu-card-desc">Riso basmati, pollo, verdure, curry, spezie</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Capra Biryani + Pollo</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Riso basmati, capra, pollo, verdure, curry, spezie</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Insalata di Pollo</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Insalata mista, 2 pezzi pollo impanati, mozzarelle, olive</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Dolci</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Piadina Nutella</span>
+          <span class="menu-card-price">&euro;5,99</span>
+        </div>
+        <p class="menu-card-desc">Piadina con nutella</p>
+      </div>
+    </div>
+
+    <!-- ===== TAB 5: CALZONI ===== -->
+    <div class="menu-grid" id="tab-calzoni" role="tabpanel">
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Calzone Kebab</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, carne kebab</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Calzone Vegetariano</span>
+          <span class="menu-card-price">&euro;7,50</span>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, zucchini, spinaci, melanzane, funghi, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Calzone Formaggi</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, gorgonzola, scamorza, grana</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Calzone Tradizionale</span>
+          <span class="menu-card-price">&euro;7,99</span>
+        </div>
+        <p class="menu-card-desc">Pomodoro, mozzarella, prosciutto cotto, funghi, ricotta</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Calzone Nutella</span>
+          <span class="menu-card-price">&euro;6,99</span>
+        </div>
+        <p class="menu-card-desc">Calzone con nutella</p>
+      </div>
+    </div>
+
+    <!-- ===== TAB 6: BEVANDE ===== -->
+    <div class="menu-grid" id="tab-bevande" role="tabpanel">
+      <h3 class="menu-subsection reveal">Bibite</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Coca Cola, Fanta, Sprite 50cl</span>
+          <span class="menu-card-price">&euro;1,50</span>
+        </div>
+        <p class="menu-card-desc">Bibite classiche 50cl</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">The Pesca / Limone</span>
+          <span class="menu-card-price">&euro;1,50</span>
+        </div>
+        <p class="menu-card-desc">The freddo gusto pesca o limone</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Acqua Naturale / Gas 50cl</span>
+          <span class="menu-card-price">&euro;1,00</span>
+        </div>
+        <p class="menu-card-desc">Acqua minerale naturale o gassata</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Red Bull, Monster, Burn, Budget</span>
+          <span class="menu-card-price">&euro;2,50</span>
+        </div>
+        <p class="menu-card-desc">Bevande energetiche</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Coca Cola, Fanta, Lemonsoda 150cl</span>
+          <span class="menu-card-price">&euro;3,00</span>
+        </div>
+        <p class="menu-card-desc">Bottiglia formato grande 1,5 litri</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Mogu</span>
+          <span class="menu-card-price">&euro;2,00</span>
+        </div>
+        <p class="menu-card-desc">Bevanda Mogu</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Falooda, Sting</span>
+          <span class="menu-card-price">&euro;2,50</span>
+        </div>
+        <p class="menu-card-desc">Bevande Falooda e Sting</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Succo di Frutta 1lt</span>
+          <span class="menu-card-price">&euro;3,00</span>
+        </div>
+        <p class="menu-card-desc">Succo di frutta formato 1 litro</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Birre</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Moretti, Heineken, Ceres, Tuborg, Peroni, Beck's, Ichnusa, Corona</span>
+          <span class="menu-card-price">&euro;3,00</span>
+        </div>
+        <p class="menu-card-desc">Birre classiche</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Frank Brau 8.6</span>
+          <span class="menu-card-price">&euro;2,00</span>
+        </div>
+        <p class="menu-card-desc">Birra Frank Brau 8.6</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Vini</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Vino Rosso / Vino Bianco</span>
+          <span class="menu-card-price">&euro;8,00</span>
+        </div>
+        <p class="menu-card-desc">Bottiglia di vino rosso o bianco</p>
+      </div>
+
+      <h3 class="menu-subsection reveal">Superalcolici</h3>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Red Label, Montenegro, Ballantine, Stravecchia, J&amp;B, Malibu, Gin, Vodka</span>
+          <span class="menu-card-price">&euro;20,00</span>
+        </div>
+        <p class="menu-card-desc">Bottiglia di superalcolico</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Chivas</span>
+          <span class="menu-card-price">&euro;25,00</span>
+        </div>
+        <p class="menu-card-desc">Bottiglia Chivas Regal</p>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-header">
+          <span class="menu-card-name">Black Label, Jack Daniels</span>
+          <span class="menu-card-price">&euro;30,00</span>
+        </div>
+        <p class="menu-card-desc">Bottiglia premium</p>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- ============================================
+     FOOD GALLERY SECTION
+     ============================================ -->
+<section class="section gallery" id="galleria">
+  <div class="container">
+    <div class="section-header">
+      <p class="label reveal">Dalla Nostra Cucina</p>
+      <div class="section-line reveal-line"></div>
+      <h2 class="reveal">I Nostri Piatti</h2>
+      <p class="reveal">Ogni piatto racconta una storia di ingredienti freschi, preparazione artigianale e passione autentica.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&q=80" alt="Pizza Margherita classica con mozzarella e basilico" loading="lazy">
+        </div>
+        <p class="gallery-label">Pizza Margherita</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=800&q=80" alt="Pizza artigianale appena sfornata" loading="lazy">
+        </div>
+        <p class="gallery-label">Pizza Artigianale</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800&q=80" alt="Kebab doner artigianale con carne al girarrosto" loading="lazy">
+        </div>
+        <p class="gallery-label">Kebab Doner</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80" alt="Cheeseburger con formaggio fuso e insalata fresca" loading="lazy">
+        </div>
+        <p class="gallery-label">Cheeseburger</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&q=80" alt="Chicken biryani con riso basmati e spezie" loading="lazy">
+        </div>
+        <p class="gallery-label">Chicken Biryani</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1593001872095-7d5b3868fb1d?w=800&q=80" alt="Falafel croccanti con salse" loading="lazy">
+        </div>
+        <p class="gallery-label">Falafel</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1598023696416-0193a0bcd302?w=800&q=80" alt="Pizza speciale con ingredienti selezionati" loading="lazy">
+        </div>
+        <p class="gallery-label">Pizza Speciale</p>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="food-img-container">
+          <img class="food-img" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80" alt="Samosa croccanti ripieni di pollo e verdure" loading="lazy">
+        </div>
+        <p class="gallery-label">Samosa</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     QUALITY SECTION
+     ============================================ -->
+<section class="section quality" id="qualita">
+  <div class="container">
+    <div class="section-header">
+      <p class="label reveal">La Nostra Qualit&agrave;</p>
+      <div class="section-line reveal-line"></div>
+      <h2 class="reveal">Cosa ci rende unici</h2>
+      <p class="reveal">Ogni dettaglio conta: dalla scelta della farina alla temperatura del forno.</p>
+    </div>
+    <div class="reveal" style="margin-bottom: 3rem;">
+      <img
+        class="quality-hero-img"
+        src="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?w=1200&q=80"
+        alt="Forno a legna per pizza con fiamma viva, il cuore della nostra pizzeria"
+        loading="lazy"
+      >
+    </div>
+    <div class="quality-grid">
+      <!-- Card 1 -->
+      <div class="quality-card reveal">
+        <svg class="quality-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="var(--accent-fire)" stroke-width="2" opacity="0.3"/>
+          <path d="M24 10 C24 10 16 18 16 26 C16 30.4 19.6 34 24 34 C28.4 34 32 30.4 32 26 C32 18 24 10 24 10Z" fill="var(--accent-fire)" opacity="0.8"/>
+          <path d="M24 16 C24 16 20 22 20 26 C20 28.2 21.8 30 24 30 C26.2 30 28 28.2 28 26 C28 22 24 16 24 16Z" fill="var(--accent-glow)" opacity="0.6"/>
+        </svg>
+        <h3>Impasto Artigianale</h3>
+        <p>Il nostro impasto riposa almeno 48 ore, lievitando lentamente per ottenere una consistenza leggera e una crosta croccante. Solo farina italiana di prima scelta e lievito madre naturale.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="quality-card reveal">
+        <svg class="quality-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="var(--accent-glow)" stroke-width="2" opacity="0.3"/>
+          <circle cx="24" cy="20" r="6" fill="var(--accent-glow)" opacity="0.7"/>
+          <path d="M18 28 L24 34 L30 28" fill="none" stroke="var(--accent-glow)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+          <path d="M15 34 Q24 40 33 34" fill="none" stroke="var(--accent-glow)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <h3>Ingredienti Selezionati</h3>
+        <p>Pomodoro San Marzano DOP, mozzarella fior di latte fresca, olio extravergine d'oliva italiano. Ogni ingrediente viene scelto con la massima attenzione per garantire sapore autentico.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="quality-card reveal">
+        <svg class="quality-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="var(--accent-gold)" stroke-width="2" opacity="0.3"/>
+          <rect x="16" y="22" width="16" height="12" rx="2" fill="none" stroke="var(--accent-gold)" stroke-width="2" opacity="0.8"/>
+          <path d="M14 22 L24 14 L34 22" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+          <rect x="22" y="28" width="4" height="6" fill="var(--accent-gold)" opacity="0.6"/>
+        </svg>
+        <h3>Cottura Perfetta</h3>
+        <p>Il nostro forno raggiunge la temperatura ideale per una cottura uniforme. Il risultato: una base croccante fuori e morbida dentro, con il condimento cotto alla perfezione in pochi minuti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     HOURS & LOCATION SECTION
+     ============================================ -->
+<section class="section location" id="orari">
+  <div class="container">
+    <div class="section-header">
+      <p class="label reveal">Dove Trovarci</p>
+      <div class="section-line reveal-line"></div>
+      <h2 class="reveal">Orari &amp; Contatti</h2>
+      <p class="reveal">Ti aspettiamo in Via Caterina Bon Brenzoni, a Mozzecane.</p>
+    </div>
+    <div class="location-grid">
+      <div class="reveal">
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:1.2rem;color:var(--text-primary);">Orari di Apertura</h3>
+        <table class="hours-table">
+          <tbody>
+            <tr>
+              <td>Domenica &ndash; Gioved&igrave;</td>
+              <td>11:00 &ndash; 16:00 / 17:30 &ndash; 24:00</td>
+            </tr>
+            <tr>
+              <td>Venerd&igrave; &ndash; Sabato</td>
+              <td>11:00 &ndash; 01:00</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="color:var(--accent-gold);font-size:0.9rem;margin-top:1rem;font-weight:500;">Aperto anche i festivi</p>
+      </div>
+      <div class="location-right reveal">
+        <h3>Contatti</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Via Caterina Bon Brenzoni 21/a, 37060 Mozzecane (VR)</span>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <a href="tel:+390452254542">045 225 4542</a>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <a href="tel:+393516326250">351 632 6250</a>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <a href="https://wa.me/393201550372?text=Ciao!%20Vorrei%20ordinare" target="_blank" rel="noopener noreferrer">WhatsApp: 320 155 0372</a>
+          </div>
+        </div>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.5!2d10.815!3d45.31!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781db679dabdb5b%3A0x3dba80bebcdc045b!2sPizzeria%20al%20taglio%20doppio%20zero!5e0!3m2!1sit!2sit!4v1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mappa della posizione di Doppio Zero Pizzeria a Verona"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CTA SECTION
+     ============================================ -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Hai fame? Ordina adesso.</h2>
+    <p class="reveal">Chiama o scrivici su WhatsApp per ordinare pizza, kebab, burger e molto altro.</p>
+    <div class="cta-buttons reveal">
+      <a href="tel:+390452254542" class="btn-white">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        Chiama Ora
+      </a>
+      <a href="https://wa.me/393201550372?text=Ciao!%20Vorrei%20ordinare" class="btn-white-outline" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Ordina su WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Pizza &amp; Kebab Doppio <span>Zero</span></h3>
+      <p>Pizza, kebab, burger, piadine e gastronomie a Mozzecane. Sapori autentici e ingredienti freschi. Disponibile anche su Just Eat e Glovo.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigazione</h4>
+      <a href="#hero">Home</a>
+      <a href="#about">Chi Siamo</a>
+      <a href="#promozioni">Promozioni</a>
+      <a href="#menu">Menu</a>
+      <a href="#galleria">Galleria</a>
+      <a href="#qualita">Qualit&agrave;</a>
+      <a href="#orari">Orari &amp; Contatti</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contatti</h4>
+      <a href="tel:+390452254542">045 225 4542</a>
+      <a href="tel:+393516326250">351 632 6250</a>
+      <a href="https://wa.me/393201550372?text=Ciao!%20Vorrei%20ordinare" target="_blank" rel="noopener noreferrer">WhatsApp: 320 155 0372</a>
+      <a>Via Caterina Bon Brenzoni 21/a</a>
+      <a>37060 Mozzecane (VR)</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 Pizza &amp; Kebab Doppio Zero. Tutti i diritti riservati.</p>
+  </div>
+</footer>
+
+<!-- ============================================
+     FLOATING WHATSAPP BUTTON
+     ============================================ -->
+<a href="https://wa.me/393201550372?text=Ciao!%20Vorrei%20ordinare" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Ordina su WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* -------------------------------------------
+     NAVBAR SCROLL BEHAVIOR
+     ------------------------------------------- */
+  var navbar = document.getElementById('navbar');
+  var lastScrollY = 0;
+
+  function handleNavScroll() {
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    lastScrollY = scrollY;
+  }
+
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+  /* -------------------------------------------
+     HAMBURGER MENU
+     ------------------------------------------- */
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', function() {
+    var isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close menu on link click
+  var navItems = navLinks.querySelectorAll('a');
+  for (var i = 0; i < navItems.length; i++) {
+    navItems[i].addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  /* -------------------------------------------
+     INTERSECTION OBSERVER - REVEAL ANIMATIONS
+     ------------------------------------------- */
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    var revealElements = document.querySelectorAll('.reveal');
+    var revealLines = document.querySelectorAll('.reveal-line');
+
+    var observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.1
+    };
+
+    var staggerCounters = {};
+
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          // Find the parent section to group stagger
+          var section = entry.target.closest('.section, .hero, .cta-section, .footer');
+          var sectionId = section ? (section.id || section.className) : 'global';
+
+          if (!staggerCounters[sectionId]) {
+            staggerCounters[sectionId] = 0;
+          }
+
+          var delay = staggerCounters[sectionId] * 80;
+          staggerCounters[sectionId]++;
+
+          entry.target.style.transitionDelay = delay + 'ms';
+
+          // Use rAF for smooth reveal
+          requestAnimationFrame(function() {
+            entry.target.classList.add('visible');
+          });
+
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(function(el) {
+      revealObserver.observe(el);
+    });
+
+    var lineObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          requestAnimationFrame(function() {
+            entry.target.classList.add('visible');
+          });
+          lineObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealLines.forEach(function(el) {
+      lineObserver.observe(el);
+    });
+  } else {
+    // If reduced motion preferred, make everything visible
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('visible');
+    });
+    document.querySelectorAll('.reveal-line').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  /* -------------------------------------------
+     PARALLAX BACKGROUND EFFECT
+     ------------------------------------------- */
+  if (!prefersReducedMotion) {
+    var heroBg = document.querySelector('.hero-bg');
+    var ticking = false;
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var scrollY = window.pageYOffset;
+          if (heroBg && scrollY < window.innerHeight) {
+            heroBg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* -------------------------------------------
+     MENU TABS
+     ------------------------------------------- */
+  var tabs = document.querySelectorAll('.menu-tab');
+  var grids = document.querySelectorAll('.menu-grid');
+  var tabNames = ['classiche', 'speciali', 'kebab', 'fritti', 'calzoni', 'bevande'];
+
+  tabs.forEach(function(tab, index) {
+    tab.addEventListener('click', function() {
+      // Remove active from all tabs
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+
+      // Hide all grids
+      grids.forEach(function(g) {
+        g.classList.remove('active');
+      });
+
+      // Activate clicked tab
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      // Show corresponding grid
+      var targetId = 'tab-' + tabNames[index];
+      var targetGrid = document.getElementById(targetId);
+      if (targetGrid) {
+        targetGrid.classList.add('active');
+
+        // Re-animate cards in the newly visible grid
+        if (!prefersReducedMotion) {
+          var cards = targetGrid.querySelectorAll('.menu-card');
+          cards.forEach(function(card, cardIndex) {
+            card.classList.remove('visible');
+            card.style.transitionDelay = (cardIndex * 80) + 'ms';
+            requestAnimationFrame(function() {
+              requestAnimationFrame(function() {
+                card.classList.add('visible');
+              });
+            });
+          });
+        }
+      }
+    });
+  });
+
+  /* -------------------------------------------
+     SMOOTH SCROLL FOR ANCHOR LINKS
+     ------------------------------------------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        var offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 70;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
