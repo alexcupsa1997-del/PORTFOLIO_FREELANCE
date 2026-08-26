@@ -28,4 +28,27 @@ export const clients: Client[] = [
     badge: 'Primo cliente',
     featured: true,
   },
+  {
+    slug: 'roncari-snc',
+    name: 'Roncari Impresa Edile SNC',
+    category: 'Edilizia · Costruzioni e Ristrutturazioni',
+    location: 'Legnago (VR)',
+    year: 2026,
+    tagline: 'Costruiamo strutture che durano nel tempo.',
+    description:
+      'Roncari Impresa Edile è un punto di riferimento a Legnago e nella Bassa Veronese per costruzioni residenziali, ristrutturazioni e manutenzione edile. Tre proposte di sito professionale con foto reali, sezioni servizi, portfolio progetti, processo di lavoro e testimonianze clienti.',
+    liveUrl: '',
+    status: 'in-progress',
+    scope: ['Design', 'Sviluppo', '3 Proposte', 'Foto Stock'],
+    services: [
+      'Costruzioni Residenziali',
+      'Ristrutturazioni',
+      'Manutenzione Edile',
+      'Opere in Muratura',
+      'Coperture e Impermeabilizzazioni',
+      'Lavori Esterni e Pavimentazioni',
+    ],
+    palette: ['#15181E', '#B8943C', '#3D7A42', '#D45B27'],
+    thumbnail: 'clients/roncari-snc.webp',
+  },
 ];
