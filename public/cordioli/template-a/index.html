@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tinteggiature Cordioli S.n.c. — Tinteggiatura, decorazione, verniciatura e trattamenti speciali a Villafranca di Verona. Tel. 340 1216831.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tinteggiature Cordioli — Pennellata | Villafranca di Verona">
+<meta property="og:description" content="Servizi professionali di tinteggiatura, decorazione pareti e trattamenti speciali a Villafranca di Verona e provincia.">
+<meta property="og:locale" content="it_IT">
+</head>
+<body>
+<title>Pennellata Cordioli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Custom Properties ── */
+:root {
+  --ground: #F6F4EE;
+  --ink: #1D2433;
+  --accent: #2B7FD4;
+  --warm: #C4873B;
+  --muted: #8E897F;
+  --surface: #ECEAE3;
+  --nav-bg: rgba(246, 244, 238, 0.72);
+  --shadow: rgba(29, 36, 51, 0.08);
+  --shadow-md: rgba(29, 36, 51, 0.14);
+  --shadow-lg: rgba(29, 36, 51, 0.18);
+  --glow: rgba(43, 127, 212, 0.3);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #151821;
+    --ink: #E8E5DD;
+    --accent: #5B9BD5;
+    --warm: #D4A05A;
+    --muted: #6B6860;
+    --surface: #1E2230;
+    --nav-bg: rgba(21, 24, 33, 0.75);
+    --shadow: rgba(0, 0, 0, 0.25);
+    --shadow-md: rgba(0, 0, 0, 0.35);
+    --shadow-lg: rgba(0, 0, 0, 0.45);
+    --glow: rgba(91, 155, 213, 0.4);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #151821;
+  --ink: #E8E5DD;
+  --accent: #5B9BD5;
+  --warm: #D4A05A;
+  --muted: #6B6860;
+  --surface: #1E2230;
+  --nav-bg: rgba(21, 24, 33, 0.75);
+  --shadow: rgba(0, 0, 0, 0.25);
+  --shadow-md: rgba(0, 0, 0, 0.35);
+  --shadow-lg: rgba(0, 0, 0, 0.45);
+  --glow: rgba(91, 155, 213, 0.4);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-behavior: smooth; }
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+ul { list-style: none; }
+input, textarea { font: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+  line-height: 1.2;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 0.5rem;
+}
+
+.section-label::before {
+  content: '\2014\00a0';
+  opacity: 0.6;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--ink);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px var(--glow);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+/* ── Gradient section dividers ── */
+section + section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--warm), transparent);
+  opacity: 0.25;
+}
+
+/* ── Canvas particle background ── */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── Animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Keyframes ── */
+@keyframes float-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes gradient-mesh {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+  #particleCanvas { display: none; }
+  .hero-text h1 em { -webkit-text-fill-color: var(--accent) !important; animation: none !important; background: none !important; }
+  .hero-illustration, .about-illustration { animation: none !important; }
+  .service-card:hover, .portfolio-card:hover { transform: none !important; }
+  .feature-icon { animation: none !important; }
+  .hero { animation: none !important; background-size: auto !important; }
+  * { animation-duration: 0s !important; animation-delay: 0s !important; }
+}
+
+/* ── Navigation ── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  transition: box-shadow var(--transition);
+}
+
+.nav.scrolled {
+  box-shadow: 0 2px 30px var(--shadow-md), 0 0 60px var(--glow);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-brand svg {
+  width: 36px;
+  height: 36px;
+}
+
+.nav-brand-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.nav-brand-sub {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 400;
+  display: block;
+  line-height: 1;
+  margin-top: 1px;
+  letter-spacing: 0.08em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  transition: width var(--transition), box-shadow var(--transition);
+  box-shadow: 0 0 0 transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--ink);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 5px;
+  box-shadow: 0 0 8px var(--glow);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 12px var(--glow);
+}
+
+.nav-cta:hover {
+  background: var(--warm);
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(196, 135, 59, 0.4);
+}
+
+.nav-cta svg { width: 16px; height: 16px; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+    transform: translateY(-120%);
+    transition: transform var(--transition);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .nav-links.open { transform: translateY(0); }
+}
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 5rem;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(43, 127, 212, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(196, 135, 59, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(43, 127, 212, 0.04) 0%, transparent 50%);
+  background-size: 200% 200%;
+  animation: gradient-mesh 15s ease infinite;
+}
+
+/* Grid pattern overlay on hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, var(--ink) 59px, var(--ink) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, var(--ink) 59px, var(--ink) 60px);
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  color: var(--ink);
+  margin-bottom: 1.2rem;
+}
+
+.hero-text h1 em {
+  font-style: italic;
+  background: linear-gradient(90deg, var(--accent), #60b0ff, var(--accent));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.hero-tagline {
+  font-size: 1.15rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  max-width: 480px;
+  line-height: 1.8;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all var(--transition);
+  box-shadow: 0 4px 15px var(--glow);
+}
+
+.btn-primary:hover {
+  background: #2470bf;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px var(--glow), 0 0 40px var(--glow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+  border: 2px solid var(--surface);
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.hero-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: float-breathe 7s ease-in-out infinite;
+}
+
+.hero-illustration svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-tagline { margin-left: auto; margin-right: auto; }
+  .hero-ctas { justify-content: center; }
+  .hero-illustration { order: -1; }
+  .hero-illustration svg { max-width: 320px; }
+}
+
+/* ── Chi Siamo ── */
+.about {
+  background: var(--surface);
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-illustration {
+  animation: float-breathe 8s ease-in-out infinite;
+}
+
+.about-illustration svg {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+}
+
+.about-text p {
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.about-signature {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--warm);
+  display: inline-block;
+}
+
+.about-signature .name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.about-signature .role {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .about-illustration { display: flex; justify-content: center; }
+  .about-illustration svg { max-width: 300px; }
+  .about-signature { display: block; }
+}
+
+/* ── Servizi ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.service-card {
+  background: rgba(236, 234, 227, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all var(--transition);
+  cursor: default;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .service-card {
+    background: rgba(30, 34, 48, 0.5);
+    border-color: rgba(255, 255, 255, 0.06);
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+:root[data-theme="dark"] .service-card {
+  background: rgba(30, 34, 48, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.service-card:hover {
+  border-color: var(--accent);
+  transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) translateY(-6px);
+  box-shadow: 0 12px 40px var(--shadow-md), 0 0 30px var(--glow);
+}
+
+.service-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.2rem;
+  transition: filter var(--transition);
+}
+
+.service-card:hover .service-icon {
+  filter: drop-shadow(0 0 12px var(--glow));
+}
+
+.service-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.service-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+  color: var(--ink);
+}
+
+.service-card p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Portfolio ── */
+.portfolio {
+  background: var(--surface);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.portfolio-card {
+  position: relative;
+  background: var(--ground);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.portfolio-card:hover {
+  transform: perspective(800px) rotateX(-1deg) rotateY(2deg) translateY(-4px);
+  box-shadow: 0 16px 50px var(--shadow-lg), 0 0 30px var(--glow);
+}
+
+.portfolio-card svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.portfolio-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(transparent, rgba(29, 36, 51, 0.85));
+  color: #fff;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all var(--transition);
+}
+
+.portfolio-card:hover .portfolio-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.portfolio-overlay h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.portfolio-overlay p {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .portfolio-overlay { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Perché Sceglierci ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(236, 234, 227, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: box-shadow var(--transition);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .stat-item {
+    background: rgba(30, 34, 48, 0.4);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+}
+:root[data-theme="dark"] .stat-item {
+  background: rgba(30, 34, 48, 0.4);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.stat-item:hover {
+  box-shadow: 0 0 30px var(--glow);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 20px var(--glow);
+}
+
+.stat-suffix {
+  font-size: 0.6em;
+  color: var(--warm);
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.feature-block {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(236, 234, 227, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all var(--transition);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .feature-block {
+    background: rgba(30, 34, 48, 0.5);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+}
+:root[data-theme="dark"] .feature-block {
+  background: rgba(30, 34, 48, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.feature-block:hover {
+  transform: perspective(1000px) rotateX(-2deg) rotateY(1deg);
+  box-shadow: 0 8px 30px var(--shadow-md);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--glow);
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.feature-icon svg {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+}
+
+.feature-block h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.feature-block p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .stats-row, .features-row { grid-template-columns: 1fr; }
+}
+
+/* ── Contatti ── */
+.contact {
+  background: var(--surface);
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.contact-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-item-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px var(--glow);
+}
+
+.contact-item-icon svg {
+  width: 20px;
+  height: 20px;
+  color: #fff;
+}
+
+.contact-item-text .label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.contact-item-text .value {
+  font-size: 1rem;
+  color: var(--ink);
+  margin-top: 0.2rem;
+}
+
+.contact-item-text .value a {
+  color: var(--accent);
+  transition: color var(--transition);
+}
+
+.contact-item-text .value a:hover { color: var(--warm); }
+
+.contact-hours {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(246, 244, 238, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .contact-hours {
+    background: rgba(21, 24, 33, 0.5);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+:root[data-theme="dark"] .contact-hours {
+  background: rgba(21, 24, 33, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.contact-hours h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.contact-hours p {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.contact-form {
+  background: rgba(246, 244, 238, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .contact-form {
+    background: rgba(21, 24, 33, 0.6);
+    border-color: rgba(255, 255, 255, 0.06);
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+:root[data-theme="dark"] .contact-form {
+  background: rgba(21, 24, 33, 0.6);
+  border-color: rgba(255, 255, 255, 0.06);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-form h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(236, 234, 227, 0.6);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .form-group input,
+  :root:not([data-theme="light"]) .form-group textarea {
+    background: rgba(30, 34, 48, 0.6);
+  }
+}
+:root[data-theme="dark"] .form-group input,
+:root[data-theme="dark"] .form-group textarea {
+  background: rgba(30, 34, 48, 0.6);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--glow);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all var(--transition);
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 15px var(--glow);
+}
+
+.form-submit:hover {
+  background: #2470bf;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px var(--glow), 0 0 40px var(--glow);
+}
+
+@media (max-width: 768px) {
+  .contact-inner { grid-template-columns: 1fr; }
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--ink);
+  color: var(--ground);
+  padding: 3rem 0 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Footer gradient overlay */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(43, 127, 212, 0.08) 0%, transparent 40%, rgba(196, 135, 59, 0.06) 100%);
+  pointer-events: none;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.footer-desc {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  line-height: 1.7;
+  max-width: 300px;
+}
+
+.footer h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.footer-links a {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  transition: opacity var(--transition);
+}
+
+.footer-links a:hover { opacity: 1; }
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.footer-social a:hover {
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.footer-social svg { width: 18px; height: 18px; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.82rem;
+  opacity: 0.5;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .footer-inner { grid-template-columns: 1fr; text-align: center; }
+  .footer-desc { margin: 0 auto; }
+  .footer-social { justify-content: center; }
+}
+
+/* ── SVG Theme Adjustments ── */
+.svg-wall-light { fill: #f0ebe0; }
+.svg-wall-dark { fill: #d4cfc4; }
+.svg-floor { fill: #c4b89a; }
+.svg-paint-blue { fill: #2B6CB0; }
+.svg-paint-amber { fill: #C4873B; }
+.svg-paint-cream { fill: #E8DCC8; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .svg-wall-light { fill: #2a2d3a; }
+  :root:not([data-theme="light"]) .svg-wall-dark { fill: #232636; }
+  :root:not([data-theme="light"]) .svg-floor { fill: #1e2130; }
+}
+:root[data-theme="dark"] .svg-wall-light { fill: #2a2d3a; }
+:root[data-theme="dark"] .svg-wall-dark { fill: #232636; }
+:root[data-theme="dark"] .svg-floor { fill: #1e2130; }
+</style>
+
+<!-- ══════════════════════════════════════════════════ PARTICLE CANVAS ══════════════════════════════════════════════════ -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ══════════════════════════════════════════════════ NAVIGATION ══════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <!-- Brand brush icon -->
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect x="2" y="2" width="32" height="32" rx="8" fill="var(--accent)"/>
+        <path d="M11 25c0-2 3-6 5-9s4-7 7-9c-1 4-2 6-4 9s-4 7-5 9c-1 1-3 2-3 0z" fill="#fff" opacity="0.9"/>
+        <path d="M17 12c2-2 5-3 7-4-.5 2-2 4-4 6l-3-2z" fill="#fff" opacity="0.6"/>
+      </svg>
+      <div>
+        <span class="nav-brand-text">Cordioli</span>
+        <span class="nav-brand-sub">Tinteggiature</span>
+      </div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero" class="nav-link active">Home</a>
+      <a href="#chi-siamo" class="nav-link">Chi Siamo</a>
+      <a href="#servizi" class="nav-link">Servizi</a>
+      <a href="#portfolio" class="nav-link">Lavori</a>
+      <a href="#perche" class="nav-link">Perch&eacute;</a>
+      <a href="#contatti" class="nav-link">Contatti</a>
+      <a href="tel:3401216831" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Chiama
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════ HERO ══════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text reveal">
+        <p class="section-label">Tinteggiature Cordioli S.n.c.</p>
+        <h1>Dipingiamo il tuo <em>mondo</em></h1>
+        <p class="hero-tagline">Da oltre vent'anni trasformiamo spazi ordinari in ambienti straordinari. Passione artigianale, materiali di qualit&agrave; e cura per ogni dettaglio.</p>
+        <div class="hero-ctas">
+          <a href="#contatti" class="btn-primary">
+            Richiedi Preventivo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#servizi" class="btn-secondary">I Nostri Servizi</a>
+        </div>
+      </div>
+
+      <!-- ── Hero SVG Illustration: Paint Roller with Splashes ── -->
+      <div class="hero-illustration reveal">
+        <svg viewBox="0 0 600 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rollerBody" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3a7fd5"/>
+              <stop offset="100%" stop-color="#1a4f8a"/>
+            </linearGradient>
+            <linearGradient id="rollerFelt" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5B9BD5"/>
+              <stop offset="50%" stop-color="#2B6CB0"/>
+              <stop offset="100%" stop-color="#1e5090"/>
+            </linearGradient>
+            <linearGradient id="handleGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#555"/>
+              <stop offset="100%" stop-color="#333"/>
+            </linearGradient>
+            <linearGradient id="paintDrip" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2B6CB0"/>
+              <stop offset="100%" stop-color="#1a4f8a" stop-opacity="0.7"/>
+            </linearGradient>
+            <linearGradient id="splashAmber" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#D4A05A"/>
+              <stop offset="100%" stop-color="#C4873B"/>
+            </linearGradient>
+            <linearGradient id="paletteBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f5f0e6"/>
+              <stop offset="100%" stop-color="#e8e0d0"/>
+            </linearGradient>
+            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="4" stdDeviation="6" flood-color="#1D2433" flood-opacity="0.15"/>
+            </filter>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Background paint splashes -->
+          <ellipse cx="140" cy="380" rx="70" ry="18" fill="#2B6CB0" opacity="0.08"/>
+          <ellipse cx="460" cy="400" rx="55" ry="14" fill="#C4873B" opacity="0.08"/>
+
+          <!-- Large paint splash behind roller -->
+          <path d="M200 200 Q230 120 300 140 Q370 160 380 100 Q400 160 440 170 Q460 220 420 260 Q380 300 320 290 Q260 280 240 240 Z" fill="#2B6CB0" opacity="0.07"/>
+          <path d="M350 300 Q380 260 420 280 Q450 300 440 340 Q420 370 390 360 Q360 340 350 300Z" fill="#C4873B" opacity="0.09"/>
+
+          <!-- Paint splatters - small droplets -->
+          <circle cx="165" cy="160" r="8" fill="#2B6CB0" opacity="0.2"/>
+          <circle cx="185" cy="140" r="5" fill="#2B6CB0" opacity="0.15"/>
+          <circle cx="150" cy="190" r="4" fill="#5B9BD5" opacity="0.2"/>
+          <circle cx="440" cy="140" r="7" fill="#C4873B" opacity="0.2"/>
+          <circle cx="465" cy="165" r="4" fill="#D4A05A" opacity="0.15"/>
+          <circle cx="490" cy="200" r="6" fill="#C4873B" opacity="0.12"/>
+          <circle cx="200" cy="350" r="5" fill="#2B6CB0" opacity="0.15"/>
+          <circle cx="430" cy="340" r="6" fill="#D4A05A" opacity="0.12"/>
+
+          <!-- Splatter shapes -->
+          <path d="M130 230c5-15 20-10 15 5s-20 10-15-5z" fill="#5B9BD5" opacity="0.18"/>
+          <path d="M470 230c-5-12 15-15 18-2s-10 18-18 2z" fill="#D4A05A" opacity="0.15"/>
+
+          <!-- ─── Paint Roller ─── -->
+          <g filter="url(#softShadow)">
+            <!-- Handle -->
+            <rect x="288" y="310" width="14" height="150" rx="7" fill="url(#handleGrad)"/>
+            <!-- Handle grip -->
+            <rect x="283" y="400" width="24" height="60" rx="12" fill="#444"/>
+            <rect x="285" y="410" width="20" height="8" rx="4" fill="#555" opacity="0.5"/>
+            <rect x="285" y="425" width="20" height="8" rx="4" fill="#555" opacity="0.5"/>
+            <rect x="285" y="440" width="20" height="8" rx="4" fill="#555" opacity="0.5"/>
+
+            <!-- Roller frame arm -->
+            <path d="M295 310 L295 275 Q295 260 310 260" stroke="#666" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+            <!-- Roller cylinder -->
+            <rect x="210" y="230" width="200" height="55" rx="27.5" fill="url(#rollerFelt)"/>
+            <!-- Roller texture lines -->
+            <line x1="230" y1="240" x2="230" y2="275" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="250" y1="238" x2="250" y2="277" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="270" y1="236" x2="270" y2="279" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="290" y1="235" x2="290" y2="280" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="310" y1="235" x2="310" y2="280" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="330" y1="236" x2="330" y2="279" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="350" y1="238" x2="350" y2="277" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="370" y1="240" x2="370" y2="275" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+            <line x1="390" y1="242" x2="390" y2="273" stroke="#1e5090" stroke-width="1" opacity="0.3"/>
+
+            <!-- Roller end caps -->
+            <ellipse cx="210" cy="257" rx="8" ry="27.5" fill="#888"/>
+            <ellipse cx="210" cy="257" rx="5" ry="24" fill="#999"/>
+            <ellipse cx="410" cy="257" rx="8" ry="27.5" fill="#888"/>
+            <ellipse cx="410" cy="257" rx="5" ry="24" fill="#999"/>
+
+            <!-- Paint drips from roller -->
+            <path d="M240 285 Q242 310 238 335 Q236 340 240 340 Q244 340 242 335 Q248 310 246 285Z" fill="url(#paintDrip)" opacity="0.8"/>
+            <path d="M310 285 Q312 320 308 355 Q306 365 310 365 Q314 365 312 355 Q318 320 316 285Z" fill="url(#paintDrip)" opacity="0.7"/>
+            <path d="M370 285 Q371 305 369 320 Q367 326 370 326 Q373 326 371 320 Q376 305 374 285Z" fill="url(#paintDrip)" opacity="0.6"/>
+            <path d="M270 285 Q271 298 269 308 Q268 312 270 312 Q272 312 271 308 Q274 298 273 285Z" fill="url(#paintDrip)" opacity="0.5"/>
+
+            <!-- Roller paint sheen -->
+            <rect x="220" y="238" width="180" height="12" rx="6" fill="#fff" opacity="0.1"/>
+          </g>
+
+          <!-- ─── Color Palette / Swatch Card ─── -->
+          <g filter="url(#softShadow)" transform="translate(60, 280) rotate(-12)">
+            <!-- Card base -->
+            <rect x="0" y="0" width="120" height="180" rx="8" fill="url(#paletteBg)"/>
+            <rect x="0" y="0" width="120" height="180" rx="8" stroke="#d4cfc4" stroke-width="1" fill="none"/>
+
+            <!-- Color swatches -->
+            <rect x="12" y="15" width="96" height="22" rx="4" fill="#2B6CB0"/>
+            <rect x="12" y="43" width="96" height="22" rx="4" fill="#5B9BD5"/>
+            <rect x="12" y="71" width="96" height="22" rx="4" fill="#C4873B"/>
+            <rect x="12" y="99" width="96" height="22" rx="4" fill="#D4A05A"/>
+            <rect x="12" y="127" width="96" height="22" rx="4" fill="#8E897F"/>
+
+            <!-- Swatch labels (small lines) -->
+            <rect x="15" y="155" width="40" height="3" rx="1.5" fill="#bbb" opacity="0.5"/>
+            <rect x="15" y="163" width="25" height="3" rx="1.5" fill="#bbb" opacity="0.3"/>
+          </g>
+
+          <!-- ─── Second smaller palette card ─── -->
+          <g filter="url(#softShadow)" transform="translate(430, 320) rotate(8)">
+            <rect x="0" y="0" width="90" height="140" rx="6" fill="url(#paletteBg)"/>
+            <rect x="0" y="0" width="90" height="140" rx="6" stroke="#d4cfc4" stroke-width="1" fill="none"/>
+            <rect x="10" y="12" width="70" height="18" rx="3" fill="#e8c9a0"/>
+            <rect x="10" y="36" width="70" height="18" rx="3" fill="#d4a87a"/>
+            <rect x="10" y="60" width="70" height="18" rx="3" fill="#b8855a"/>
+            <rect x="10" y="84" width="70" height="18" rx="3" fill="#8e6a45"/>
+            <rect x="10" y="108" width="70" height="18" rx="3" fill="#6b4d30"/>
+          </g>
+
+          <!-- Decorative paint splashes in foreground -->
+          <circle cx="180" cy="440" r="12" fill="#2B6CB0" opacity="0.12"/>
+          <circle cx="195" cy="455" r="6" fill="#5B9BD5" opacity="0.1"/>
+          <circle cx="420" cy="450" r="10" fill="#C4873B" opacity="0.1"/>
+          <circle cx="405" cy="430" r="4" fill="#D4A05A" opacity="0.12"/>
+
+          <!-- Small floating paint drops -->
+          <path d="M170 100 Q175 85 180 100 Q175 110 170 100Z" fill="#2B6CB0" opacity="0.25"/>
+          <path d="M450 100 Q455 88 460 100 Q455 108 450 100Z" fill="#C4873B" opacity="0.2"/>
+          <path d="M520 260 Q524 250 528 260 Q524 268 520 260Z" fill="#5B9BD5" opacity="0.18"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ CHI SIAMO ══════════════════════════════════════════════════ -->
+<section class="about" id="chi-siamo">
+  <div class="container">
+    <div class="about-inner">
+      <!-- About SVG Illustration: Painter at Work -->
+      <div class="about-illustration reveal">
+        <svg viewBox="0 0 440 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wallBefore" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d4cfc4"/>
+              <stop offset="100%" stop-color="#c4bfb3"/>
+            </linearGradient>
+            <linearGradient id="wallAfter" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5B9BD5"/>
+              <stop offset="100%" stop-color="#2B6CB0"/>
+            </linearGradient>
+            <linearGradient id="canGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e0ddd5"/>
+              <stop offset="100%" stop-color="#c8c4ba"/>
+            </linearGradient>
+            <linearGradient id="canLabel" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2B6CB0"/>
+              <stop offset="100%" stop-color="#1a4f8a"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Floor -->
+          <path d="M0 340 L440 340 L440 420 L0 420 Z" fill="#c4b89a" opacity="0.4"/>
+          <line x1="0" y1="340" x2="440" y2="340" stroke="#b0a890" stroke-width="2" opacity="0.5"/>
+
+          <!-- Wall - unpainted (right side) -->
+          <rect x="220" y="40" width="200" height="300" fill="url(#wallBefore)"/>
+          <!-- Wall texture lines -->
+          <line x1="240" y1="60" x2="240" y2="330" stroke="#ccc8bc" stroke-width="0.5" opacity="0.5"/>
+          <line x1="300" y1="50" x2="300" y2="335" stroke="#ccc8bc" stroke-width="0.5" opacity="0.5"/>
+          <line x1="360" y1="55" x2="360" y2="338" stroke="#ccc8bc" stroke-width="0.5" opacity="0.5"/>
+
+          <!-- Wall - painted (left side) -->
+          <rect x="20" y="40" width="200" height="300" fill="url(#wallAfter)"/>
+          <!-- Paint sheen -->
+          <rect x="20" y="40" width="200" height="300" fill="#fff" opacity="0.05"/>
+          <path d="M20 40 L60 40 L60 340 L20 340Z" fill="#fff" opacity="0.03"/>
+
+          <!-- Paint edge - dripping boundary -->
+          <path d="M220 40 L220 100 Q225 110 220 120 L220 170 Q218 185 220 195 L220 250 Q223 265 220 275 L220 340" stroke="#2B6CB0" stroke-width="3" fill="none" opacity="0.5"/>
+          <path d="M220 120 Q228 135 224 150 Q220 158 220 170" fill="#2B6CB0" opacity="0.3"/>
+          <path d="M220 275 Q226 290 222 310 Q220 320 220 340" fill="#2B6CB0" opacity="0.2"/>
+
+          <!-- ─── Painter figure ─── -->
+          <g transform="translate(150, 80)">
+            <!-- Hard hat -->
+            <ellipse cx="45" cy="18" rx="28" ry="10" fill="#e8e0d0"/>
+            <path d="M20 18 Q22 0 45 0 Q68 0 70 18Z" fill="#f0ebe0"/>
+            <rect x="20" y="15" width="50" height="6" rx="3" fill="#e0d8c8"/>
+
+            <!-- Head -->
+            <circle cx="45" cy="35" r="16" fill="#e8c9a0"/>
+
+            <!-- Body - shirt -->
+            <path d="M25 55 Q20 58 15 80 L15 160 Q15 165 20 165 L70 165 Q75 165 75 160 L75 80 Q70 58 65 55Z" fill="#fff"/>
+            <path d="M25 55 Q20 58 15 80 L15 160 Q15 165 20 165 L70 165 Q75 165 75 160 L75 80 Q70 58 65 55Z" stroke="#e8e5dd" stroke-width="1" fill="none"/>
+            <!-- Shirt collar -->
+            <path d="M32 55 L45 70 L58 55" stroke="#ddd" stroke-width="1.5" fill="none"/>
+            <!-- Overalls straps -->
+            <rect x="28" y="55" width="6" height="110" rx="3" fill="#6b89b0" opacity="0.8"/>
+            <rect x="56" y="55" width="6" height="110" rx="3" fill="#6b89b0" opacity="0.8"/>
+            <!-- Overall bib -->
+            <rect x="28" y="100" width="34" height="40" rx="4" fill="#6b89b0" opacity="0.7"/>
+            <rect x="33" y="105" width="24" height="15" rx="3" fill="#5a7a9e" opacity="0.5"/>
+
+            <!-- Left arm (holding roller) -->
+            <path d="M15 80 Q-5 90 -20 75 Q-30 65 -25 55" stroke="#e8c9a0" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <!-- Right arm -->
+            <path d="M75 80 Q90 100 85 120" stroke="#e8c9a0" stroke-width="10" fill="none" stroke-linecap="round"/>
+
+            <!-- Mini roller in hand -->
+            <g transform="translate(-50, 30) rotate(-20)">
+              <rect x="0" y="0" width="10" height="60" rx="5" fill="#555"/>
+              <path d="M5 0 L5 -15 Q5 -25 15 -25" stroke="#666" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <rect x="12" y="-42" width="50" height="20" rx="10" fill="#2B6CB0"/>
+              <rect x="12" y="-42" width="50" height="8" rx="4" fill="#fff" opacity="0.1"/>
+            </g>
+
+            <!-- Legs -->
+            <rect x="22" y="162" width="16" height="75" rx="6" fill="#6b89b0"/>
+            <rect x="52" y="162" width="16" height="75" rx="6" fill="#6b89b0"/>
+            <!-- Shoes -->
+            <path d="M18 232 Q18 242 25 242 L42 242 Q46 242 46 238 L46 232Z" fill="#555"/>
+            <path d="M48 232 Q48 242 55 242 L72 242 Q76 242 76 238 L76 232Z" fill="#555"/>
+          </g>
+
+          <!-- ─── Paint Can ─── -->
+          <g transform="translate(310, 290)">
+            <!-- Can body -->
+            <rect x="0" y="10" width="60" height="50" rx="4" fill="url(#canGrad)"/>
+            <!-- Can rim -->
+            <rect x="-3" y="6" width="66" height="8" rx="4" fill="#d0ccc2"/>
+            <!-- Label -->
+            <rect x="5" y="20" width="50" height="30" rx="3" fill="url(#canLabel)"/>
+            <rect x="10" y="26" width="30" height="4" rx="2" fill="#fff" opacity="0.4"/>
+            <rect x="10" y="34" width="20" height="3" rx="1.5" fill="#fff" opacity="0.25"/>
+            <!-- Paint on rim -->
+            <path d="M10 10 Q12 5 15 8 Q18 12 20 10 Q22 6 25 9" fill="#2B6CB0" opacity="0.6"/>
+            <!-- Handle -->
+            <path d="M10 8 Q30 -10 50 8" stroke="#aaa" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- Small paint drops on floor -->
+          <circle cx="280" cy="355" r="5" fill="#2B6CB0" opacity="0.3"/>
+          <circle cx="300" cy="365" r="3" fill="#2B6CB0" opacity="0.2"/>
+          <circle cx="250" cy="360" r="4" fill="#5B9BD5" opacity="0.15"/>
+          <ellipse cx="340" cy="358" rx="8" ry="3" fill="#2B6CB0" opacity="0.15"/>
+
+          <!-- Drop cloth / tarp on floor -->
+          <path d="M80 340 L380 340 L390 350 Q390 360 380 360 L70 360 Q60 360 60 350 Z" fill="#e8e5dd" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="about-text reveal">
+        <p class="section-label">Chi Siamo</p>
+        <h2 class="section-title">Artigiani del colore</h2>
+        <p>Tinteggiature Cordioli S.n.c. nasce dalla passione di Marco Cordioli per l'arte della pittura edile. Con oltre vent'anni di esperienza, la nostra azienda si &egrave; affermata come punto di riferimento nel territorio veronese per qualit&agrave; e affidabilit&agrave;.</p>
+        <p>Ogni progetto &egrave; unico e lo trattiamo come tale. Dal sopralluogo iniziale alla consegna finale, seguiamo ogni fase con cura meticolosa, utilizzando solo materiali di prima scelta e tecniche consolidate nel tempo.</p>
+        <p>La nostra filosofia &egrave; semplice: trasformare gli spazi con professionalit&agrave;, rispettando i tempi e il budget concordato, creando ambienti che rispecchino la personalit&agrave; di chi li vive.</p>
+        <div class="about-signature">
+          <div class="name">Marco Cordioli</div>
+          <div class="role">Fondatore &amp; Titolare</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ SERVIZI ══════════════════════════════════════════════════ -->
+<section id="servizi">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <p class="section-label">I Nostri Servizi</p>
+      <h2 class="section-title">Soluzioni per ogni superficie</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Offriamo una gamma completa di servizi per la cura e la trasformazione dei vostri ambienti, interni ed esterni.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- 1. Tinteggiatura -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <defs>
+              <linearGradient id="svc1wall" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5B9BD5"/>
+                <stop offset="100%" stop-color="#2B6CB0"/>
+              </linearGradient>
+            </defs>
+            <!-- House outline -->
+            <path d="M40 8 L72 30 L72 72 L8 72 L8 30 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5" opacity="0.3"/>
+            <!-- Roof -->
+            <path d="M40 8 L75 32 L5 32 Z" fill="var(--ink)" opacity="0.15"/>
+            <!-- Left wall painted -->
+            <rect x="10" y="32" width="28" height="38" fill="url(#svc1wall)" rx="1"/>
+            <!-- Right wall unpainted -->
+            <rect x="42" y="32" width="28" height="38" fill="var(--ink)" opacity="0.06" rx="1"/>
+            <!-- Door -->
+            <rect x="32" y="48" width="16" height="22" rx="2" fill="var(--ink)" opacity="0.12"/>
+            <circle cx="44" cy="60" r="1.5" fill="var(--warm)"/>
+            <!-- Window -->
+            <rect x="50" y="40" width="12" height="10" rx="1" fill="#87CEEB" opacity="0.5"/>
+            <line x1="56" y1="40" x2="56" y2="50" stroke="var(--ink)" stroke-width="0.5" opacity="0.3"/>
+            <line x1="50" y1="45" x2="62" y2="45" stroke="var(--ink)" stroke-width="0.5" opacity="0.3"/>
+            <!-- Mini paint roller -->
+            <g transform="translate(15, 35) rotate(-5)">
+              <rect x="0" y="0" width="4" height="22" rx="2" fill="#555"/>
+              <path d="M2 0 L2 -5 Q2 -8 5 -8" stroke="#666" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <rect x="4" y="-14" width="18" height="8" rx="4" fill="#2B6CB0"/>
+            </g>
+          </svg>
+        </div>
+        <h3>Tinteggiatura Pareti</h3>
+        <p>Pittura professionale di pareti interne ed esterne con finiture di alta qualit&agrave; e colori su misura.</p>
+      </div>
+
+      <!-- 2. Decorazione -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <!-- Decorative wall -->
+            <rect x="8" y="12" width="64" height="56" rx="4" fill="var(--surface)" stroke="var(--ink)" stroke-width="1" opacity="0.2"/>
+            <!-- Decorative pattern - diamond -->
+            <path d="M40 20 L55 40 L40 60 L25 40 Z" fill="none" stroke="var(--warm)" stroke-width="1.5" opacity="0.6"/>
+            <path d="M40 26 L50 40 L40 54 L30 40 Z" fill="var(--warm)" opacity="0.12"/>
+            <!-- Decorative swirls -->
+            <path d="M18 25 Q25 20 28 28 Q30 34 24 32 Q18 30 18 25Z" stroke="var(--accent)" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M55 22 Q60 18 63 25 Q65 32 58 30 Q52 28 55 22Z" stroke="var(--accent)" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M18 50 Q22 45 27 50 Q30 55 24 56 Q18 56 18 50Z" stroke="var(--accent)" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M55 52 Q60 47 64 52 Q67 57 60 58 Q54 58 55 52Z" stroke="var(--accent)" stroke-width="1" fill="none" opacity="0.4"/>
+            <!-- Spatula / trowel -->
+            <g transform="translate(52, 42) rotate(30)">
+              <rect x="0" y="0" width="6" height="25" rx="3" fill="#8B7355"/>
+              <path d="M-4 -2 L10 -2 L12 -16 Q6 -20 0 -16 Z" fill="#C0C0C0"/>
+              <path d="M-2 -4 L8 -4 L9 -12 Q5 -14 1 -12 Z" fill="#D8D8D8" opacity="0.4"/>
+            </g>
+          </svg>
+        </div>
+        <h3>Decorazione Pareti</h3>
+        <p>Effetti decorativi, stucco veneziano, spatolati e finiture artistiche per ambienti di carattere.</p>
+      </div>
+
+      <!-- 3. Verniciatura -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <!-- Wood surface -->
+            <rect x="8" y="45" width="64" height="28" rx="3" fill="#b8855a"/>
+            <line x1="12" y1="52" x2="68" y2="52" stroke="#a07040" stroke-width="0.8" opacity="0.5"/>
+            <line x1="10" y1="58" x2="70" y2="58" stroke="#a07040" stroke-width="0.5" opacity="0.4"/>
+            <line x1="12" y1="64" x2="68" y2="64" stroke="#a07040" stroke-width="0.8" opacity="0.5"/>
+            <!-- Wood grain curves -->
+            <path d="M20 48 Q25 55 20 62" stroke="#a07040" stroke-width="0.5" opacity="0.3" fill="none"/>
+            <path d="M50 48 Q55 54 50 60" stroke="#a07040" stroke-width="0.5" opacity="0.3" fill="none"/>
+            <!-- Varnish shine on left part -->
+            <rect x="8" y="45" width="30" height="28" rx="3" fill="#d4a87a" opacity="0.3"/>
+            <rect x="10" y="47" width="15" height="24" rx="2" fill="#fff" opacity="0.08"/>
+            <!-- Paint brush -->
+            <g transform="translate(32, 10) rotate(15)">
+              <!-- Brush handle -->
+              <rect x="0" y="20" width="10" height="35" rx="2" fill="#8B7355"/>
+              <rect x="0" y="22" width="10" height="4" rx="1" fill="#7a6548" opacity="0.5"/>
+              <rect x="0" y="30" width="10" height="4" rx="1" fill="#7a6548" opacity="0.5"/>
+              <!-- Ferrule -->
+              <rect x="-1" y="14" width="12" height="8" rx="1" fill="#C0C0C0"/>
+              <rect x="0" y="15" width="10" height="2" rx="1" fill="#D8D8D8" opacity="0.4"/>
+              <!-- Bristles -->
+              <path d="M0 14 L-2 0 Q5 -4 12 0 L10 14Z" fill="#C4873B" opacity="0.8"/>
+              <line x1="2" y1="14" x2="1" y2="3" stroke="#b07830" stroke-width="0.5" opacity="0.5"/>
+              <line x1="5" y1="14" x2="5" y2="1" stroke="#b07830" stroke-width="0.5" opacity="0.5"/>
+              <line x1="8" y1="14" x2="9" y2="3" stroke="#b07830" stroke-width="0.5" opacity="0.5"/>
+              <!-- Paint drip -->
+              <path d="M4 -2 Q5 -8 6 -2" fill="#C4873B" opacity="0.6"/>
+            </g>
+            <!-- Drip from brush -->
+            <circle cx="48" cy="42" r="2.5" fill="#C4873B" opacity="0.5"/>
+            <circle cx="52" cy="44" r="1.5" fill="#C4873B" opacity="0.3"/>
+          </svg>
+        </div>
+        <h3>Verniciatura</h3>
+        <p>Verniciatura di infissi, porte, cancelli e strutture in legno e metallo con finiture resistenti.</p>
+      </div>
+
+      <!-- 4. Antimuffa -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <!-- Shield -->
+            <path d="M40 8 L62 18 Q66 20 66 24 L66 42 Q66 60 40 72 Q14 60 14 42 L14 24 Q14 20 18 18 Z" fill="var(--accent)" opacity="0.12"/>
+            <path d="M40 8 L62 18 Q66 20 66 24 L66 42 Q66 60 40 72 Q14 60 14 42 L14 24 Q14 20 18 18 Z" stroke="var(--accent)" stroke-width="2" fill="none"/>
+            <!-- Inner shield highlight -->
+            <path d="M40 14 L58 22 Q60 23 60 26 L60 40 Q60 55 40 66 Q20 55 20 40 L20 26 Q20 23 22 22 Z" fill="var(--accent)" opacity="0.06"/>
+            <!-- Checkmark inside shield -->
+            <path d="M28 40 L36 48 L52 30" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Water droplets bouncing off -->
+            <g opacity="0.5">
+              <path d="M8 28 Q10 22 12 28 Q10 32 8 28Z" fill="#5B9BD5"/>
+              <path d="M4 38 Q6 34 8 38 Q6 41 4 38Z" fill="#5B9BD5" opacity="0.7"/>
+              <path d="M68 30 Q70 24 72 30 Q70 34 68 30Z" fill="#5B9BD5"/>
+              <path d="M72 42 Q74 37 76 42 Q74 46 72 42Z" fill="#5B9BD5" opacity="0.6"/>
+              <!-- Splash lines -->
+              <line x1="11" y1="26" x2="6" y2="22" stroke="#5B9BD5" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+              <line x1="69" y1="28" x2="74" y2="24" stroke="#5B9BD5" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            </g>
+            <!-- Mold spots being blocked -->
+            <circle cx="10" cy="52" r="3" fill="#6B6860" opacity="0.3"/>
+            <circle cx="6" cy="58" r="2" fill="#6B6860" opacity="0.2"/>
+            <circle cx="70" cy="54" r="2.5" fill="#6B6860" opacity="0.25"/>
+            <!-- "No" line through mold -->
+            <line x1="7" y1="49" x2="13" y2="55" stroke="#e55" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3>Trattamenti Antimuffa</h3>
+        <p>Soluzioni certificate per eliminare muffa e umidit&agrave;, garantendo ambienti sani e duraturi.</p>
+      </div>
+
+      <!-- 5. Carta da Parati -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <!-- Wall background -->
+            <rect x="30" y="8" width="42" height="64" rx="2" fill="var(--ink)" opacity="0.06"/>
+            <!-- Wallpaper being applied (partially on wall) -->
+            <rect x="30" y="8" width="24" height="64" rx="1" fill="var(--warm)" opacity="0.2"/>
+            <!-- Wallpaper pattern on applied section -->
+            <circle cx="42" cy="20" r="4" fill="var(--warm)" opacity="0.3"/>
+            <circle cx="42" cy="36" r="4" fill="var(--warm)" opacity="0.3"/>
+            <circle cx="42" cy="52" r="4" fill="var(--warm)" opacity="0.3"/>
+            <path d="M38 26 Q42 30 46 26" stroke="var(--warm)" stroke-width="0.8" fill="none" opacity="0.4"/>
+            <path d="M38 42 Q42 46 46 42" stroke="var(--warm)" stroke-width="0.8" fill="none" opacity="0.4"/>
+            <path d="M38 58 Q42 62 46 58" stroke="var(--warm)" stroke-width="0.8" fill="none" opacity="0.4"/>
+            <!-- Wallpaper roll -->
+            <g transform="translate(8, 15)">
+              <!-- Roll side (circle) -->
+              <ellipse cx="14" cy="28" rx="14" ry="14" fill="var(--warm)" opacity="0.35"/>
+              <ellipse cx="14" cy="28" rx="8" ry="8" fill="var(--surface)"/>
+              <ellipse cx="14" cy="28" rx="4" ry="4" fill="var(--ink)" opacity="0.08"/>
+              <!-- Unrolling paper strip -->
+              <path d="M28 20 Q32 15 30 8 L54 8 L54 64 L30 64 Q32 57 28 36" stroke="var(--warm)" stroke-width="1" fill="var(--warm)" fill-opacity="0.1"/>
+            </g>
+            <!-- Smoothing tool -->
+            <g transform="translate(56, 30) rotate(10)">
+              <rect x="0" y="0" width="8" height="30" rx="2" fill="#8B7355"/>
+              <rect x="-2" y="-6" width="12" height="8" rx="2" fill="#C0C0C0"/>
+            </g>
+          </svg>
+        </div>
+        <h3>Carte da Parati</h3>
+        <p>Posa professionale di carta da parati di ogni tipologia, dalla classica alla moderna in tessuto.</p>
+      </div>
+
+      <!-- 6. Ignifugo -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <!-- Protective barrier / shield base -->
+            <path d="M40 65 L60 55 Q66 52 66 46 L66 30 Q66 26 62 24 L40 15 L18 24 Q14 26 14 30 L14 46 Q14 52 20 55 Z" fill="var(--accent)" opacity="0.1" stroke="var(--accent)" stroke-width="1.5"/>
+            <!-- Inner barrier -->
+            <path d="M40 60 L56 52 Q60 50 60 45 L60 32 Q60 29 57 28 L40 20 L23 28 Q20 29 20 32 L20 45 Q20 50 24 52 Z" fill="var(--accent)" opacity="0.06"/>
+            <!-- Flame being blocked -->
+            <g transform="translate(30, 18)">
+              <!-- Outer flame -->
+              <path d="M10 40 Q4 30 8 20 Q6 14 10 8 Q12 14 14 10 Q12 18 16 12 Q20 6 18 0 Q24 8 22 16 Q26 14 24 22 Q28 28 22 35 Q18 42 10 40Z" fill="#E8553A" opacity="0.7"/>
+              <!-- Inner flame -->
+              <path d="M10 38 Q7 32 10 24 Q9 20 12 16 Q14 22 16 18 Q18 12 16 8 Q20 14 18 22 Q22 18 20 26 Q22 32 16 36 Q13 39 10 38Z" fill="#F5A623" opacity="0.8"/>
+              <!-- Core -->
+              <path d="M12 36 Q10 30 12 26 Q14 22 16 26 Q18 30 14 34 Q13 36 12 36Z" fill="#FFD93D" opacity="0.9"/>
+            </g>
+            <!-- Block / stop line across flame -->
+            <line x1="26" y1="42" x2="54" y2="42" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+            <!-- Certification badge -->
+            <circle cx="58" cy="62" r="8" fill="var(--accent)" opacity="0.2"/>
+            <path d="M54 62 L57 65 L63 58" stroke="var(--accent)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Trattamenti Ignifughi</h3>
+        <p>Applicazione di pitture e trattamenti ignifughi certificati per la sicurezza dei vostri locali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PORTFOLIO ══════════════════════════════════════════════════ -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <p class="section-label">I Nostri Lavori</p>
+      <h2 class="section-title">Le Nostre Trasformazioni</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Ogni ambiente racconta una storia. Ecco alcune delle nostre realizzazioni pi&ugrave; recenti.</p>
+    </div>
+
+    <div class="portfolio-grid">
+
+      <!-- Project 1: Living room -->
+      <div class="portfolio-card reveal">
+        <svg viewBox="0 0 560 340" fill="none">
+          <defs>
+            <linearGradient id="p1wall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#D4A05A" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#C4873B" stop-opacity="0.3"/>
+            </linearGradient>
+          </defs>
+          <!-- Room - back wall -->
+          <rect x="0" y="0" width="560" height="220" fill="url(#p1wall)"/>
+          <!-- Wall accent stripe -->
+          <rect x="0" y="200" width="560" height="20" fill="#b8855a" opacity="0.2"/>
+          <!-- Floor -->
+          <path d="M0 220 L560 220 L560 340 L0 340Z" fill="#c4b89a" opacity="0.25"/>
+          <!-- Floor boards -->
+          <line x1="0" y1="250" x2="560" y2="250" stroke="#b0a080" stroke-width="0.5" opacity="0.3"/>
+          <line x1="0" y1="280" x2="560" y2="280" stroke="#b0a080" stroke-width="0.5" opacity="0.3"/>
+          <line x1="0" y1="310" x2="560" y2="310" stroke="#b0a080" stroke-width="0.5" opacity="0.3"/>
+          <!-- Window -->
+          <rect x="200" y="30" width="160" height="120" rx="3" fill="#87CEEB" opacity="0.3"/>
+          <rect x="200" y="30" width="160" height="120" rx="3" stroke="var(--ink)" stroke-width="1.5" opacity="0.15" fill="none"/>
+          <line x1="280" y1="30" x2="280" y2="150" stroke="var(--ink)" stroke-width="1" opacity="0.12"/>
+          <line x1="200" y1="90" x2="360" y2="90" stroke="var(--ink)" stroke-width="1" opacity="0.12"/>
+          <!-- Curtains -->
+          <path d="M195 25 Q185 90 190 160" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <path d="M365 25 Q375 90 370 160" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <!-- Sofa silhouette -->
+          <path d="M60 190 L60 260 Q60 270 70 270 L250 270 Q260 270 260 260 L260 190 Q260 180 250 180 L70 180 Q60 180 60 190Z" fill="var(--ink)" opacity="0.1"/>
+          <!-- Sofa cushions -->
+          <rect x="70" y="195" width="80" height="40" rx="8" fill="var(--ink)" opacity="0.07"/>
+          <rect x="165" y="195" width="80" height="40" rx="8" fill="var(--ink)" opacity="0.07"/>
+          <!-- Sofa back -->
+          <rect x="62" y="175" width="196" height="20" rx="6" fill="var(--ink)" opacity="0.12"/>
+          <!-- Armrest -->
+          <rect x="55" y="175" width="15" height="90" rx="6" fill="var(--ink)" opacity="0.08"/>
+          <rect x="253" y="175" width="15" height="90" rx="6" fill="var(--ink)" opacity="0.08"/>
+          <!-- Coffee table -->
+          <rect x="120" y="282" width="100" height="8" rx="2" fill="var(--ink)" opacity="0.12"/>
+          <rect x="130" y="290" width="4" height="25" fill="var(--ink)" opacity="0.08"/>
+          <rect x="206" y="290" width="4" height="25" fill="var(--ink)" opacity="0.08"/>
+          <!-- Side lamp -->
+          <rect x="310" y="240" width="6" height="40" fill="var(--ink)" opacity="0.1"/>
+          <path d="M295 220 Q313 210 331 220 L325 240 L301 240Z" fill="var(--warm)" opacity="0.2"/>
+          <!-- Plant -->
+          <g transform="translate(430, 180)">
+            <rect x="15" y="50" width="30" height="35" rx="4" fill="var(--ink)" opacity="0.1"/>
+            <path d="M30 50 Q20 30 30 15 Q35 25 30 50Z" fill="#5a8a50" opacity="0.35"/>
+            <path d="M30 50 Q40 25 35 10 Q45 28 30 50Z" fill="#4a7a40" opacity="0.3"/>
+            <path d="M30 50 Q15 35 22 18 Q20 35 30 50Z" fill="#6a9a60" opacity="0.25"/>
+          </g>
+          <!-- Painting on wall -->
+          <rect x="410" y="50" width="80" height="60" rx="2" fill="var(--accent)" opacity="0.15"/>
+          <rect x="410" y="50" width="80" height="60" rx="2" stroke="var(--ink)" stroke-width="1.5" opacity="0.12" fill="none"/>
+          <rect x="418" y="56" width="64" height="48" fill="#C4873B" opacity="0.1"/>
+        </svg>
+        <div class="portfolio-overlay">
+          <h3>Soggiorno Elegante</h3>
+          <p>Tinteggiatura con tonalit&agrave; calde e finitura satinata per un soggiorno accogliente.</p>
+        </div>
+      </div>
+
+      <!-- Project 2: Office -->
+      <div class="portfolio-card reveal">
+        <svg viewBox="0 0 560 340" fill="none">
+          <!-- Room - back wall with decorative finish -->
+          <rect x="0" y="0" width="560" height="220" fill="var(--accent)" opacity="0.08"/>
+          <!-- Textured pattern on wall -->
+          <g opacity="0.05">
+            <circle cx="40" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="120" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="200" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="280" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="360" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="440" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="520" cy="40" r="20" fill="var(--accent)"/>
+            <circle cx="80" cy="100" r="20" fill="var(--accent)"/>
+            <circle cx="160" cy="100" r="20" fill="var(--accent)"/>
+            <circle cx="240" cy="100" r="20" fill="var(--accent)"/>
+            <circle cx="320" cy="100" r="20" fill="var(--accent)"/>
+            <circle cx="400" cy="100" r="20" fill="var(--accent)"/>
+            <circle cx="480" cy="100" r="20" fill="var(--accent)"/>
+            <circle cx="40" cy="160" r="20" fill="var(--accent)"/>
+            <circle cx="120" cy="160" r="20" fill="var(--accent)"/>
+            <circle cx="200" cy="160" r="20" fill="var(--accent)"/>
+            <circle cx="280" cy="160" r="20" fill="var(--accent)"/>
+            <circle cx="360" cy="160" r="20" fill="var(--accent)"/>
+            <circle cx="440" cy="160" r="20" fill="var(--accent)"/>
+            <circle cx="520" cy="160" r="20" fill="var(--accent)"/>
+          </g>
+          <!-- Baseboard -->
+          <rect x="0" y="210" width="560" height="10" fill="var(--ink)" opacity="0.06"/>
+          <!-- Floor -->
+          <path d="M0 220 L560 220 L560 340 L0 340Z" fill="#8E897F" opacity="0.12"/>
+          <!-- Floor tiles -->
+          <line x1="80" y1="220" x2="80" y2="340" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+          <line x1="160" y1="220" x2="160" y2="340" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+          <line x1="240" y1="220" x2="240" y2="340" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+          <line x1="320" y1="220" x2="320" y2="340" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+          <line x1="400" y1="220" x2="400" y2="340" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+          <line x1="480" y1="220" x2="480" y2="340" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+          <!-- Desk -->
+          <rect x="80" y="230" width="260" height="10" rx="2" fill="var(--ink)" opacity="0.15"/>
+          <rect x="90" y="240" width="8" height="60" fill="var(--ink)" opacity="0.1"/>
+          <rect x="322" y="240" width="8" height="60" fill="var(--ink)" opacity="0.1"/>
+          <!-- Monitor -->
+          <rect x="160" y="170" width="100" height="60" rx="3" fill="var(--ink)" opacity="0.18"/>
+          <rect x="165" y="175" width="90" height="48" rx="2" fill="#87CEEB" opacity="0.15"/>
+          <rect x="200" y="230" width="20" height="4" rx="1" fill="var(--ink)" opacity="0.1"/>
+          <!-- Keyboard -->
+          <rect x="170" y="234" width="80" height="8" rx="2" fill="var(--ink)" opacity="0.08"/>
+          <!-- Office chair silhouette -->
+          <g transform="translate(190, 250)">
+            <ellipse cx="20" cy="15" rx="30" ry="8" fill="var(--ink)" opacity="0.08"/>
+            <rect x="16" y="20" width="8" height="35" fill="var(--ink)" opacity="0.06"/>
+            <circle cx="10" cy="58" r="4" fill="var(--ink)" opacity="0.08"/>
+            <circle cx="30" cy="58" r="4" fill="var(--ink)" opacity="0.08"/>
+            <path d="M-5 12 Q20 -5 45 12" fill="var(--ink)" opacity="0.1"/>
+          </g>
+          <!-- Bookshelf -->
+          <g transform="translate(400, 50)">
+            <rect x="0" y="0" width="120" height="170" fill="var(--ink)" opacity="0.06"/>
+            <line x1="0" y1="42" x2="120" y2="42" stroke="var(--ink)" stroke-width="1.5" opacity="0.08"/>
+            <line x1="0" y1="85" x2="120" y2="85" stroke="var(--ink)" stroke-width="1.5" opacity="0.08"/>
+            <line x1="0" y1="128" x2="120" y2="128" stroke="var(--ink)" stroke-width="1.5" opacity="0.08"/>
+            <!-- Books -->
+            <rect x="8" y="5" width="10" height="35" rx="1" fill="var(--accent)" opacity="0.2"/>
+            <rect x="20" y="8" width="8" height="32" rx="1" fill="var(--warm)" opacity="0.2"/>
+            <rect x="30" y="6" width="12" height="34" rx="1" fill="var(--ink)" opacity="0.08"/>
+            <rect x="50" y="10" width="10" height="30" rx="1" fill="var(--accent)" opacity="0.15"/>
+            <rect x="8" y="48" width="8" height="35" rx="1" fill="var(--warm)" opacity="0.15"/>
+            <rect x="18" y="50" width="12" height="33" rx="1" fill="var(--accent)" opacity="0.2"/>
+            <rect x="38" y="46" width="10" height="37" rx="1" fill="var(--ink)" opacity="0.1"/>
+          </g>
+          <!-- Wall art -->
+          <rect x="40" y="40" width="60" height="80" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <rect x="45" y="45" width="50" height="70" fill="var(--warm)" opacity="0.08"/>
+        </svg>
+        <div class="portfolio-overlay">
+          <h3>Ufficio Professionale</h3>
+          <p>Effetto spatolato sulle pareti per un ambiente di lavoro moderno e raffinato.</p>
+        </div>
+      </div>
+
+      <!-- Project 3: Exterior -->
+      <div class="portfolio-card reveal">
+        <svg viewBox="0 0 560 340" fill="none">
+          <!-- Sky -->
+          <rect x="0" y="0" width="560" height="200" fill="#87CEEB" opacity="0.12"/>
+          <!-- Clouds -->
+          <g opacity="0.08">
+            <ellipse cx="100" cy="40" rx="50" ry="20" fill="var(--ink)"/>
+            <ellipse cx="130" cy="35" rx="35" ry="18" fill="var(--ink)"/>
+            <ellipse cx="400" cy="55" rx="45" ry="18" fill="var(--ink)"/>
+            <ellipse cx="430" cy="50" rx="30" ry="14" fill="var(--ink)"/>
+          </g>
+          <!-- Ground -->
+          <rect x="0" y="280" width="560" height="60" fill="#8B9A6B" opacity="0.15"/>
+          <!-- Building facade -->
+          <rect x="100" y="60" width="360" height="220" fill="var(--ink)" opacity="0.08"/>
+          <!-- Building details -->
+          <rect x="100" y="60" width="360" height="15" fill="var(--ink)" opacity="0.04"/>
+          <rect x="100" y="265" width="360" height="15" fill="var(--ink)" opacity="0.05"/>
+          <!-- Windows row 1 -->
+          <rect x="130" y="90" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="130" y="90" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <line x1="155" y1="90" x2="155" y2="140" stroke="var(--ink)" stroke-width="0.5" opacity="0.1"/>
+          <rect x="210" y="90" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="210" y="90" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <rect x="300" y="90" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="300" y="90" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <rect x="380" y="90" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="380" y="90" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <!-- Windows row 2 -->
+          <rect x="130" y="160" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="130" y="160" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <rect x="210" y="160" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="210" y="160" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <rect x="300" y="160" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="300" y="160" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <rect x="380" y="160" width="50" height="50" rx="2" fill="#87CEEB" opacity="0.2"/>
+          <rect x="380" y="160" width="50" height="50" rx="2" stroke="var(--ink)" stroke-width="1" opacity="0.1" fill="none"/>
+          <!-- Door -->
+          <rect x="250" y="220" width="60" height="60" rx="3" fill="var(--ink)" opacity="0.12"/>
+          <circle cx="300" cy="252" r="3" fill="var(--warm)" opacity="0.5"/>
+          <!-- Painted section (left half) -->
+          <rect x="100" y="60" width="150" height="220" fill="var(--warm)" opacity="0.1"/>
+          <!-- Paint edge line -->
+          <line x1="250" y1="60" x2="250" y2="280" stroke="var(--warm)" stroke-width="2" opacity="0.3" stroke-dasharray="8 4"/>
+          <!-- Scaffolding -->
+          <g opacity="0.25">
+            <!-- Vertical poles -->
+            <rect x="85" y="50" width="4" height="240" fill="#888"/>
+            <rect x="255" y="50" width="4" height="240" fill="#888"/>
+            <!-- Horizontal bars -->
+            <rect x="85" y="140" width="174" height="4" fill="#888"/>
+            <rect x="85" y="210" width="174" height="4" fill="#888"/>
+            <!-- Platform -->
+            <rect x="82" y="136" width="180" height="8" rx="1" fill="#b8855a" opacity="0.6"/>
+            <!-- Figure on scaffolding -->
+            <circle cx="170" cy="115" r="8" fill="#e8c9a0" opacity="0.8"/>
+            <rect x="164" y="123" width="12" height="16" rx="3" fill="#fff" opacity="0.7"/>
+            <!-- Arm with roller -->
+            <line x1="176" y1="128" x2="195" y2="110" stroke="#e8c9a0" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+            <rect x="190" y="95" width="30" height="12" rx="6" fill="var(--warm)" opacity="0.7"/>
+          </g>
+          <!-- Sidewalk -->
+          <rect x="0" y="280" width="560" height="8" fill="var(--ink)" opacity="0.06"/>
+        </svg>
+        <div class="portfolio-overlay">
+          <h3>Facciata Esterna</h3>
+          <p>Ripristino e tinteggiatura della facciata di un condominio con colori certificati.</p>
+        </div>
+      </div>
+
+      <!-- Project 4: Wallpaper room -->
+      <div class="portfolio-card reveal">
+        <svg viewBox="0 0 560 340" fill="none">
+          <!-- Room wall -->
+          <rect x="0" y="0" width="560" height="240" fill="var(--ink)" opacity="0.04"/>
+          <!-- Wallpaper applied on left section -->
+          <rect x="0" y="0" width="300" height="240" fill="var(--warm)" opacity="0.06"/>
+          <!-- Wallpaper pattern - floral/geometric repeated -->
+          <g opacity="0.12">
+            <path d="M40 30 Q50 20 60 30 Q50 40 40 30Z" fill="var(--warm)"/>
+            <path d="M120 30 Q130 20 140 30 Q130 40 120 30Z" fill="var(--warm)"/>
+            <path d="M200 30 Q210 20 220 30 Q210 40 200 30Z" fill="var(--warm)"/>
+            <path d="M80 80 Q90 70 100 80 Q90 90 80 80Z" fill="var(--warm)"/>
+            <path d="M160 80 Q170 70 180 80 Q170 90 160 80Z" fill="var(--warm)"/>
+            <path d="M240 80 Q250 70 260 80 Q250 90 240 80Z" fill="var(--warm)"/>
+            <path d="M40 130 Q50 120 60 130 Q50 140 40 130Z" fill="var(--warm)"/>
+            <path d="M120 130 Q130 120 140 130 Q130 140 120 130Z" fill="var(--warm)"/>
+            <path d="M200 130 Q210 120 220 130 Q210 140 200 130Z" fill="var(--warm)"/>
+            <path d="M80 180 Q90 170 100 180 Q90 190 80 180Z" fill="var(--warm)"/>
+            <path d="M160 180 Q170 170 180 180 Q170 190 160 180Z" fill="var(--warm)"/>
+            <path d="M240 180 Q250 170 260 180 Q250 190 240 180Z" fill="var(--warm)"/>
+            <!-- Small dots between -->
+            <circle cx="60" cy="55" r="3" fill="var(--warm)"/>
+            <circle cx="140" cy="55" r="3" fill="var(--warm)"/>
+            <circle cx="220" cy="55" r="3" fill="var(--warm)"/>
+            <circle cx="100" cy="105" r="3" fill="var(--warm)"/>
+            <circle cx="180" cy="105" r="3" fill="var(--warm)"/>
+            <circle cx="260" cy="105" r="3" fill="var(--warm)"/>
+            <circle cx="60" cy="155" r="3" fill="var(--warm)"/>
+            <circle cx="140" cy="155" r="3" fill="var(--warm)"/>
+            <circle cx="220" cy="155" r="3" fill="var(--warm)"/>
+          </g>
+          <!-- Wallpaper edge being applied - peeling sheet -->
+          <path d="M300 0 Q310 0 315 10 L315 230 Q312 240 300 240Z" fill="var(--warm)" opacity="0.12"/>
+          <path d="M315 10 Q330 15 325 30 L325 220 Q328 235 315 230" fill="var(--warm)" opacity="0.05" stroke="var(--warm)" stroke-width="0.5" opacity="0.15"/>
+          <!-- Baseboard -->
+          <rect x="0" y="230" width="560" height="10" fill="var(--ink)" opacity="0.06"/>
+          <!-- Floor -->
+          <rect x="0" y="240" width="560" height="100" fill="#c4b89a" opacity="0.15"/>
+          <!-- Floor pattern -->
+          <path d="M0 240 L80 340 M80 240 L160 340 M160 240 L240 340 M240 240 L320 340 M320 240 L400 340 M400 240 L480 340 M480 240 L560 340" stroke="#b0a080" stroke-width="0.5" opacity="0.1"/>
+          <!-- Bed silhouette -->
+          <g transform="translate(350, 140)">
+            <!-- Headboard -->
+            <rect x="0" y="0" width="180" height="60" rx="6" fill="var(--ink)" opacity="0.08"/>
+            <!-- Mattress -->
+            <rect x="5" y="55" width="170" height="40" rx="4" fill="var(--ink)" opacity="0.06"/>
+            <!-- Pillows -->
+            <rect x="15" y="58" width="55" height="20" rx="8" fill="var(--ink)" opacity="0.05"/>
+            <rect x="80" y="58" width="55" height="20" rx="8" fill="var(--ink)" opacity="0.05"/>
+            <!-- Blanket -->
+            <rect x="10" y="78" width="160" height="20" rx="3" fill="var(--accent)" opacity="0.08"/>
+          </g>
+          <!-- Nightstand -->
+          <rect x="340" y="200" width="40" height="35" rx="3" fill="var(--ink)" opacity="0.07"/>
+          <circle cx="360" cy="195" r="8" fill="var(--warm)" opacity="0.12"/>
+          <!-- Wallpaper roll on floor -->
+          <g transform="translate(100, 260)">
+            <ellipse cx="40" cy="20" rx="40" ry="12" fill="var(--warm)" opacity="0.15"/>
+            <ellipse cx="40" cy="20" rx="20" ry="7" fill="var(--surface)"/>
+            <rect x="0" y="8" width="80" height="24" rx="12" fill="var(--warm)" opacity="0.12"/>
+          </g>
+          <!-- Smoothing tool on floor -->
+          <g transform="translate(200, 275) rotate(-20)">
+            <rect x="0" y="0" width="6" height="22" rx="2" fill="#8B7355" opacity="0.4"/>
+            <rect x="-2" y="-5" width="10" height="7" rx="2" fill="#C0C0C0" opacity="0.3"/>
+          </g>
+        </svg>
+        <div class="portfolio-overlay">
+          <h3>Camera con Carta da Parati</h3>
+          <p>Posa di carta da parati elegante con motivo floreale in una camera matrimoniale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PERCH&Eacute; SCEGLIERCI ══════════════════════════════════════════════════ -->
+<section id="perche">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <p class="section-label">Perch&eacute; Sceglierci</p>
+      <h2 class="section-title">Numeri che parlano</h2>
+    </div>
+
+    <div class="stats-row reveal">
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="20">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Anni di Esperienza</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="500">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Progetti Completati</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="100">0</span><span class="stat-suffix">%</span></div>
+        <div class="stat-label">Clienti Soddisfatti</div>
+      </div>
+    </div>
+
+    <div class="features-row">
+      <div class="feature-block reveal">
+        <div class="feature-icon">
+          <!-- Quality / Diamond icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3h12l4 6-10 13L2 9z"/>
+            <path d="M2 9h20"/>
+            <path d="M12 22L6 9l6-6 6 6z" opacity="0.3"/>
+          </svg>
+        </div>
+        <h3>Qualit&agrave; Garantita</h3>
+        <p>Utilizziamo esclusivamente prodotti certificati di marchi leader per risultati duraturi nel tempo.</p>
+      </div>
+      <div class="feature-block reveal">
+        <div class="feature-icon">
+          <!-- Clock icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Puntualit&agrave; Assoluta</h3>
+        <p>Rispettiamo sempre le tempistiche concordate, senza sorprese n&eacute; ritardi sulla consegna.</p>
+      </div>
+      <div class="feature-block reveal">
+        <div class="feature-icon">
+          <!-- Handshake / Trust icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"/>
+          </svg>
+        </div>
+        <h3>Passione Artigianale</h3>
+        <p>Ogni progetto &egrave; curato con la dedizione di chi ama il proprio mestiere e punta alla perfezione.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ CONTATTI ══════════════════════════════════════════════════ -->
+<section class="contact" id="contatti">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:3rem;" class="reveal">
+      <p class="section-label">Contatti</p>
+      <h2 class="section-title">Parliamo del tuo progetto</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Contattaci per un sopralluogo gratuito e un preventivo senza impegno.</p>
+    </div>
+
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Dove Trovarci</h3>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <div class="label">Indirizzo</div>
+            <div class="value">Via Principe Amedeo, 35<br>37069 Villafranca di Verona (VR)</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <div class="label">Telefono</div>
+            <div class="value"><a href="tel:3401216831">340 1216831</a></div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon" style="background: #25D366;">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.917 1.042 5.592 2.775 7.669L.96 23.556l4.06-1.06A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.488 0-4.787-.878-6.578-2.34l-.374-.312-3.89 1.02 1.04-3.8-.34-.54A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <div class="label">WhatsApp</div>
+            <div class="value"><a href="https://wa.me/393401216831" target="_blank" rel="noopener">Scrivici su WhatsApp</a></div>
+          </div>
+        </div>
+
+        <div class="contact-hours">
+          <h4>Orari di Lavoro</h4>
+          <p>Luned&igrave; &ndash; Venerd&igrave;: 7:30 &ndash; 18:00</p>
+          <p>Sabato: 8:00 &ndash; 12:00</p>
+          <p>Domenica: Chiuso</p>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Grazie per il messaggio! Vi contatteremo al più presto.');">
+        <h3>Richiedi un Preventivo</h3>
+        <div class="form-group">
+          <label for="nome">Nome e Cognome</label>
+          <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required>
+        </div>
+        <div class="form-group">
+          <label for="telefono">Telefono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Il tuo numero">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="La tua email" required>
+        </div>
+        <div class="form-group">
+          <label for="messaggio">Messaggio</label>
+          <textarea id="messaggio" name="messaggio" placeholder="Descrivi il tuo progetto..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Invia Richiesta</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ FOOTER ══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Tinteggiature Cordioli S.n.c.</div>
+        <p class="footer-desc">Da oltre vent'anni trasformiamo spazi con passione artigianale e materiali di qualit&agrave;. Il vostro progetto &egrave; la nostra missione.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/393401216831" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          </a>
+          <a href="tel:3401216831" aria-label="Telefono">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </a>
+          <a href="mailto:info@tinteggiaturecordioli.it" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigazione</h4>
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#chi-siamo">Chi Siamo</a>
+          <a href="#servizi">Servizi</a>
+          <a href="#portfolio">I Nostri Lavori</a>
+          <a href="#perche">Perch&eacute; Noi</a>
+          <a href="#contatti">Contatti</a>
+        </div>
+      </div>
+      <div>
+        <h4>Contatti</h4>
+        <div class="footer-links">
+          <a href="tel:3401216831">340 1216831</a>
+          <a href="https://wa.me/393401216831" target="_blank" rel="noopener">WhatsApp</a>
+          <a>Via Principe Amedeo, 35</a>
+          <a>Villafranca di Verona (VR)</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 Tinteggiature Cordioli S.n.c. &mdash; P.IVA 00000000000 &mdash; Tutti i diritti riservati.
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════ JAVASCRIPT ══════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ── Hamburger toggle ── */
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  /* Close mobile menu on link click */
+  navLinks.querySelectorAll('.nav-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  /* ── Sticky nav shadow on scroll ── */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 40) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ── Active nav link highlighting ── */
+  var sections = document.querySelectorAll('section[id]');
+  var navLinkElements = document.querySelectorAll('.nav-link');
+
+  function highlightNav() {
+    var scrollY = window.scrollY + 120;
+    sections.forEach(function(section) {
+      var top = section.offsetTop;
+      var height = section.offsetHeight;
+      var id = section.getAttribute('id');
+      if (scrollY >= top && scrollY < top + height) {
+        navLinkElements.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', highlightNav, { passive: true });
+  highlightNav();
+
+  /* ── IntersectionObserver for reveal animations ── */
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  /* ── Counter animation ── */
+  var countersAnimated = false;
+
+  function animateCounters() {
+    if (countersAnimated) return;
+    var counters = document.querySelectorAll('.counter');
+    if (counters.length === 0) return;
+
+    countersAnimated = true;
+    counters.forEach(function(counter) {
+      var target = parseInt(counter.getAttribute('data-target'), 10);
+      var duration = 2000;
+      var startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.floor(eased * target);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          counter.textContent = target;
+        }
+      }
+
+      if (prefersReduced) {
+        counter.textContent = target;
+      } else {
+        requestAnimationFrame(step);
+      }
+    });
+  }
+
+  var statsSection = document.querySelector('.stats-row');
+  if (statsSection) {
+    var statsObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          animateCounters();
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    statsObserver.observe(statsSection);
+  }
+
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════ PARTICLE SYSTEM ══════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+
+  var particles = [];
+  var PARTICLE_COUNT = 45;
+  var colors = [
+    { r: 43, g: 127, b: 212 },
+    { r: 91, g: 155, b: 213 },
+    { r: 196, g: 135, b: 59 },
+    { r: 212, g: 160, b: 90 }
+  ];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createParticle() {
+    var color = colors[Math.floor(Math.random() * colors.length)];
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: 2 + Math.random() * 4,
+      color: color,
+      alpha: 0,
+      targetAlpha: 0.08 + Math.random() * 0.17,
+      fadeDir: 1,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -(0.15 + Math.random() * 0.35),
+      fadeSpeed: 0.002 + Math.random() * 0.004
+    };
+  }
+
+  function init() {
+    resize();
+    particles = [];
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+      var p = createParticle();
+      p.alpha = Math.random() * p.targetAlpha;
+      particles.push(p);
+    }
+  }
+
+  function update() {
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.fadeDir === 1) {
+        p.alpha += p.fadeSpeed;
+        if (p.alpha >= p.targetAlpha) {
+          p.alpha = p.targetAlpha;
+          p.fadeDir = -1;
+        }
+      } else {
+        p.alpha -= p.fadeSpeed;
+        if (p.alpha <= 0) {
+          particles[i] = createParticle();
+          particles[i].y = canvas.height + 10;
+        }
+      }
+
+      if (p.y < -20 || p.x < -20 || p.x > canvas.width + 20) {
+        particles[i] = createParticle();
+        particles[i].y = canvas.height + 10;
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + p.alpha + ')';
+      ctx.fill();
+    }
+  }
+
+  function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize);
+  init();
+  loop();
+})();
+</script>
+
+</body>
+</html>

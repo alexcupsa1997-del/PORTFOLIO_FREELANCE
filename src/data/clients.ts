@@ -51,4 +51,26 @@ export const clients: Client[] = [
     palette: ['#15181E', '#B8943C', '#3D7A42', '#D45B27'],
     thumbnail: 'clients/roncari-snc.webp',
   },
+  {
+    slug: 'cordioli-snc',
+    name: 'Tinteggiature Cordioli S.n.c.',
+    category: 'Edilizia · Tinteggiature e Decorazioni',
+    location: 'Villafranca di Verona (VR)',
+    year: 2026,
+    tagline: 'Il colore che trasforma i tuoi spazi.',
+    description:
+      'Tinteggiature Cordioli è un\'impresa a conduzione familiare specializzata in tinteggiatura, decorazione pareti, verniciatura e trattamenti speciali. Tre proposte di sito con illustrazioni SVG, animazioni allo scroll, particelle canvas e design futuristico.',
+    liveUrl: '',
+    status: 'in-progress',
+    scope: ['Design', 'Sviluppo', '3 Proposte', 'Illustrazioni SVG', 'Animazioni'],
+    services: [
+      'Tinteggiatura Interni ed Esterni',
+      'Decorazione Pareti',
+      'Verniciatura',
+      'Trattamenti Antimuffa e Antiumidità',
+      'Carta da Parati',
+      'Trattamenti Ignifughi',
+    ],
+    palette: ['#1D2433', '#2B7FD4', '#C4873B', '#15998A'],
+  },
 ];

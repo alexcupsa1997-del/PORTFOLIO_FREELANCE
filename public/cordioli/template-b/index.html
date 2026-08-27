@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tinteggiature Cordioli S.n.c. — Tinteggiatura, decorazione, verniciatura e trattamenti speciali a Villafranca di Verona. Tel. 340 1216831.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tinteggiature Cordioli — Colore Vivo | Villafranca di Verona">
+<meta property="og:description" content="Servizi professionali di tinteggiatura, decorazione pareti e trattamenti speciali a Villafranca di Verona e provincia.">
+<meta property="og:locale" content="it_IT">
+</head>
+<body>
+<title>Colore Vivo Cordioli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ===== TOKENS ===== */
+:root {
+  --ground: #FAFAF7;
+  --ink: #151517;
+  --accent: #15998A;
+  --highlight: #E8943A;
+  --muted: #7D7B76;
+  --surface: #F0EFEB;
+  --nav-bg: rgba(250,250,247,0.55);
+  --nav-border: rgba(21,21,23,0.06);
+  --card-shadow: 0 2px 24px rgba(0,0,0,0.06);
+  --card-hover-shadow: 0 8px 40px rgba(0,0,0,0.10);
+  --accent-10: rgba(21,153,138,0.10);
+  --accent-20: rgba(21,153,138,0.20);
+  --highlight-10: rgba(232,148,58,0.10);
+  --glow-accent: rgba(21,153,138,0.45);
+  --glow-highlight: rgba(232,148,58,0.40);
+  --glass-bg: rgba(250,250,247,0.45);
+  --glass-border: rgba(255,255,255,0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #111113;
+    --ink: #EDEDEA;
+    --accent: #30C9B5;
+    --highlight: #F0A84D;
+    --muted: #5E5C58;
+    --surface: #1C1C1F;
+    --nav-bg: rgba(17,17,19,0.50);
+    --nav-border: rgba(237,237,234,0.08);
+    --card-shadow: 0 2px 24px rgba(0,0,0,0.3);
+    --card-hover-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    --accent-10: rgba(48,201,181,0.14);
+    --accent-20: rgba(48,201,181,0.25);
+    --highlight-10: rgba(240,168,77,0.14);
+    --glow-accent: rgba(48,201,181,0.55);
+    --glow-highlight: rgba(240,168,77,0.50);
+    --glass-bg: rgba(28,28,31,0.50);
+    --glass-border: rgba(255,255,255,0.08);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #111113;
+  --ink: #EDEDEA;
+  --accent: #30C9B5;
+  --highlight: #F0A84D;
+  --muted: #5E5C58;
+  --surface: #1C1C1F;
+  --nav-bg: rgba(17,17,19,0.50);
+  --nav-border: rgba(237,237,234,0.08);
+  --card-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  --card-hover-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  --accent-10: rgba(48,201,181,0.14);
+  --accent-20: rgba(48,201,181,0.25);
+  --highlight-10: rgba(240,168,77,0.14);
+  --glow-accent: rgba(48,201,181,0.55);
+  --glow-highlight: rgba(240,168,77,0.50);
+  --glass-bg: rgba(28,28,31,0.50);
+  --glass-border: rgba(255,255,255,0.08);
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Karla', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; border: none; cursor: pointer; background: none; }
+ul { list-style: none; }
+
+/* ===== SCROLL PROGRESS BAR ===== */
+#scrollProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--highlight));
+  z-index: 10000;
+  transition: width 0.05s linear;
+  box-shadow: 0 0 8px var(--glow-accent);
+}
+
+/* ===== PARTICLE CANVAS ===== */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.syne { font-family: 'Syne', sans-serif; }
+h1, h2, h3, h4 { font-family: 'Syne', sans-serif; line-height: 1.15; }
+h1 { font-size: clamp(2.6rem, 6vw, 5.2rem); font-weight: 800; letter-spacing: -0.03em; }
+h2 { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; }
+h3 { font-size: clamp(1.15rem, 2vw, 1.35rem); font-weight: 700; }
+.section-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.highlight-text { color: var(--highlight); }
+/* Glow on "Tutto" */
+.highlight-text-glow {
+  color: var(--highlight);
+  animation: textGlow 3s ease-in-out infinite;
+}
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 8px var(--glow-highlight), 0 0 20px rgba(232,148,58,0.15); }
+  50% { text-shadow: 0 0 16px var(--glow-highlight), 0 0 40px rgba(232,148,58,0.25), 0 0 60px rgba(232,148,58,0.1); }
+}
+
+/* ===== LAYOUT ===== */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.2rem, 4vw, 3rem); }
+section { padding: clamp(4rem, 10vw, 8rem) 0; position: relative; z-index: 1; }
+
+/* ===== GRADIENT SECTION DIVIDERS ===== */
+.gradient-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-20), var(--highlight-10), transparent);
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== NAV (Glassmorphism) ===== */
+nav {
+  position: fixed;
+  top: 3px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: background 0.4s, box-shadow 0.4s, padding 0.4s, backdrop-filter 0.4s;
+}
+nav.scrolled {
+  background: var(--nav-bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: 0 1px 0 var(--nav-border);
+  border-top: 1px solid var(--glass-border);
+  padding: 0.65rem 0;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 4vw, 3rem);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-logo .logo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--glow-accent);
+}
+.nav-links {
+  display: flex;
+  gap: 2.2rem;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--accent);
+  border-radius: 50%;
+  transition: width 0.3s, height 0.3s, left 0.3s, box-shadow 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after {
+  width: 6px;
+  height: 6px;
+  left: calc(50% - 3px);
+  box-shadow: 0 0 8px var(--glow-accent), 0 0 16px var(--glow-accent);
+}
+.nav-phone {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.55rem 1.3rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.nav-phone:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px var(--glow-accent), 0 0 30px var(--glow-accent);
+}
+.nav-phone svg { width: 16px; height: 16px; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  z-index: 1100;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.35s, opacity 0.35s;
+  border-radius: 2px;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile overlay (Glassmorphism) */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: var(--nav-bg);
+  backdrop-filter: blur(30px) saturate(1.3);
+  -webkit-backdrop-filter: blur(30px) saturate(1.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.mobile-overlay.open { opacity: 1; pointer-events: all; }
+.mobile-overlay a {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.mobile-overlay a:hover {
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--glow-accent);
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  overflow: hidden;
+  position: relative;
+}
+/* Animated gradient background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    var(--ground) 0%,
+    var(--accent-10) 25%,
+    var(--ground) 50%,
+    var(--highlight-10) 75%,
+    var(--ground) 100%
+  );
+  background-size: 400% 400%;
+  animation: heroGradient 12s ease infinite;
+  z-index: -2;
+}
+@keyframes heroGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Dot grid overlay */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--ink) 0.7px, transparent 0.7px);
+  background-size: 28px 28px;
+  opacity: 0.03;
+  z-index: -1;
+  pointer-events: none;
+}
+/* Scan line */
+.hero-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.15;
+  z-index: 2;
+  animation: scanLine 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes scanLine {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.15; }
+  100% { top: 100%; opacity: 0; }
+}
+/* Mouse follow light */
+#heroMouseLight {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-accent) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s;
+  mix-blend-mode: screen;
+}
+.hero:hover #heroMouseLight { opacity: 0.12; }
+
+/* Floating geometric shapes in hero */
+.hero-geo {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.08;
+}
+.hero-geo-1 {
+  top: 15%;
+  left: 8%;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--accent);
+  animation: geoFloat1 18s ease-in-out infinite;
+}
+.hero-geo-2 {
+  bottom: 20%;
+  right: 10%;
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--highlight);
+  border-radius: 50%;
+  animation: geoFloat2 22s ease-in-out infinite;
+}
+.hero-geo-3 {
+  top: 60%;
+  left: 5%;
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 43px solid var(--accent);
+  opacity: 0.06;
+  animation: geoFloat3 20s ease-in-out infinite;
+}
+@keyframes geoFloat1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(60deg); }
+  66% { transform: translateY(15px) rotate(120deg); }
+}
+@keyframes geoFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-15px, -25px) scale(1.1); }
+}
+@keyframes geoFloat3 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(180deg); }
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+.hero-text h1 { margin-bottom: 1.2rem; }
+.hero-text p {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: var(--muted);
+  max-width: 480px;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+/* CTA Buttons with neon glow */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.25s, box-shadow 0.4s;
+  position: relative;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 10px var(--glow-accent),
+    0 0 30px var(--glow-accent),
+    0 0 60px rgba(21,153,138,0.15),
+    0 8px 24px var(--accent-20);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--ink);
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--glass-border);
+  transition: background 0.3s, color 0.3s, transform 0.25s, box-shadow 0.3s;
+}
+.btn-secondary:hover {
+  background: var(--ink);
+  color: var(--ground);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(21,21,23,0.15);
+}
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-visual svg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+/* ===== SERVICES ===== */
+.services { background: var(--surface); }
+.services-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+}
+.services-header .section-label { justify-content: center; }
+.services-header p {
+  color: var(--muted);
+  margin-top: 0.8rem;
+  font-size: 1.05rem;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+/* Service cards with glass + 3D tilt */
+.service-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.45s ease, box-shadow 0.45s ease;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  perspective: 800px;
+}
+.service-card:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(-1deg);
+  box-shadow: var(--card-hover-shadow), 0 0 20px var(--glow-accent);
+  border-color: var(--accent-20);
+}
+.service-card-visual {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.service-card-visual svg {
+  width: 100%;
+  height: 100%;
+}
+.service-card-body {
+  padding: 1.5rem;
+}
+/* Service numbers with glow */
+.service-number {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px var(--glow-accent);
+}
+.service-card-body h3 { margin-bottom: 0.5rem; }
+.service-card-body p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* ===== PORTFOLIO ===== */
+.portfolio-header {
+  max-width: 640px;
+  margin-bottom: 3rem;
+}
+.portfolio-header p {
+  color: var(--muted);
+  margin-top: 0.8rem;
+  font-size: 1.05rem;
+}
+.portfolio-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+.portfolio-scroll::-webkit-scrollbar { height: 6px; }
+.portfolio-scroll::-webkit-scrollbar-track { background: transparent; }
+.portfolio-scroll::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+/* Portfolio cards with glow on hover */
+.portfolio-card {
+  flex: 0 0 min(400px, 85vw);
+  scroll-snap-align: start;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+}
+.portfolio-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: var(--card-hover-shadow), 0 0 24px var(--glow-accent);
+  border-color: var(--accent-20);
+}
+/* Glass overlay on portfolio image on hover */
+.portfolio-card-img {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+.portfolio-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, var(--glass-bg));
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.portfolio-card:hover .portfolio-card-img::after { opacity: 1; }
+.portfolio-card-img svg {
+  width: 100%;
+  height: 100%;
+}
+.portfolio-card-info {
+  padding: 1.3rem 1.5rem;
+}
+.portfolio-card-info .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.portfolio-card-info h3 { font-size: 1.15rem; }
+
+/* ===== ABOUT ===== */
+.about { background: var(--surface); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+.about-visual svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+}
+.about-text .section-label { margin-bottom: 0.6rem; }
+.about-text h2 { margin-bottom: 1.2rem; }
+.about-text > p {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+.stats-row {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+/* Stats with glass circles + progress rings */
+.stat-item {
+  text-align: center;
+  position: relative;
+}
+.stat-ring-wrap {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 0.6rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+}
+.stat-ring-svg {
+  position: absolute;
+  inset: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+}
+.stat-ring-bg {
+  fill: none;
+  stroke: var(--accent-10);
+  stroke-width: 2;
+}
+.stat-ring-fg {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  transition: stroke-dashoffset 1.8s ease;
+  filter: drop-shadow(0 0 4px var(--glow-accent));
+}
+.stat-ring-wrap.animated .stat-ring-fg {
+  stroke-dashoffset: var(--ring-target);
+}
+.stat-number {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+/* ===== CONTACT ===== */
+.contact {
+  background: var(--accent);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  position: relative;
+}
+.contact-info h2 { margin-bottom: 1rem; }
+.contact-info > p {
+  opacity: 0.85;
+  margin-bottom: 2rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.contact-detail-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-detail-icon svg { width: 18px; height: 18px; }
+.contact-detail-text strong {
+  display: block;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  margin-bottom: 0.15rem;
+  font-weight: 600;
+}
+.contact-detail-text span { font-size: 1rem; }
+.contact-detail-text a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* Futuristic form inputs: bottom-border only */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.9rem 0.2rem;
+  border: none;
+  border-bottom: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-bottom-color: #fff;
+  box-shadow: 0 2px 12px rgba(255,255,255,0.15);
+}
+.contact-form textarea { resize: vertical; min-height: 120px; }
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: var(--accent);
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.4s;
+  align-self: flex-start;
+}
+.btn-white:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.4),
+    0 0 30px rgba(255,255,255,0.15),
+    0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* ===== WHATSAPP FLOAT ===== */
+.whatsapp-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 12px rgba(37,211,102,0.5),
+    0 0 30px rgba(37,211,102,0.3),
+    0 0 50px rgba(37,211,102,0.15);
+}
+.whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--ink);
+  color: var(--ground);
+  padding: 3rem 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+/* Gradient accent line on top of footer */
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--highlight), var(--accent));
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.footer-logo .logo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  box-shadow: 0 0 6px var(--glow-accent);
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+.footer-links a {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.footer-links a:hover { opacity: 1; }
+.footer-copy {
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.4;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(250,250,247,0.08);
+}
+
+/* ===== ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero::before { animation: none; }
+  .hero-scanline { display: none; }
+  .hero-geo { display: none; }
+  .highlight-text-glow { animation: none; text-shadow: none; }
+  #particleCanvas { display: none; }
+  .stat-ring-fg { transition: none; }
+  @keyframes heroGradient { 0%, 100% { background-position: 0% 50%; } }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-phone-desktop { display: none; }
+  .hamburger { display: flex; }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-text .section-label { justify-content: center; }
+  .hero-text p { margin-left: auto; margin-right: auto; }
+  .hero-btns { justify-content: center; }
+  .hero-visual { margin-top: 2rem; }
+  .hero-visual svg { max-width: 340px; }
+  .services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .portfolio-scroll { flex-direction: column; overflow-x: visible; scroll-snap-type: none; }
+  .portfolio-card { flex: 0 0 auto; }
+  .portfolio-card-img { height: 220px; }
+  .about-grid { grid-template-columns: 1fr; text-align: center; }
+  .about-visual { order: -1; }
+  .about-visual svg { max-width: 340px; margin: 0 auto; }
+  .about-text .section-label { justify-content: center; }
+  .stats-row { justify-content: center; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .btn-white { align-self: stretch; justify-content: center; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+  .hero-geo { display: none; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 2.2rem; }
+  .stats-row { flex-direction: column; gap: 1.5rem; align-items: center; }
+}
+</style>
+
+<!-- ===== SCROLL PROGRESS BAR ===== -->
+<div id="scrollProgress"></div>
+
+<!-- ===== PARTICLE CANVAS ===== -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><span class="logo-dot"></span>Cordioli</a>
+    <div class="nav-links">
+      <a href="#servizi">Servizi</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#chi-siamo">Chi Siamo</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+    <a href="tel:+393401216831" class="nav-phone nav-phone-desktop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      340 121 6831
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="#servizi" class="mobile-link">Servizi</a>
+  <a href="#portfolio" class="mobile-link">Portfolio</a>
+  <a href="#chi-siamo" class="mobile-link">Chi Siamo</a>
+  <a href="#contatti" class="mobile-link">Contatti</a>
+  <a href="tel:+393401216831" class="nav-phone" style="margin-top:1rem;font-size:1.1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:20px;height:20px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    340 121 6831
+  </a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <!-- Scan line effect -->
+  <div class="hero-scanline"></div>
+  <!-- Mouse follow light -->
+  <div id="heroMouseLight"></div>
+  <!-- Floating geometric shapes -->
+  <div class="hero-geo hero-geo-1"></div>
+  <div class="hero-geo hero-geo-2"></div>
+  <div class="hero-geo hero-geo-3"></div>
+
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text reveal-left">
+        <p class="section-label">Tinteggiature Cordioli S.n.c.</p>
+        <h1>Il Colore<br>Cambia <span class="highlight-text-glow">Tutto</span></h1>
+        <p>Trasformiamo i tuoi spazi con colori che raccontano la tua personalit&agrave;. Da oltre 20 anni, portiamo nuova vita ad ambienti residenziali e commerciali a Villafranca di Verona e dintorni.</p>
+        <div class="hero-btns">
+          <a href="#contatti" class="btn-primary">Richiedi Preventivo</a>
+          <a href="#servizi" class="btn-secondary">I Nostri Servizi</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal-right">
+        <!-- Hero SVG: Paint bucket tipping with flowing paint, roller, color swatches -->
+        <svg viewBox="0 0 500 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrazione di colori e pittura">
+          <!-- Background blobs -->
+          <ellipse cx="250" cy="380" rx="200" ry="30" fill="var(--ink)" opacity="0.04"/>
+          <!-- Large paint bucket (tipped) -->
+          <g transform="translate(140, 60) rotate(-25, 100, 120)">
+            <!-- Bucket body -->
+            <path d="M40,60 L50,200 C50,220 150,220 150,200 L160,60 Z" fill="var(--accent)" opacity="0.9"/>
+            <!-- Bucket rim -->
+            <ellipse cx="100" cy="60" rx="62" ry="16" fill="var(--accent)"/>
+            <ellipse cx="100" cy="60" rx="52" ry="12" fill="var(--ground)" opacity="0.25"/>
+            <!-- Handle arc -->
+            <path d="M50,50 Q100,-15 150,50" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+            <!-- Paint level inside -->
+            <ellipse cx="100" cy="80" rx="48" ry="11" fill="var(--accent)" opacity="0.7"/>
+            <!-- Bucket highlight -->
+            <rect x="65" y="80" width="8" height="80" rx="4" fill="#fff" opacity="0.18"/>
+          </g>
+          <!-- Flowing paint stream from bucket -->
+          <path d="M215,135 C230,160 260,190 240,240 C225,280 260,310 230,360 C220,380 240,400 250,410" fill="none" stroke="var(--accent)" stroke-width="28" stroke-linecap="round" opacity="0.7"/>
+          <path d="M220,140 C240,165 270,195 255,245 C240,290 270,315 248,358" fill="none" stroke="var(--highlight)" stroke-width="16" stroke-linecap="round" opacity="0.6"/>
+          <path d="M225,148 C250,178 275,205 262,250" fill="none" stroke="#E86B5A" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+          <!-- Paint splash at bottom -->
+          <ellipse cx="240" cy="400" rx="80" ry="18" fill="var(--accent)" opacity="0.25"/>
+          <ellipse cx="250" cy="395" rx="50" ry="12" fill="var(--highlight)" opacity="0.2"/>
+          <!-- Paint droplets -->
+          <circle cx="280" cy="310" r="8" fill="var(--accent)" opacity="0.5"/>
+          <circle cx="200" cy="340" r="5" fill="var(--highlight)" opacity="0.4"/>
+          <circle cx="290" cy="370" r="6" fill="#E86B5A" opacity="0.35"/>
+          <circle cx="195" cy="290" r="4" fill="var(--accent)" opacity="0.3"/>
+          <!-- Paint roller (right side) -->
+          <g transform="translate(320, 180) rotate(15)">
+            <!-- Handle -->
+            <rect x="28" y="0" width="6" height="130" rx="3" fill="var(--muted)" opacity="0.7"/>
+            <!-- Handle grip -->
+            <rect x="24" y="100" width="14" height="40" rx="5" fill="var(--ink)" opacity="0.3"/>
+            <!-- Roller connector -->
+            <rect x="20" y="-8" width="22" height="8" rx="2" fill="var(--muted)" opacity="0.6"/>
+            <!-- Roller cylinder -->
+            <rect x="4" y="-40" width="54" height="38" rx="8" fill="var(--highlight)" opacity="0.85"/>
+            <!-- Roller texture lines -->
+            <line x1="12" y1="-35" x2="12" y2="-8" stroke="#fff" stroke-width="1" opacity="0.2"/>
+            <line x1="22" y1="-35" x2="22" y2="-8" stroke="#fff" stroke-width="1" opacity="0.2"/>
+            <line x1="32" y1="-35" x2="32" y2="-8" stroke="#fff" stroke-width="1" opacity="0.2"/>
+            <line x1="42" y1="-35" x2="42" y2="-8" stroke="#fff" stroke-width="1" opacity="0.2"/>
+            <line x1="50" y1="-35" x2="50" y2="-8" stroke="#fff" stroke-width="1" opacity="0.15"/>
+            <!-- Roller end caps -->
+            <ellipse cx="31" cy="-40" rx="27" ry="6" fill="var(--highlight)"/>
+          </g>
+          <!-- Floating color swatches -->
+          <g transform="translate(60, 280)">
+            <rect x="0" y="0" width="48" height="48" rx="8" fill="var(--accent)" transform="rotate(-12, 24, 24)"/>
+            <rect x="6" y="6" width="36" height="24" rx="4" fill="#fff" opacity="0.2" transform="rotate(-12, 24, 24)"/>
+          </g>
+          <g transform="translate(380, 100)">
+            <rect x="0" y="0" width="42" height="42" rx="7" fill="var(--highlight)" transform="rotate(8, 21, 21)"/>
+            <rect x="5" y="5" width="32" height="20" rx="3" fill="#fff" opacity="0.2" transform="rotate(8, 21, 21)"/>
+          </g>
+          <g transform="translate(420, 280)">
+            <rect x="0" y="0" width="38" height="38" rx="6" fill="#E86B5A" opacity="0.75" transform="rotate(-5, 19, 19)"/>
+            <rect x="5" y="5" width="28" height="18" rx="3" fill="#fff" opacity="0.18" transform="rotate(-5, 19, 19)"/>
+          </g>
+          <g transform="translate(80, 130)">
+            <circle cx="18" cy="18" r="18" fill="var(--highlight)" opacity="0.3"/>
+          </g>
+          <g transform="translate(430, 200)">
+            <circle cx="12" cy="12" r="12" fill="var(--accent)" opacity="0.25"/>
+          </g>
+          <!-- Small decorative dots -->
+          <circle cx="100" cy="380" r="3" fill="var(--accent)" opacity="0.2"/>
+          <circle cx="400" cy="360" r="4" fill="var(--highlight)" opacity="0.2"/>
+          <circle cx="350" cy="60" r="3" fill="#E86B5A" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- ===== SERVIZI / COSA FACCIAMO ===== -->
+<section class="services" id="servizi">
+  <div class="container">
+    <div class="services-header reveal">
+      <p class="section-label">I Nostri Servizi</p>
+      <h2>Cosa Facciamo</h2>
+      <p>Ogni superficie ha una storia da raccontare. I nostri servizi coprono ogni esigenza, dalla semplice tinteggiatura a trattamenti tecnici specializzati.</p>
+    </div>
+    <div class="services-grid">
+
+      <!-- 1. Tinteggiatura -->
+      <div class="service-card reveal">
+        <div class="service-card-visual">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <!-- Room background (before) -->
+            <rect width="320" height="180" fill="var(--surface)"/>
+            <!-- Floor -->
+            <rect x="0" y="140" width="320" height="40" fill="var(--muted)" opacity="0.15"/>
+            <line x1="0" y1="140" x2="320" y2="140" stroke="var(--muted)" stroke-width="0.5" opacity="0.3"/>
+            <!-- Back wall (unpainted, dull) -->
+            <rect x="20" y="20" width="280" height="120" fill="var(--muted)" opacity="0.12"/>
+            <!-- Painted portion (left side, fresh color) -->
+            <rect x="20" y="20" width="160" height="120" fill="var(--accent)" opacity="0.2"/>
+            <!-- Division line showing before/after -->
+            <line x1="180" y1="20" x2="180" y2="140" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4,3" opacity="0.5"/>
+            <!-- Baseboard -->
+            <rect x="20" y="132" width="280" height="8" fill="var(--muted)" opacity="0.2" rx="1"/>
+            <!-- Window frame on wall -->
+            <rect x="230" y="45" width="50" height="55" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="1.5" opacity="0.5"/>
+            <line x1="255" y1="45" x2="255" y2="100" stroke="var(--muted)" stroke-width="1" opacity="0.3"/>
+            <line x1="230" y1="72" x2="280" y2="72" stroke="var(--muted)" stroke-width="1" opacity="0.3"/>
+            <!-- Light through window -->
+            <rect x="233" y="48" width="19" height="22" fill="var(--highlight)" opacity="0.08"/>
+            <!-- Paint roller in action -->
+            <g transform="translate(150, 40)">
+              <!-- Roller handle -->
+              <rect x="14" y="30" width="5" height="80" rx="2.5" fill="var(--muted)" opacity="0.6"/>
+              <!-- Grip -->
+              <rect x="11" y="85" width="11" height="28" rx="4" fill="var(--ink)" opacity="0.25"/>
+              <!-- Connector -->
+              <rect x="8" y="26" width="17" height="6" rx="2" fill="var(--muted)" opacity="0.5"/>
+              <!-- Roller -->
+              <rect x="0" y="0" width="33" height="28" rx="6" fill="var(--accent)" opacity="0.85"/>
+              <!-- Roller texture -->
+              <line x1="6" y1="4" x2="6" y2="24" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <line x1="12" y1="4" x2="12" y2="24" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <line x1="18" y1="4" x2="18" y2="24" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <line x1="24" y1="4" x2="24" y2="24" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <!-- Paint stripe being applied -->
+              <rect x="0" y="-8" width="33" height="10" fill="var(--accent)" opacity="0.15" rx="2"/>
+            </g>
+            <!-- "Before" label -->
+            <text x="250" y="160" font-family="Syne, sans-serif" font-size="8" fill="var(--muted)" text-anchor="middle" opacity="0.5">PRIMA</text>
+            <!-- "After" label -->
+            <text x="90" y="160" font-family="Syne, sans-serif" font-size="8" fill="var(--accent)" text-anchor="middle" opacity="0.7">DOPO</text>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <span class="service-number">01</span>
+          <h3>Tinteggiatura Pareti</h3>
+          <p>Rinnova completamente l'aspetto dei tuoi ambienti con colori freschi e duraturi. Utilizziamo pitture di alta qualit&agrave; per interni ed esterni.</p>
+        </div>
+      </div>
+
+      <!-- 2. Decorazione -->
+      <div class="service-card reveal">
+        <div class="service-card-visual">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--surface)"/>
+            <!-- Decorative wall with venetian plaster texture -->
+            <rect x="20" y="15" width="280" height="130" fill="var(--highlight)" opacity="0.12" rx="2"/>
+            <!-- Plaster texture swirls -->
+            <path d="M40,40 C55,30 70,50 85,38 C100,26 110,55 125,42" fill="none" stroke="var(--highlight)" stroke-width="1.5" opacity="0.25"/>
+            <path d="M60,65 C75,55 90,75 105,62 C120,50 130,78 150,65" fill="none" stroke="var(--highlight)" stroke-width="1.2" opacity="0.2"/>
+            <path d="M45,90 C60,82 80,98 95,85 C110,72 125,95 140,82" fill="none" stroke="var(--highlight)" stroke-width="1.5" opacity="0.22"/>
+            <path d="M55,115 C70,108 85,122 100,112 C115,100 130,118 145,108" fill="none" stroke="var(--highlight)" stroke-width="1" opacity="0.18"/>
+            <!-- Decorative pattern band -->
+            <rect x="160" y="30" width="120" height="100" fill="var(--accent)" opacity="0.08" rx="2"/>
+            <path d="M170,50 L190,35 L210,50 L230,35 L250,50 L270,35" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.3"/>
+            <path d="M170,70 L190,55 L210,70 L230,55 L250,70 L270,55" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.25"/>
+            <path d="M170,90 L190,75 L210,90 L230,75 L250,90 L270,75" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.2"/>
+            <path d="M170,110 L190,95 L210,110 L230,95 L250,110 L270,95" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.18"/>
+            <!-- Trowel applying plaster -->
+            <g transform="translate(100, 55) rotate(-30)">
+              <!-- Blade -->
+              <path d="M0,0 L70,-5 L72,5 L2,12 Z" fill="var(--muted)" opacity="0.6"/>
+              <!-- Blade shine -->
+              <path d="M10,2 L60,-2 L61,1 L11,6 Z" fill="#fff" opacity="0.15"/>
+              <!-- Handle connector -->
+              <rect x="-5" y="-1" width="10" height="14" rx="2" fill="var(--ink)" opacity="0.3"/>
+              <!-- Handle -->
+              <rect x="-35" y="1" width="32" height="10" rx="4" fill="var(--highlight)" opacity="0.6"/>
+              <!-- Plaster on blade -->
+              <path d="M15,-3 Q40,-8 65,-4" fill="none" stroke="var(--highlight)" stroke-width="3" opacity="0.3" stroke-linecap="round"/>
+            </g>
+            <!-- Floor -->
+            <rect x="0" y="145" width="320" height="35" fill="var(--muted)" opacity="0.1"/>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <span class="service-number">02</span>
+          <h3>Decorazione Pareti</h3>
+          <p>Effetti decorativi unici come stucco veneziano, spatolato e finiture artistiche che donano carattere e personalit&agrave; ad ogni stanza.</p>
+        </div>
+      </div>
+
+      <!-- 3. Verniciatura -->
+      <div class="service-card reveal">
+        <div class="service-card-visual">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--surface)"/>
+            <!-- Wall background -->
+            <rect x="0" y="0" width="320" height="180" fill="var(--muted)" opacity="0.06"/>
+            <!-- Door frame (outer) -->
+            <rect x="95" y="15" width="130" height="155" rx="3" fill="var(--muted)" opacity="0.18"/>
+            <!-- Door (wooden, being varnished) -->
+            <rect x="105" y="22" width="110" height="148" rx="2" fill="var(--highlight)" opacity="0.35"/>
+            <!-- Door panels -->
+            <rect x="115" y="32" width="90" height="50" rx="3" fill="var(--highlight)" opacity="0.2" stroke="var(--highlight)" stroke-width="1" opacity="0.3"/>
+            <rect x="115" y="92" width="90" height="68" rx="3" fill="var(--highlight)" opacity="0.2" stroke="var(--highlight)" stroke-width="1" opacity="0.3"/>
+            <!-- Wood grain lines -->
+            <line x1="130" y1="35" x2="130" y2="78" stroke="var(--highlight)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="150" y1="35" x2="150" y2="78" stroke="var(--highlight)" stroke-width="0.5" opacity="0.15"/>
+            <line x1="175" y1="35" x2="175" y2="78" stroke="var(--highlight)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="140" y1="95" x2="140" y2="155" stroke="var(--highlight)" stroke-width="0.5" opacity="0.15"/>
+            <line x1="165" y1="95" x2="165" y2="155" stroke="var(--highlight)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="185" y1="95" x2="185" y2="155" stroke="var(--highlight)" stroke-width="0.5" opacity="0.15"/>
+            <!-- Door handle -->
+            <ellipse cx="196" cy="105" rx="4" ry="4" fill="var(--muted)" opacity="0.5"/>
+            <rect x="193" y="100" width="8" height="3" rx="1.5" fill="var(--muted)" opacity="0.4"/>
+            <!-- Varnish shine effect (partial, showing fresh coat) -->
+            <rect x="105" y="22" width="55" height="148" fill="#fff" opacity="0.08" rx="2"/>
+            <!-- Brush applying varnish -->
+            <g transform="translate(130, 65) rotate(10)">
+              <!-- Brush handle -->
+              <rect x="8" y="-55" width="14" height="45" rx="3" fill="var(--highlight)" opacity="0.7"/>
+              <!-- Ferrule -->
+              <rect x="5" y="-12" width="20" height="14" rx="1" fill="var(--muted)" opacity="0.5"/>
+              <!-- Bristles -->
+              <path d="M6,2 L6,22 Q15,26 24,22 L24,2 Z" fill="var(--ink)" opacity="0.25"/>
+              <!-- Bristle detail -->
+              <line x1="10" y1="4" x2="10" y2="20" stroke="var(--ink)" stroke-width="0.5" opacity="0.15"/>
+              <line x1="15" y1="4" x2="15" y2="22" stroke="var(--ink)" stroke-width="0.5" opacity="0.15"/>
+              <line x1="20" y1="4" x2="20" y2="20" stroke="var(--ink)" stroke-width="0.5" opacity="0.15"/>
+              <!-- Varnish on brush tip -->
+              <path d="M7,18 Q15,24 23,18" fill="var(--highlight)" opacity="0.4"/>
+            </g>
+            <!-- Varnish drip -->
+            <path d="M140,148 Q141,158 139,165" fill="none" stroke="var(--highlight)" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+            <!-- Small varnish can on floor -->
+            <g transform="translate(40, 130)">
+              <rect x="0" y="10" width="35" height="30" rx="3" fill="var(--highlight)" opacity="0.4"/>
+              <ellipse cx="17.5" cy="10" rx="17.5" ry="5" fill="var(--highlight)" opacity="0.5"/>
+              <ellipse cx="17.5" cy="10" rx="13" ry="3.5" fill="var(--highlight)" opacity="0.3"/>
+              <rect x="5" y="18" width="3" height="15" rx="1.5" fill="#fff" opacity="0.1"/>
+            </g>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <span class="service-number">03</span>
+          <h3>Verniciatura</h3>
+          <p>Verniciatura professionale di porte, finestre, persiane, cancelli e ringhiere. Proteggiamo e valorizziamo ogni superficie in legno e metallo.</p>
+        </div>
+      </div>
+
+      <!-- 4. Antimuffa -->
+      <div class="service-card reveal">
+        <div class="service-card-visual">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--surface)"/>
+            <!-- Wall cross-section -->
+            <!-- Outer layer (exterior) -->
+            <rect x="20" y="20" width="40" height="140" fill="var(--muted)" opacity="0.25" rx="1"/>
+            <text x="40" y="168" font-family="Syne, sans-serif" font-size="7" fill="var(--muted)" text-anchor="middle" opacity="0.5">EST.</text>
+            <!-- Wall core -->
+            <rect x="60" y="20" width="80" height="140" fill="var(--muted)" opacity="0.12"/>
+            <!-- Brick pattern inside wall -->
+            <rect x="65" y="28" width="30" height="12" rx="1" fill="var(--muted)" opacity="0.12" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="100" y="28" width="30" height="12" rx="1" fill="var(--muted)" opacity="0.12" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="78" y="44" width="30" height="12" rx="1" fill="var(--muted)" opacity="0.12" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="112" y="44" width="20" height="12" rx="1" fill="var(--muted)" opacity="0.12" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="65" y="60" width="30" height="12" rx="1" fill="var(--muted)" opacity="0.12" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="100" y="60" width="30" height="12" rx="1" fill="var(--muted)" opacity="0.12" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <!-- Moisture arrows being blocked -->
+            <g opacity="0.4">
+              <path d="M30,50 L55,50" fill="none" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="3,2"/>
+              <polygon points="55,47 62,50 55,53" fill="#5b9bd5"/>
+              <path d="M30,80 L55,80" fill="none" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="3,2"/>
+              <polygon points="55,77 62,80 55,83" fill="#5b9bd5"/>
+              <path d="M30,110 L55,110" fill="none" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="3,2"/>
+              <polygon points="55,107 62,110 55,113" fill="#5b9bd5"/>
+            </g>
+            <!-- Treatment barrier layer -->
+            <rect x="140" y="20" width="12" height="140" fill="var(--accent)" opacity="0.5" rx="2"/>
+            <!-- Shield pattern on barrier -->
+            <line x1="146" y1="30" x2="146" y2="150" stroke="#fff" stroke-width="1" stroke-dasharray="6,4" opacity="0.3"/>
+            <!-- X marks showing moisture blocked -->
+            <g transform="translate(136, 45)" fill="none" stroke="#e55" stroke-width="1.5" opacity="0.5">
+              <line x1="0" y1="0" x2="8" y2="8"/><line x1="8" y1="0" x2="0" y2="8"/>
+            </g>
+            <g transform="translate(136, 75)" fill="none" stroke="#e55" stroke-width="1.5" opacity="0.5">
+              <line x1="0" y1="0" x2="8" y2="8"/><line x1="8" y1="0" x2="0" y2="8"/>
+            </g>
+            <g transform="translate(136, 105)" fill="none" stroke="#e55" stroke-width="1.5" opacity="0.5">
+              <line x1="0" y1="0" x2="8" y2="8"/><line x1="8" y1="0" x2="0" y2="8"/>
+            </g>
+            <!-- Interior wall (clean, protected) -->
+            <rect x="152" y="20" width="60" height="140" fill="var(--accent)" opacity="0.08" rx="1"/>
+            <text x="182" y="168" font-family="Syne, sans-serif" font-size="7" fill="var(--accent)" text-anchor="middle" opacity="0.6">INT.</text>
+            <!-- Checkmark icon showing protection -->
+            <g transform="translate(165, 70)">
+              <circle cx="18" cy="18" r="18" fill="var(--accent)" opacity="0.15"/>
+              <polyline points="10,18 16,24 26,12" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+            </g>
+            <!-- Right side: spray applicator -->
+            <g transform="translate(230, 30)">
+              <!-- Spray bottle body -->
+              <rect x="15" y="30" width="40" height="70" rx="5" fill="var(--accent)" opacity="0.4"/>
+              <!-- Bottle label -->
+              <rect x="20" y="45" width="30" height="20" rx="2" fill="#fff" opacity="0.15"/>
+              <!-- Bottle neck -->
+              <rect x="28" y="18" width="14" height="15" rx="2" fill="var(--accent)" opacity="0.35"/>
+              <!-- Spray trigger -->
+              <path d="M42,20 L55,20 L55,35 L48,35 L48,28 L42,28 Z" fill="var(--muted)" opacity="0.4" rx="2"/>
+              <!-- Nozzle -->
+              <rect x="55" y="18" width="12" height="5" rx="2" fill="var(--muted)" opacity="0.5"/>
+              <!-- Spray mist lines -->
+              <line x1="68" y1="16" x2="82" y2="12" stroke="var(--accent)" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
+              <line x1="68" y1="20" x2="85" y2="20" stroke="var(--accent)" stroke-width="1" opacity="0.4" stroke-dasharray="2,2"/>
+              <line x1="68" y1="24" x2="82" y2="28" stroke="var(--accent)" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
+              <!-- Spray droplets -->
+              <circle cx="78" cy="14" r="1.5" fill="var(--accent)" opacity="0.2"/>
+              <circle cx="82" cy="22" r="1" fill="var(--accent)" opacity="0.25"/>
+              <circle cx="76" cy="26" r="1.5" fill="var(--accent)" opacity="0.15"/>
+            </g>
+            <!-- Label -->
+            <text x="260" y="140" font-family="Syne, sans-serif" font-size="7" fill="var(--accent)" text-anchor="middle" opacity="0.5">TRATTAMENTO</text>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <span class="service-number">04</span>
+          <h3>Trattamenti Antimuffa</h3>
+          <p>Eliminazione definitiva di muffa e umidit&agrave; con prodotti certificati. Risaniamo le pareti e preveniamo la formazione di condensa.</p>
+        </div>
+      </div>
+
+      <!-- 5. Carta da Parati -->
+      <div class="service-card reveal">
+        <div class="service-card-visual">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--surface)"/>
+            <!-- Wall -->
+            <rect x="30" y="10" width="260" height="155" fill="var(--muted)" opacity="0.08"/>
+            <!-- Wallpaper already applied (left portion) with pattern -->
+            <rect x="30" y="10" width="120" height="155" fill="var(--accent)" opacity="0.06"/>
+            <!-- Wallpaper geometric pattern (applied portion) -->
+            <g opacity="0.2">
+              <circle cx="55" cy="35" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="85" cy="35" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="115" cy="35" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="70" cy="58" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="100" cy="58" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="130" cy="58" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="55" cy="81" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="85" cy="81" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="115" cy="81" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="70" cy="104" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="100" cy="104" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="130" cy="104" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="55" cy="127" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="85" cy="127" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="115" cy="127" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="70" cy="150" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+              <circle cx="100" cy="150" r="8" fill="none" stroke="var(--accent)" stroke-width="1"/>
+            </g>
+            <!-- Wallpaper roll being unrolled -->
+            <g transform="translate(150, 10)">
+              <!-- Roll at top (curling) -->
+              <ellipse cx="15" cy="8" rx="15" ry="8" fill="var(--accent)" opacity="0.15"/>
+              <ellipse cx="15" cy="8" rx="10" ry="5" fill="var(--surface)"/>
+              <ellipse cx="15" cy="8" rx="5" ry="2.5" fill="var(--accent)" opacity="0.1"/>
+              <!-- Wallpaper sheet hanging down -->
+              <path d="M0,8 L0,140 Q2,148 15,150 Q28,148 30,140 L30,8" fill="var(--accent)" opacity="0.1" stroke="var(--accent)" stroke-width="0.5" opacity="0.2"/>
+              <!-- Pattern on the sheet -->
+              <circle cx="15" cy="30" r="8" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.25"/>
+              <circle cx="15" cy="53" r="8" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.25"/>
+              <circle cx="15" cy="76" r="8" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.25"/>
+              <circle cx="15" cy="99" r="8" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.25"/>
+              <circle cx="15" cy="122" r="8" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.25"/>
+            </g>
+            <!-- Hands applying wallpaper -->
+            <!-- Left hand -->
+            <g transform="translate(145, 55)">
+              <path d="M-5,15 C-8,8 -3,0 5,0 L15,0 C18,0 20,5 18,10 L15,20 C13,25 8,25 5,20 Z" fill="var(--highlight)" opacity="0.45"/>
+              <!-- Fingers -->
+              <ellipse cx="3" cy="0" rx="4" ry="6" fill="var(--highlight)" opacity="0.4"/>
+              <ellipse cx="10" cy="-2" rx="3.5" ry="6" fill="var(--highlight)" opacity="0.38"/>
+            </g>
+            <!-- Right hand -->
+            <g transform="translate(178, 70)">
+              <path d="M-2,15 C-5,8 0,0 8,0 L16,0 C19,0 22,5 20,10 L17,20 C15,25 10,25 7,20 Z" fill="var(--highlight)" opacity="0.45"/>
+              <ellipse cx="5" cy="0" rx="4" ry="6" fill="var(--highlight)" opacity="0.4"/>
+              <ellipse cx="13" cy="-2" rx="3.5" ry="6" fill="var(--highlight)" opacity="0.38"/>
+            </g>
+            <!-- Smoothing tool / squeegee -->
+            <g transform="translate(195, 95) rotate(5)">
+              <rect x="0" y="0" width="40" height="6" rx="3" fill="var(--muted)" opacity="0.4"/>
+              <rect x="12" y="-10" width="16" height="12" rx="2" fill="var(--ink)" opacity="0.2"/>
+            </g>
+            <!-- Paste/glue bucket on floor -->
+            <g transform="translate(240, 125)">
+              <rect x="0" y="10" width="30" height="25" rx="3" fill="var(--muted)" opacity="0.2"/>
+              <ellipse cx="15" cy="10" rx="15" ry="4" fill="var(--muted)" opacity="0.25"/>
+              <ellipse cx="15" cy="12" rx="10" ry="3" fill="#fff" opacity="0.08"/>
+            </g>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <span class="service-number">05</span>
+          <h3>Carte da Parati</h3>
+          <p>Posa professionale di carte da parati di ogni tipo: tessuto, vinile, TNT. Ampia scelta di pattern e texture per personalizzare i tuoi spazi.</p>
+        </div>
+      </div>
+
+      <!-- 6. Trattamenti Ignifughi -->
+      <div class="service-card reveal">
+        <div class="service-card-visual">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--surface)"/>
+            <!-- Wall being treated -->
+            <rect x="100" y="15" width="120" height="140" fill="var(--muted)" opacity="0.1" rx="2"/>
+            <!-- Shield / protective coating layer -->
+            <rect x="100" y="15" width="60" height="140" fill="var(--accent)" opacity="0.08"/>
+            <!-- Coating application lines -->
+            <line x1="105" y1="20" x2="105" y2="150" stroke="var(--accent)" stroke-width="1" opacity="0.15"/>
+            <line x1="115" y1="20" x2="115" y2="150" stroke="var(--accent)" stroke-width="1" opacity="0.12"/>
+            <line x1="125" y1="20" x2="125" y2="150" stroke="var(--accent)" stroke-width="1" opacity="0.1"/>
+            <!-- Shield icon on treated portion -->
+            <g transform="translate(110, 50)">
+              <path d="M20,0 L38,8 L38,28 C38,42 20,52 20,52 C20,52 2,42 2,28 L2,8 Z" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="1.5" opacity="0.4"/>
+              <polyline points="12,26 18,32 28,20" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+            </g>
+            <!-- Fire symbol being deflected (left side) -->
+            <g transform="translate(30, 40)">
+              <!-- Large flame -->
+              <path d="M25,70 C25,70 5,50 15,30 C18,24 12,12 20,0 C22,10 30,15 28,28 C35,20 38,25 35,35 C45,25 45,40 40,55 C48,45 50,55 45,65 C42,70 35,72 30,72 Z" fill="#E86B5A" opacity="0.45"/>
+              <!-- Inner flame -->
+              <path d="M24,70 C24,70 15,55 20,40 C22,35 18,28 24,20 C25,28 30,32 28,42 C32,38 35,42 32,50 C28,60 26,65 24,70 Z" fill="var(--highlight)" opacity="0.5"/>
+              <!-- Flame core -->
+              <path d="M24,68 C24,68 20,58 23,48 C24,44 22,40 25,35 C26,42 28,44 27,52 C28,56 26,62 24,68 Z" fill="#FFD700" opacity="0.3"/>
+            </g>
+            <!-- Deflection lines (fire being blocked) -->
+            <g opacity="0.35">
+              <line x1="72" y1="55" x2="88" y2="45" stroke="#E86B5A" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="72" y1="65" x2="90" y2="60" stroke="#E86B5A" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="72" y1="75" x2="88" y2="78" stroke="#E86B5A" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="72" y1="85" x2="86" y2="92" stroke="#E86B5A" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <!-- X marks showing fire blocked -->
+            <g transform="translate(83, 52)" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.4">
+              <line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/>
+            </g>
+            <g transform="translate(85, 76)" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.4">
+              <line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/>
+            </g>
+            <!-- Spray applicator (right side) -->
+            <g transform="translate(230, 35)">
+              <!-- Spray gun body -->
+              <path d="M0,20 L40,20 L45,15 L50,15 L50,25 L45,25 L40,30 L0,30 Z" fill="var(--muted)" opacity="0.4" rx="2"/>
+              <!-- Trigger handle -->
+              <path d="M15,30 L15,60 Q15,65 20,65 L25,65 Q30,65 30,60 L30,30" fill="var(--muted)" opacity="0.3"/>
+              <!-- Nozzle -->
+              <rect x="50" y="17" width="15" height="6" rx="2" fill="var(--muted)" opacity="0.5"/>
+              <!-- Tank -->
+              <rect x="5" y="30" width="10" height="30" rx="3" fill="var(--accent)" opacity="0.3"/>
+              <!-- Spray lines -->
+              <line x1="66" y1="16" x2="80" y2="10" stroke="var(--accent)" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
+              <line x1="66" y1="20" x2="84" y2="20" stroke="var(--accent)" stroke-width="1.5" opacity="0.4" stroke-dasharray="2,2"/>
+              <line x1="66" y1="24" x2="80" y2="30" stroke="var(--accent)" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
+            </g>
+            <!-- Certificate badge -->
+            <g transform="translate(240, 110)">
+              <circle cx="20" cy="20" r="20" fill="var(--accent)" opacity="0.12"/>
+              <circle cx="20" cy="20" r="14" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.3"/>
+              <text x="20" y="17" font-family="Syne, sans-serif" font-size="7" fill="var(--accent)" text-anchor="middle" opacity="0.5">REI</text>
+              <polyline points="13,23 18,28 27,17" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+            </g>
+            <text x="260" y="160" font-family="Syne, sans-serif" font-size="7" fill="var(--accent)" text-anchor="middle" opacity="0.4">CERTIFICATO</text>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <span class="service-number">06</span>
+          <h3>Trattamenti Ignifughi</h3>
+          <p>Applicazione di vernici e rivestimenti ignifughi certificati per la sicurezza antincendio di strutture commerciali, industriali e pubbliche.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- ===== PORTFOLIO / LE NOSTRE TRASFORMAZIONI ===== -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="portfolio-header reveal">
+      <p class="section-label">Portfolio</p>
+      <h2>Le Nostre Trasformazioni</h2>
+      <p>Ogni progetto &egrave; una nuova sfida. Ecco alcuni dei lavori che raccontano la nostra passione per il colore e la qualit&agrave;.</p>
+    </div>
+    <div class="portfolio-scroll">
+
+      <!-- Portfolio 1: Modern Apartment -->
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="280" fill="var(--surface)"/>
+            <!-- Living room walls -->
+            <rect x="0" y="0" width="400" height="210" fill="var(--ground)"/>
+            <!-- Wall accent -->
+            <rect x="0" y="0" width="400" height="210" fill="var(--accent)" opacity="0.03"/>
+            <!-- Floor (wood) -->
+            <rect x="0" y="210" width="400" height="70" fill="var(--highlight)" opacity="0.12"/>
+            <line x1="0" y1="210" x2="400" y2="210" stroke="var(--muted)" stroke-width="0.5" opacity="0.2"/>
+            <!-- Floor boards -->
+            <line x1="80" y1="210" x2="80" y2="280" stroke="var(--highlight)" stroke-width="0.3" opacity="0.1"/>
+            <line x1="160" y1="210" x2="160" y2="280" stroke="var(--highlight)" stroke-width="0.3" opacity="0.1"/>
+            <line x1="240" y1="210" x2="240" y2="280" stroke="var(--highlight)" stroke-width="0.3" opacity="0.1"/>
+            <line x1="320" y1="210" x2="320" y2="280" stroke="var(--highlight)" stroke-width="0.3" opacity="0.1"/>
+            <!-- Large window -->
+            <rect x="30" y="30" width="140" height="130" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="1" opacity="0.3"/>
+            <line x1="100" y1="30" x2="100" y2="160" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <line x1="30" y1="95" x2="170" y2="95" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <!-- Sky through window -->
+            <rect x="32" y="32" width="66" height="61" fill="#87CEEB" opacity="0.08"/>
+            <rect x="102" y="32" width="66" height="61" fill="#87CEEB" opacity="0.08"/>
+            <!-- Light coming in -->
+            <path d="M170,50 L250,90 L250,210 L170,160 Z" fill="var(--highlight)" opacity="0.03"/>
+            <!-- Sofa silhouette -->
+            <g transform="translate(200, 150)">
+              <!-- Sofa back -->
+              <rect x="0" y="0" width="160" height="45" rx="8" fill="var(--ink)" opacity="0.08"/>
+              <!-- Seat cushions -->
+              <rect x="5" y="25" width="72" height="28" rx="5" fill="var(--ink)" opacity="0.06"/>
+              <rect x="82" y="25" width="72" height="28" rx="5" fill="var(--ink)" opacity="0.06"/>
+              <!-- Armrests -->
+              <rect x="-8" y="10" width="15" height="45" rx="6" fill="var(--ink)" opacity="0.07"/>
+              <rect x="153" y="10" width="15" height="45" rx="6" fill="var(--ink)" opacity="0.07"/>
+              <!-- Legs -->
+              <rect x="10" y="53" width="4" height="8" rx="1" fill="var(--ink)" opacity="0.1"/>
+              <rect x="147" y="53" width="4" height="8" rx="1" fill="var(--ink)" opacity="0.1"/>
+              <!-- Pillows -->
+              <ellipse cx="30" cy="20" rx="18" ry="14" fill="var(--accent)" opacity="0.12"/>
+              <ellipse cx="130" cy="20" rx="18" ry="14" fill="var(--highlight)" opacity="0.1"/>
+            </g>
+            <!-- Side table -->
+            <g transform="translate(150, 180)">
+              <rect x="0" y="0" width="30" height="2" rx="1" fill="var(--ink)" opacity="0.1"/>
+              <rect x="13" y="2" width="4" height="28" rx="1" fill="var(--ink)" opacity="0.08"/>
+            </g>
+            <!-- Plant -->
+            <g transform="translate(155, 145)">
+              <!-- Pot -->
+              <path d="M0,30 L3,45 L17,45 L20,30 Z" fill="var(--accent)" opacity="0.15"/>
+              <!-- Leaves -->
+              <path d="M10,30 C5,20 2,8 8,0 C10,5 12,15 10,30" fill="var(--accent)" opacity="0.2"/>
+              <path d="M10,30 C15,18 20,8 16,0 C14,6 12,18 10,30" fill="var(--accent)" opacity="0.18"/>
+              <path d="M10,30 C0,22 -5,15 0,8 C3,12 8,20 10,30" fill="var(--accent)" opacity="0.15"/>
+            </g>
+            <!-- Frame on wall -->
+            <rect x="260" y="40" width="60" height="45" rx="2" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.08"/>
+            <rect x="265" y="45" width="50" height="35" fill="var(--accent)" opacity="0.04"/>
+            <!-- Small frame -->
+            <rect x="340" y="50" width="30" height="30" rx="2" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.06"/>
+          </svg>
+        </div>
+        <div class="portfolio-card-info">
+          <p class="label">Residenziale</p>
+          <h3>Appartamento Moderno, Verona</h3>
+        </div>
+      </div>
+
+      <!-- Portfolio 2: Restaurant -->
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="280" fill="var(--surface)"/>
+            <!-- Warm-toned walls -->
+            <rect x="0" y="0" width="400" height="215" fill="var(--highlight)" opacity="0.08"/>
+            <!-- Floor (dark) -->
+            <rect x="0" y="215" width="400" height="65" fill="var(--ink)" opacity="0.06"/>
+            <!-- Decorative wall texture (venetian plaster effect) -->
+            <path d="M0,30 C50,25 100,40 150,30 C200,20 250,38 300,28 C350,18 380,35 400,30" fill="none" stroke="var(--highlight)" stroke-width="0.8" opacity="0.12"/>
+            <path d="M0,60 C60,55 120,68 180,58 C240,48 300,65 360,55 C380,52 400,58 400,60" fill="none" stroke="var(--highlight)" stroke-width="0.8" opacity="0.1"/>
+            <path d="M0,90 C40,85 80,95 120,88 C160,80 200,92 240,86 C280,80 320,92 400,88" fill="none" stroke="var(--highlight)" stroke-width="0.8" opacity="0.08"/>
+            <!-- Pendant lights -->
+            <g transform="translate(80, 0)">
+              <line x1="20" y1="0" x2="20" y2="50" stroke="var(--ink)" stroke-width="1" opacity="0.15"/>
+              <path d="M5,50 L10,80 L30,80 L35,50 Z" fill="var(--highlight)" opacity="0.2"/>
+              <ellipse cx="20" cy="80" rx="12" ry="3" fill="var(--highlight)" opacity="0.15"/>
+              <!-- Light glow -->
+              <circle cx="20" cy="70" r="30" fill="var(--highlight)" opacity="0.04"/>
+              <circle cx="20" cy="70" r="15" fill="var(--highlight)" opacity="0.06"/>
+            </g>
+            <g transform="translate(200, 0)">
+              <line x1="20" y1="0" x2="20" y2="40" stroke="var(--ink)" stroke-width="1" opacity="0.15"/>
+              <path d="M5,40 L10,70 L30,70 L35,40 Z" fill="var(--highlight)" opacity="0.2"/>
+              <ellipse cx="20" cy="70" rx="12" ry="3" fill="var(--highlight)" opacity="0.15"/>
+              <circle cx="20" cy="60" r="30" fill="var(--highlight)" opacity="0.04"/>
+              <circle cx="20" cy="60" r="15" fill="var(--highlight)" opacity="0.06"/>
+            </g>
+            <g transform="translate(310, 0)">
+              <line x1="20" y1="0" x2="20" y2="55" stroke="var(--ink)" stroke-width="1" opacity="0.15"/>
+              <path d="M5,55 L10,85 L30,85 L35,55 Z" fill="var(--highlight)" opacity="0.2"/>
+              <ellipse cx="20" cy="85" rx="12" ry="3" fill="var(--highlight)" opacity="0.15"/>
+              <circle cx="20" cy="75" r="30" fill="var(--highlight)" opacity="0.04"/>
+            </g>
+            <!-- Table 1 -->
+            <g transform="translate(50, 160)">
+              <ellipse cx="40" cy="30" rx="40" ry="12" fill="var(--ink)" opacity="0.06"/>
+              <rect x="35" y="30" width="10" height="32" rx="2" fill="var(--ink)" opacity="0.08"/>
+              <!-- Items on table -->
+              <ellipse cx="28" cy="26" rx="6" ry="3" fill="var(--muted)" opacity="0.1"/>
+              <ellipse cx="52" cy="26" rx="6" ry="3" fill="var(--muted)" opacity="0.1"/>
+              <!-- Candle -->
+              <rect x="38" y="18" width="4" height="10" rx="1" fill="var(--highlight)" opacity="0.2"/>
+              <ellipse cx="40" cy="17" rx="3" ry="4" fill="var(--highlight)" opacity="0.15"/>
+              <!-- Chairs -->
+              <rect x="-5" y="15" width="18" height="2" rx="1" fill="var(--ink)" opacity="0.06"/>
+              <rect x="0" y="17" width="3" height="25" rx="1" fill="var(--ink)" opacity="0.05"/>
+              <rect x="10" y="17" width="3" height="25" rx="1" fill="var(--ink)" opacity="0.05"/>
+              <rect x="67" y="15" width="18" height="2" rx="1" fill="var(--ink)" opacity="0.06"/>
+              <rect x="70" y="17" width="3" height="25" rx="1" fill="var(--ink)" opacity="0.05"/>
+              <rect x="80" y="17" width="3" height="25" rx="1" fill="var(--ink)" opacity="0.05"/>
+            </g>
+            <!-- Table 2 -->
+            <g transform="translate(210, 150)">
+              <ellipse cx="40" cy="30" rx="40" ry="12" fill="var(--ink)" opacity="0.06"/>
+              <rect x="35" y="30" width="10" height="35" rx="2" fill="var(--ink)" opacity="0.08"/>
+              <ellipse cx="30" cy="26" rx="6" ry="3" fill="var(--muted)" opacity="0.1"/>
+              <ellipse cx="50" cy="26" rx="6" ry="3" fill="var(--muted)" opacity="0.1"/>
+              <rect x="38" y="18" width="4" height="10" rx="1" fill="var(--highlight)" opacity="0.2"/>
+              <ellipse cx="40" cy="17" rx="3" ry="4" fill="var(--highlight)" opacity="0.15"/>
+            </g>
+            <!-- Decorative arch on wall -->
+            <path d="M300,215 L300,120 Q300,100 320,100 Q340,100 340,120 L340,215" fill="none" stroke="var(--highlight)" stroke-width="1.5" opacity="0.12"/>
+            <rect x="308" y="130" width="24" height="40" rx="2" fill="var(--highlight)" opacity="0.05"/>
+            <!-- Wine shelf in arch -->
+            <line x1="305" y1="145" x2="335" y2="145" stroke="var(--ink)" stroke-width="0.8" opacity="0.08"/>
+            <line x1="305" y1="158" x2="335" y2="158" stroke="var(--ink)" stroke-width="0.8" opacity="0.08"/>
+          </svg>
+        </div>
+        <div class="portfolio-card-info">
+          <p class="label">Commerciale</p>
+          <h3>Ristorante Villa Rosa, Villafranca</h3>
+        </div>
+      </div>
+
+      <!-- Portfolio 3: Office Space -->
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="280" fill="var(--surface)"/>
+            <!-- Professional blue-gray walls -->
+            <rect x="0" y="0" width="400" height="210" fill="var(--accent)" opacity="0.05"/>
+            <!-- Floor -->
+            <rect x="0" y="210" width="400" height="70" fill="var(--muted)" opacity="0.08"/>
+            <line x1="0" y1="210" x2="400" y2="210" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <!-- Accent wall stripe -->
+            <rect x="0" y="180" width="400" height="30" fill="var(--accent)" opacity="0.06"/>
+            <!-- Large window left -->
+            <rect x="15" y="25" width="120" height="140" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <line x1="75" y1="25" x2="75" y2="165" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <!-- Blinds -->
+            <line x1="17" y1="40" x2="133" y2="40" stroke="var(--muted)" stroke-width="0.3" opacity="0.1"/>
+            <line x1="17" y1="55" x2="133" y2="55" stroke="var(--muted)" stroke-width="0.3" opacity="0.1"/>
+            <line x1="17" y1="70" x2="133" y2="70" stroke="var(--muted)" stroke-width="0.3" opacity="0.1"/>
+            <!-- Desk 1 -->
+            <g transform="translate(160, 155)">
+              <rect x="0" y="0" width="100" height="4" rx="1" fill="var(--ink)" opacity="0.1"/>
+              <rect x="5" y="4" width="4" height="50" rx="1" fill="var(--ink)" opacity="0.07"/>
+              <rect x="91" y="4" width="4" height="50" rx="1" fill="var(--ink)" opacity="0.07"/>
+              <!-- Monitor -->
+              <rect x="25" y="-40" width="50" height="35" rx="2" fill="var(--ink)" opacity="0.1"/>
+              <rect x="28" y="-37" width="44" height="28" fill="var(--accent)" opacity="0.06"/>
+              <rect x="45" y="-5" width="10" height="5" rx="1" fill="var(--ink)" opacity="0.08"/>
+              <!-- Keyboard -->
+              <rect x="30" y="-3" width="40" height="3" rx="1" fill="var(--muted)" opacity="0.08"/>
+              <!-- Chair -->
+              <g transform="translate(40, 20)">
+                <ellipse cx="10" cy="-5" rx="15" ry="6" fill="var(--ink)" opacity="0.05"/>
+                <rect x="5" y="-5" width="10" height="35" rx="2" fill="var(--ink)" opacity="0.04"/>
+                <rect x="-3" y="-18" width="26" height="15" rx="4" fill="var(--ink)" opacity="0.06"/>
+              </g>
+            </g>
+            <!-- Desk 2 -->
+            <g transform="translate(290, 160)">
+              <rect x="0" y="0" width="80" height="4" rx="1" fill="var(--ink)" opacity="0.1"/>
+              <rect x="5" y="4" width="4" height="45" rx="1" fill="var(--ink)" opacity="0.07"/>
+              <rect x="71" y="4" width="4" height="45" rx="1" fill="var(--ink)" opacity="0.07"/>
+              <!-- Laptop -->
+              <rect x="15" y="-5" width="35" height="2" rx="1" fill="var(--ink)" opacity="0.08"/>
+              <rect x="15" y="-22" width="35" height="18" rx="1" fill="var(--ink)" opacity="0.06" transform="rotate(-5, 32, -13)"/>
+            </g>
+            <!-- Whiteboard on wall -->
+            <rect x="175" y="30" width="80" height="55" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="1" opacity="0.15"/>
+            <!-- Whiteboard content -->
+            <line x1="185" y1="45" x2="235" y2="45" stroke="var(--accent)" stroke-width="1" opacity="0.12"/>
+            <line x1="185" y1="55" x2="220" y2="55" stroke="var(--ink)" stroke-width="0.8" opacity="0.06"/>
+            <line x1="185" y1="63" x2="245" y2="63" stroke="var(--ink)" stroke-width="0.8" opacity="0.06"/>
+            <line x1="185" y1="71" x2="230" y2="71" stroke="var(--ink)" stroke-width="0.8" opacity="0.06"/>
+            <!-- Clock on wall -->
+            <circle cx="320" cy="50" r="18" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.08"/>
+            <line x1="320" y1="50" x2="320" y2="38" stroke="var(--ink)" stroke-width="1" opacity="0.1"/>
+            <line x1="320" y1="50" x2="330" y2="55" stroke="var(--ink)" stroke-width="0.8" opacity="0.1"/>
+            <!-- Plant in corner -->
+            <g transform="translate(370, 170)">
+              <rect x="0" y="20" width="20" height="22" rx="3" fill="var(--accent)" opacity="0.12"/>
+              <path d="M10,20 C5,10 3,0 8,-8 C10,-3 11,8 10,20" fill="var(--accent)" opacity="0.15"/>
+              <path d="M10,20 C15,8 18,0 14,-8 C12,-2 11,10 10,20" fill="var(--accent)" opacity="0.12"/>
+              <path d="M10,20 C2,12 -2,5 3,-2 C5,3 8,12 10,20" fill="var(--accent)" opacity="0.1"/>
+            </g>
+          </svg>
+        </div>
+        <div class="portfolio-card-info">
+          <p class="label">Uffici</p>
+          <h3>Studio Professionale, Sommacampagna</h3>
+        </div>
+      </div>
+
+      <!-- Portfolio 4: Building Facade -->
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="280" fill="var(--surface)"/>
+            <!-- Sky -->
+            <rect x="0" y="0" width="400" height="200" fill="#87CEEB" opacity="0.06"/>
+            <!-- Ground -->
+            <rect x="0" y="230" width="400" height="50" fill="var(--muted)" opacity="0.08"/>
+            <!-- Sidewalk -->
+            <rect x="0" y="225" width="400" height="10" fill="var(--muted)" opacity="0.06"/>
+            <!-- Building facade -->
+            <rect x="60" y="30" width="220" height="195" fill="var(--highlight)" opacity="0.08"/>
+            <rect x="60" y="30" width="220" height="195" fill="none" stroke="var(--muted)" stroke-width="0.8" opacity="0.15"/>
+            <!-- Fresh paint portion (left half, brighter) -->
+            <rect x="60" y="30" width="110" height="195" fill="var(--accent)" opacity="0.04"/>
+            <!-- Windows row 1 -->
+            <rect x="80" y="50" width="35" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <line x1="97.5" y1="50" x2="97.5" y2="95" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="140" y="50" width="35" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <line x1="157.5" y1="50" x2="157.5" y2="95" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <rect x="200" y="50" width="35" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <rect x="245" y="50" width="25" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <!-- Windows row 2 -->
+            <rect x="80" y="115" width="35" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <rect x="140" y="115" width="35" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <rect x="200" y="115" width="35" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+            <rect x="245" y="115" width="25" height="45" rx="2" fill="var(--ground)" stroke="var(--muted)" stroke-width="0.5" opacity="0.15"/>
+            <!-- Door -->
+            <rect x="130" y="180" width="50" height="45" rx="2" fill="var(--ink)" opacity="0.1"/>
+            <rect x="133" y="183" width="20" height="39" rx="1" fill="var(--ink)" opacity="0.06"/>
+            <rect x="157" y="183" width="20" height="39" rx="1" fill="var(--ink)" opacity="0.06"/>
+            <circle cx="170" cy="205" r="2" fill="var(--muted)" opacity="0.3"/>
+            <!-- Scaffolding -->
+            <g stroke="var(--ink)" stroke-width="1.5" opacity="0.12">
+              <!-- Vertical poles -->
+              <line x1="305" y1="20" x2="305" y2="230"/>
+              <line x1="350" y1="20" x2="350" y2="230"/>
+              <!-- Horizontal planks -->
+              <line x1="300" y1="70" x2="355" y2="70"/>
+              <line x1="300" y1="130" x2="355" y2="130"/>
+              <line x1="300" y1="190" x2="355" y2="190"/>
+              <!-- Platforms -->
+              <rect x="300" y="67" width="55" height="5" rx="1" fill="var(--highlight)" opacity="0.15"/>
+              <rect x="300" y="127" width="55" height="5" rx="1" fill="var(--highlight)" opacity="0.15"/>
+              <rect x="300" y="187" width="55" height="5" rx="1" fill="var(--highlight)" opacity="0.15"/>
+              <!-- Cross bracing -->
+              <line x1="305" y1="70" x2="350" y2="130"/>
+              <line x1="350" y1="70" x2="305" y2="130"/>
+              <line x1="305" y1="130" x2="350" y2="190"/>
+              <line x1="350" y1="130" x2="305" y2="190"/>
+            </g>
+            <!-- Painter figure on scaffold -->
+            <g transform="translate(318, 100)">
+              <!-- Body -->
+              <rect x="3" y="8" width="14" height="18" rx="3" fill="var(--accent)" opacity="0.3"/>
+              <!-- Head -->
+              <circle cx="10" cy="4" r="5" fill="var(--highlight)" opacity="0.3"/>
+              <!-- Cap -->
+              <path d="M5,2 Q10,-2 15,2" fill="var(--ground)" stroke="var(--accent)" stroke-width="0.5" opacity="0.3"/>
+              <!-- Arm with roller -->
+              <line x1="3" y1="14" x2="-10" y2="8" stroke="var(--highlight)" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+              <rect x="-18" y="3" width="12" height="8" rx="2" fill="var(--accent)" opacity="0.3"/>
+              <!-- Legs -->
+              <line x1="7" y1="26" x2="5" y2="35" stroke="var(--ink)" stroke-width="2" opacity="0.15" stroke-linecap="round"/>
+              <line x1="13" y1="26" x2="15" y2="35" stroke="var(--ink)" stroke-width="2" opacity="0.15" stroke-linecap="round"/>
+            </g>
+            <!-- Balcony on building -->
+            <rect x="80" y="100" width="95" height="4" rx="1" fill="var(--muted)" opacity="0.15"/>
+            <g stroke="var(--muted)" stroke-width="0.8" opacity="0.1">
+              <line x1="85" y1="100" x2="85" y2="114"/>
+              <line x1="100" y1="100" x2="100" y2="114"/>
+              <line x1="115" y1="100" x2="115" y2="114"/>
+              <line x1="130" y1="100" x2="130" y2="114"/>
+              <line x1="145" y1="100" x2="145" y2="114"/>
+              <line x1="160" y1="100" x2="160" y2="114"/>
+              <line x1="170" y1="100" x2="170" y2="114"/>
+            </g>
+            <rect x="80" y="112" width="95" height="3" rx="1" fill="var(--muted)" opacity="0.1"/>
+          </svg>
+        </div>
+        <div class="portfolio-card-info">
+          <p class="label">Esterno</p>
+          <h3>Facciata Condominio, Villafranca</h3>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- ===== CHI SIAMO / PERCHE CORDIOLI ===== -->
+<section class="about" id="chi-siamo">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal-left">
+        <!-- Team of painters at work SVG -->
+        <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Team di imbianchini al lavoro">
+          <!-- Floor -->
+          <rect x="0" y="340" width="520" height="60" fill="var(--muted)" opacity="0.08"/>
+          <line x1="0" y1="340" x2="520" y2="340" stroke="var(--muted)" stroke-width="0.5" opacity="0.2"/>
+          <!-- Wall being painted -->
+          <rect x="60" y="30" width="400" height="310" fill="var(--muted)" opacity="0.06" rx="2"/>
+          <!-- Painted portion (fresh color) -->
+          <rect x="60" y="30" width="250" height="310" fill="var(--accent)" opacity="0.08"/>
+          <!-- Paint edge drip -->
+          <path d="M310,30 L310,340" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8,4" opacity="0.15"/>
+
+          <!-- Painter 1 (on ladder, painting high) -->
+          <g transform="translate(200, 50)">
+            <!-- Ladder -->
+            <line x1="-20" y1="0" x2="-30" y2="260" stroke="var(--muted)" stroke-width="3" opacity="0.25"/>
+            <line x1="20" y1="0" x2="10" y2="260" stroke="var(--muted)" stroke-width="3" opacity="0.25"/>
+            <!-- Rungs -->
+            <line x1="-22" y1="40" x2="18" y2="40" stroke="var(--muted)" stroke-width="2" opacity="0.2"/>
+            <line x1="-24" y1="80" x2="16" y2="80" stroke="var(--muted)" stroke-width="2" opacity="0.2"/>
+            <line x1="-25" y1="120" x2="15" y2="120" stroke="var(--muted)" stroke-width="2" opacity="0.2"/>
+            <line x1="-27" y1="160" x2="13" y2="160" stroke="var(--muted)" stroke-width="2" opacity="0.2"/>
+            <line x1="-28" y1="200" x2="12" y2="200" stroke="var(--muted)" stroke-width="2" opacity="0.2"/>
+            <!-- Painter body on ladder -->
+            <g transform="translate(-5, 55)">
+              <!-- Legs on rung -->
+              <line x1="0" y1="45" x2="-5" y2="65" stroke="var(--ink)" stroke-width="3.5" opacity="0.18" stroke-linecap="round"/>
+              <line x1="12" y1="45" x2="17" y2="65" stroke="var(--ink)" stroke-width="3.5" opacity="0.18" stroke-linecap="round"/>
+              <!-- Shoes -->
+              <ellipse cx="-6" cy="67" rx="6" ry="3" fill="var(--ink)" opacity="0.15"/>
+              <ellipse cx="18" cy="67" rx="6" ry="3" fill="var(--ink)" opacity="0.15"/>
+              <!-- Body / overalls -->
+              <rect x="-3" y="8" width="18" height="38" rx="5" fill="var(--accent)" opacity="0.3"/>
+              <!-- Head -->
+              <circle cx="6" cy="2" r="8" fill="var(--highlight)" opacity="0.35"/>
+              <!-- Cap -->
+              <path d="M-2,-2 Q6,-8 14,-2" fill="#fff" stroke="var(--accent)" stroke-width="1" opacity="0.35"/>
+              <rect x="-3" y="-3" width="18" height="4" rx="2" fill="var(--accent)" opacity="0.25"/>
+              <!-- Arm reaching up with roller -->
+              <line x1="14" y1="15" x2="45" y2="-20" stroke="var(--highlight)" stroke-width="3" opacity="0.28" stroke-linecap="round"/>
+              <!-- Roller -->
+              <rect x="38" y="-35" width="18" height="16" rx="4" fill="var(--accent)" opacity="0.5"/>
+              <line x1="42" y1="-32" x2="42" y2="-22" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <line x1="47" y1="-32" x2="47" y2="-22" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <line x1="52" y1="-32" x2="52" y2="-22" stroke="#fff" stroke-width="0.8" opacity="0.2"/>
+              <!-- Handle -->
+              <line x1="35" y1="-10" x2="47" y2="-20" stroke="var(--muted)" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            </g>
+          </g>
+
+          <!-- Painter 2 (standing, painting mid-wall) -->
+          <g transform="translate(330, 140)">
+            <!-- Legs -->
+            <line x1="5" y1="90" x2="0" y2="130" stroke="var(--ink)" stroke-width="4" opacity="0.18" stroke-linecap="round"/>
+            <line x1="18" y1="90" x2="24" y2="130" stroke="var(--ink)" stroke-width="4" opacity="0.18" stroke-linecap="round"/>
+            <!-- Shoes -->
+            <ellipse cx="-1" cy="133" rx="7" ry="4" fill="var(--ink)" opacity="0.15"/>
+            <ellipse cx="25" cy="133" rx="7" ry="4" fill="var(--ink)" opacity="0.15"/>
+            <!-- Body -->
+            <rect x="0" y="30" width="22" height="62" rx="6" fill="var(--highlight)" opacity="0.3"/>
+            <!-- Head -->
+            <circle cx="11" cy="22" r="10" fill="var(--highlight)" opacity="0.35"/>
+            <!-- Cap -->
+            <rect x="0" y="15" width="22" height="5" rx="2.5" fill="#fff" opacity="0.2"/>
+            <!-- Arm with brush reaching to wall -->
+            <line x1="22" y1="45" x2="55" y2="30" stroke="var(--highlight)" stroke-width="3" opacity="0.25" stroke-linecap="round"/>
+            <!-- Brush -->
+            <rect x="52" y="22" width="8" height="16" rx="2" fill="var(--ink)" opacity="0.2"/>
+            <rect x="50" y="36" width="12" height="6" rx="1" fill="var(--muted)" opacity="0.3"/>
+            <!-- Other arm holding paint tray -->
+            <line x1="0" y1="50" x2="-25" y2="65" stroke="var(--highlight)" stroke-width="3" opacity="0.22" stroke-linecap="round"/>
+            <!-- Paint tray -->
+            <path d="M-40,60 L-15,58 L-12,72 L-40,74 Z" fill="var(--muted)" opacity="0.2"/>
+            <rect x="-38" y="62" width="12" height="8" fill="var(--accent)" opacity="0.2" rx="1"/>
+          </g>
+
+          <!-- Painter 3 (crouching, painting near floor) -->
+          <g transform="translate(100, 240)">
+            <!-- Legs (crouching) -->
+            <path d="M5,50 Q0,70 10,80" fill="none" stroke="var(--ink)" stroke-width="4" opacity="0.18" stroke-linecap="round"/>
+            <path d="M20,50 Q25,65 30,75" fill="none" stroke="var(--ink)" stroke-width="4" opacity="0.18" stroke-linecap="round"/>
+            <!-- Shoes -->
+            <ellipse cx="12" cy="82" rx="7" ry="3.5" fill="var(--ink)" opacity="0.15"/>
+            <ellipse cx="32" cy="77" rx="7" ry="3.5" fill="var(--ink)" opacity="0.15"/>
+            <!-- Body (bent) -->
+            <rect x="2" y="15" width="22" height="38" rx="6" fill="var(--accent)" opacity="0.25"/>
+            <!-- Head -->
+            <circle cx="13" cy="8" r="9" fill="var(--highlight)" opacity="0.32"/>
+            <!-- Arm painting low -->
+            <line x1="24" y1="30" x2="55" y2="45" stroke="var(--highlight)" stroke-width="3" opacity="0.22" stroke-linecap="round"/>
+            <!-- Brush -->
+            <rect x="52" y="40" width="10" height="14" rx="2" fill="var(--ink)" opacity="0.18"/>
+            <rect x="54" y="52" width="6" height="5" fill="var(--accent)" opacity="0.25" rx="1"/>
+          </g>
+
+          <!-- Paint supplies on floor -->
+          <!-- Large paint bucket -->
+          <g transform="translate(380, 290)">
+            <rect x="0" y="10" width="40" height="38" rx="4" fill="var(--accent)" opacity="0.3"/>
+            <ellipse cx="20" cy="10" rx="20" ry="6" fill="var(--accent)" opacity="0.35"/>
+            <ellipse cx="20" cy="12" rx="14" ry="4" fill="var(--accent)" opacity="0.2"/>
+            <rect x="5" y="18" width="4" height="22" rx="2" fill="#fff" opacity="0.08"/>
+            <!-- Handle -->
+            <path d="M5,8 Q20,-8 35,8" fill="none" stroke="var(--muted)" stroke-width="2" opacity="0.3"/>
+          </g>
+          <!-- Small paint can -->
+          <g transform="translate(430, 308)">
+            <rect x="0" y="6" width="25" height="22" rx="3" fill="var(--highlight)" opacity="0.3"/>
+            <ellipse cx="12.5" cy="6" rx="12.5" ry="4" fill="var(--highlight)" opacity="0.35"/>
+          </g>
+          <!-- Drop cloth -->
+          <path d="M80,340 Q100,332 160,338 Q200,342 250,336 Q280,332 320,340" fill="var(--muted)" opacity="0.06"/>
+          <path d="M80,340 L80,360 Q100,352 160,358 Q200,362 250,356 Q280,352 320,360 L320,340" fill="var(--muted)" opacity="0.04"/>
+          <!-- Paint drips on drop cloth -->
+          <circle cx="120" cy="348" r="4" fill="var(--accent)" opacity="0.1"/>
+          <circle cx="180" cy="345" r="3" fill="var(--highlight)" opacity="0.08"/>
+          <circle cx="250" cy="350" r="5" fill="var(--accent)" opacity="0.08"/>
+        </svg>
+      </div>
+      <div class="about-text reveal-right">
+        <p class="section-label">Chi Siamo</p>
+        <h2>Perch&eacute; Scegliere <span class="highlight-text">Cordioli</span></h2>
+        <p>Tinteggiature Cordioli S.n.c. &egrave; sinonimo di qualit&agrave;, affidabilit&agrave; e passione per il colore. Guidati da Marco Cordioli, il nostro team di professionisti trasforma ogni ambiente con cura artigianale e materiali di prima scelta.</p>
+        <p>Operiamo a Villafranca di Verona e in tutta la provincia, offrendo consulenza personalizzata e soluzioni su misura per ogni esigenza: dalla tinteggiatura residenziale ai trattamenti tecnici specializzati per strutture commerciali e industriali.</p>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-ring-wrap" style="--ring-target:64;">
+              <svg class="stat-ring-svg" viewBox="0 0 122 122">
+                <circle class="stat-ring-bg" cx="61" cy="61" r="51"/>
+                <circle class="stat-ring-fg" cx="61" cy="61" r="51" transform="rotate(-90 61 61)"/>
+              </svg>
+              <div class="stat-number" data-target="20">0</div>
+            </div>
+            <div class="stat-label">Anni di Esperienza</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-ring-wrap" style="--ring-target:32;">
+              <svg class="stat-ring-svg" viewBox="0 0 122 122">
+                <circle class="stat-ring-bg" cx="61" cy="61" r="51"/>
+                <circle class="stat-ring-fg" cx="61" cy="61" r="51" transform="rotate(-90 61 61)"/>
+              </svg>
+              <div class="stat-number" data-target="500">0</div>
+            </div>
+            <div class="stat-label">Progetti Completati</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-ring-wrap" style="--ring-target:0;">
+              <svg class="stat-ring-svg" viewBox="0 0 122 122">
+                <circle class="stat-ring-bg" cx="61" cy="61" r="51"/>
+                <circle class="stat-ring-fg" cx="61" cy="61" r="51" transform="rotate(-90 61 61)"/>
+              </svg>
+              <div class="stat-number infinity-sign" style="color:var(--accent);font-size:inherit;">&#8734;</div>
+            </div>
+            <div class="stat-label">Possibilit&agrave; Colore</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- ===== CONTATTI ===== -->
+<section class="contact" id="contatti">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <p class="section-label" style="color:rgba(255,255,255,0.7);">Contatti</p>
+        <h2>Parliamo del Tuo Progetto</h2>
+        <p>Hai un'idea per rinnovare i tuoi spazi? Contattaci per un preventivo gratuito e senza impegno. Siamo sempre disponibili per una consulenza.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Telefono / WhatsApp</strong>
+            <span><a href="tel:+393401216831">340 121 6831</a></span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Indirizzo</strong>
+            <span>Via Principe Amedeo, 35<br>37069 Villafranca di Verona (VR)</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Orari</strong>
+            <span>Lun - Ven: 7:30 - 18:00<br>Sab: 8:00 - 12:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal-right">
+        <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Inviato!'; setTimeout(()=>this.querySelector('button').textContent='Invia Messaggio', 3000);">
+          <input type="text" placeholder="Nome e Cognome" required>
+          <input type="email" placeholder="Email" required>
+          <input type="tel" placeholder="Telefono">
+          <textarea placeholder="Descrivi il tuo progetto..." required></textarea>
+          <button type="submit" class="btn-white">Invia Messaggio</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo"><span class="logo-dot"></span>Tinteggiature Cordioli S.n.c.</div>
+      <div class="footer-links">
+        <a href="#servizi">Servizi</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#chi-siamo">Chi Siamo</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2024 Tinteggiature Cordioli S.n.c. &mdash; Via Principe Amedeo, 35, Villafranca di Verona (VR) &mdash; Tutti i diritti riservati.</p>
+  </div>
+</footer>
+
+<!-- ===== WHATSAPP BUTTON ===== -->
+<a href="https://wa.me/393401216831" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function(){
+  /* === Reduced motion check === */
+  const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* === Scroll Progress Bar === */
+  const scrollBar = document.getElementById('scrollProgress');
+  const updateScrollProgress = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      scrollBar.style.width = (scrollTop / docHeight * 100) + '%';
+    }
+  };
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+  /* === Particle Canvas === */
+  if (motionOK) {
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const PARTICLE_COUNT = 40;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function createParticle() {
+      const shapes = ['circle', 'triangle', 'square'];
+      const colors = [
+        'rgba(21,153,138,',   // teal
+        'rgba(232,148,58,',   // amber
+      ];
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 8 + 3,
+        shape: shapes[Math.floor(Math.random() * shapes.length)],
+        color: colors[Math.floor(Math.random() * colors.length)],
+        opacity: Math.random() * 0.12 + 0.08,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.008
+      };
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(createParticle());
+    }
+
+    function drawParticle(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.fillStyle = p.color + p.opacity + ')';
+
+      if (p.shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (p.shape === 'square') {
+        ctx.fillRect(-p.size, -p.size, p.size * 2, p.size * 2);
+      } else if (p.shape === 'triangle') {
+        ctx.beginPath();
+        ctx.moveTo(0, -p.size);
+        ctx.lineTo(p.size, p.size);
+        ctx.lineTo(-p.size, p.size);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rotation += p.rotationSpeed;
+
+        // Wrap around edges
+        if (p.x < -20) p.x = canvas.width + 20;
+        if (p.x > canvas.width + 20) p.x = -20;
+        if (p.y < -20) p.y = canvas.height + 20;
+        if (p.y > canvas.height + 20) p.y = -20;
+
+        drawParticle(p);
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  }
+
+  /* === Hero Mouse Follow Light === */
+  if (motionOK) {
+    const hero = document.getElementById('hero');
+    const mouseLight = document.getElementById('heroMouseLight');
+    if (hero && mouseLight) {
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        mouseLight.style.left = x + 'px';
+        mouseLight.style.top = y + 'px';
+      });
+    }
+  }
+
+  /* === Nav scroll effect === */
+  const nav = document.getElementById('navbar');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* === Hamburger === */
+  const burger = document.getElementById('hamburger');
+  const overlay = document.getElementById('mobileOverlay');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* === Active section highlighting === */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observerNav = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observerNav.observe(s));
+
+  /* === Scroll reveal (IntersectionObserver) === */
+  if (motionOK) {
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const obsReveal = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => obsReveal.observe(el));
+  } else {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => el.classList.add('visible'));
+  }
+
+  /* === Counter animation + Progress ring animation === */
+  const counters = document.querySelectorAll('.stat-number[data-target]');
+  const animateCounter = (el) => {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    const duration = 1800;
+    let start = null;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + '+';
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const statRingWraps = document.querySelectorAll('.stat-ring-wrap');
+  const obsCounter = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Animate the ring
+        entry.target.classList.add('animated');
+        // Animate counter number if present
+        const counterEl = entry.target.querySelector('.stat-number[data-target]');
+        if (counterEl) animateCounter(counterEl);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  statRingWraps.forEach(c => obsCounter.observe(c));
+
+  /* === Smooth scroll for anchor links === */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: motionOK ? 'smooth' : 'auto', block: 'start' });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
